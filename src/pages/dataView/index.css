@@ -1,0 +1,15 @@
+
+.title {
+  background: rgb(179, 121, 242);
+}
+.block{
+  background-color: #fff;
+  border-radius: 8px;
+}
+.pd16{
+  padding:16px;
+}
+.bigNum{
+    font-size: 40px;
+    font-weight:500;
+}

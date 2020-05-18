@@ -1,0 +1,84 @@
+.title {
+  background: rgb(133, 242, 121);
+}
+.main {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(242, 246, 255, 1);
+  // padding-top: calc(50vh - 250px);
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.loginForm {
+  width: 420px;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 50px;
+  margin-left: 60px;
+  box-shadow: 0px 10px 14px 0px rgba(221, 227, 239, 0.5);
+  border-radius: 8px;
+
+  //margin-top:calc(50% - 100px);
+}
+
+.loginImg {
+  width: 560px;
+  height: 388px;
+  background: url(~@/assets/img/login/img_login.png) no-repeat center;
+  background-size: cover;
+}
+
+.loginLogo {
+  width: 133px;
+  height: 40px;
+  background: url(~@/assets/img/login/logo_login.png) no-repeat center;
+  margin: 14px auto 40px;
+  background-size: 132px 39px;
+}
+
+.loginSubmit {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.spaceBetween {
+  display: flex;
+  justify-content: space-between;
+}
+
+.codeLayout {
+  display: flex;
+  flex-direction: row;
+}
+
+.iconPhone {
+  width: 25px;
+  height: 25px;
+  background: url(~@/assets/img/login/icon_tel.svg) no-repeat center;
+}
+
+.iconPassword {
+  width: 25px;
+  height: 25px;
+  background: url(~@/assets/img/login/icon_password.svg) no-repeat center;
+}
+
+.iconCode {
+  width: 25px;
+  height: 25px;
+  background: url(~@/assets/img/login/icon_code.svg) no-repeat center;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .loginImg {
+    background-image: url(~@/assets/img/login/img_login@2x.png);
+  }
+
+  .loginLogo {
+    background-image: url(~@/assets/img/login/logo_login@2x.png);
+  }
+}
