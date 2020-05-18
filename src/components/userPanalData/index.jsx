@@ -1,13 +1,14 @@
-import styles from './index.less';
 import React, { Component } from 'react';
-import ReactCharts from '../reactCharts/index';
 import { Row, Col } from 'antd';
 import { TitleCard, TipIcon } from '@/components';
+import ReactCharts from '../reactCharts/index';
+// import styles from './index.less';
 
 export default class UserPanalData extends Component {
   constructor(props) {
     super(props);
   }
+
   state = {
     serviceLineOption: {
       tooltip: {
@@ -86,19 +87,21 @@ export default class UserPanalData extends Component {
         },
       ],
     },
-    lineType: 'major',
-    size: 'today',
-    askRecord: [],
-    testRecord: [],
-    majorlinedata: [],
-    tellinedata: [],
-    imglinedata: [],
+    // lineType: 'major',
+    // size: 'today',
+    // askRecord: [],
+    // testRecord: [],
+    // majorlinedata: [],
+    // tellinedata: [],
+    // imglinedata: [],
   };
-  componentWillMount() {}
+
+  componentWillMount() { }
+
   render() {
     return (
       <div style={{ backgroundColor: '#fff', borderRadius: '8px' }}>
-        <TitleCard title="用户分布"></TitleCard>
+        <TitleCard title="用户分布" />
         <Row gutter={[24, 24]} style={{ padding: 16 }}>
           <Col span={12}>
             <div
@@ -109,11 +112,11 @@ export default class UserPanalData extends Component {
                 textAlign: 'center',
               }}
             >
-              <TipIcon></TipIcon>
+              <TipIcon />
               性别分布
             </div>
             <div style={{ height: 250, width: 300, margin: '0 auto' }}>
-              <ReactCharts option={this.state.serviceLineOption}></ReactCharts>
+              <ReactCharts option={this.state.serviceLineOption} />
             </div>
           </Col>
           <Col span={12}>
@@ -125,11 +128,11 @@ export default class UserPanalData extends Component {
                 textAlign: 'center',
               }}
             >
-              <TipIcon></TipIcon>
+              <TipIcon />
               地域分布
             </div>
             <div style={{ height: 250, width: 500, margin: '0 auto' }}>
-              <ReactCharts option={this.state.serviceLineOption2}></ReactCharts>
+              <ReactCharts option={this.state.serviceLineOption2} />
             </div>
           </Col>
         </Row>

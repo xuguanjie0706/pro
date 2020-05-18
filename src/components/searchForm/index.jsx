@@ -5,15 +5,19 @@ export default class SearchForm extends Component {
   constructor(props) {
     super(props);
   }
+
   state = {
-    form: {},
+    // form: {},
   };
-  componentWillMount() {}
+
+  componentWillMount() { }
+
   onFinish(e) {
     this.props.onFinish(e);
   }
+
   render() {
-    let { style } = this.props;
+    const { style } = this.props;
     return (
       <div
         style={{
@@ -43,7 +47,7 @@ export default class SearchForm extends Component {
                     <div
                       style={{
                         width: this.props.labelWidth
-                          ? 'calc(100% - ' + this.props.labelWidth + 'px)'
+                          ? `calc(100% - ${this.props.labelWidth}px)`
                           : '',
                         display: 'inline-block',
                       }}

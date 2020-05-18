@@ -1,10 +1,9 @@
-//import styles from './index.less';
+// import styles from './index.less';
 import React, { Component } from 'react';
-//import http from '@/utils/http';
-import ReactCharts from '../reactCharts/index';
-import { Row, Col, Radio, Select } from 'antd';
-import { Table } from 'antd';
+// import http from '@/utils/http';
+import { Row, Col, Radio, Select, Table } from 'antd';
 import { TitleCard, TipIcon } from '@/components';
+import ReactCharts from '../reactCharts/index';
 import mock from './mock';
 
 const { Option } = Select;
@@ -13,6 +12,7 @@ export default class NewList extends Component {
   constructor(props) {
     super(props);
   }
+
   state = {
     serviceLineOption: {
       xAxis: {
@@ -45,12 +45,14 @@ export default class NewList extends Component {
     tellinedata: [],
     imglinedata: [],
   };
+
   componentWillMount() {
     this.getServiceCount('today');
   }
+
   getServiceCount(size) {
-    let serviceData = mock[size]; //await http.get('/api/getServiceData/' + size);
-    //serviceData = serviceData.data;
+    const serviceData = mock[size]; // await http.get('/api/getServiceData/' + size);
+    // serviceData = serviceData.data;
     const xdata = [];
     const majorlinedata = [];
     const tellinedata = [];
@@ -58,10 +60,10 @@ export default class NewList extends Component {
     serviceData.list.forEach(item => {
       xdata.push(item.label);
       majorlinedata.push(item.value);
-      tellinedata.push(item.value + parseInt(Math.random() * 70));
-      imglinedata.push(item.value + parseInt(Math.random() * 300));
+      tellinedata.push(item.value + parseInt(Math.random() * 70, 10));
+      imglinedata.push(item.value + parseInt(Math.random() * 300, 10));
     });
-    const opt = this.state.serviceLineOption;
+    const { serviceLineOption: opt } = this.state;
     opt.xAxis.data = xdata;
     opt.series[0].data = majorlinedata;
     this.setState({
@@ -74,12 +76,14 @@ export default class NewList extends Component {
       lineType: 'major',
     });
   }
-  handleSizeChange(e) {
+
+  handleSizeChange = (e) => {
     this.setState({ size: e.target.value });
     this.getServiceCount(e.target.value);
   }
-  handleSelectChange(value) {
-    const opt = this.state.serviceLineOption;
+
+  handleSelectChange = (value) => {
+    const { serviceLineOption: opt } = this.state;
     if (value === 'major') {
       opt.series[0].data = this.state.majorlinedata;
     } else if (value === 'tel') {
@@ -92,13 +96,14 @@ export default class NewList extends Component {
       serviceLineOption: opt,
     });
   }
+
   render() {
     return (
       <div style={{ backgroundColor: '#fff', borderRadius: '8px' }}>
         <TitleCard title="服务统计">
           <Radio.Group
             value={this.state.size}
-            onChange={this.handleSizeChange.bind(this)}
+            onChange={this.handleSizeChange}
           >
             <Radio.Button value="yesterday">昨天</Radio.Button>
             <Radio.Button value="today">今天</Radio.Button>
@@ -109,7 +114,7 @@ export default class NewList extends Component {
         <Row gutter={[24, 24]} style={{ padding: 16 }}>
           <Col span={12}>
             <div style={{ fontWeight: 500, marginBottom: 16, fontSize: 16 }}>
-              <TipIcon></TipIcon>
+              <TipIcon />
               问诊记录
             </div>
             <Table
@@ -142,7 +147,7 @@ export default class NewList extends Component {
           </Col>
           <Col span={12}>
             <div style={{ fontWeight: 500, marginBottom: 16, fontSize: 16 }}>
-              <TipIcon></TipIcon>
+              <TipIcon />
               检测记录
             </div>
             <Table
@@ -176,14 +181,14 @@ export default class NewList extends Component {
           <Col span={24}>
             <div style={{ overflow: 'hidden' }}>
               <div style={{ float: 'left', fontSize: 16, fontWeight: 500 }}>
-                <TipIcon></TipIcon>
+                <TipIcon />
                 问诊次数
               </div>
               <div style={{ float: 'right' }}>
                 <Select
                   value={this.state.lineType}
                   style={{ width: 120 }}
-                  onChange={this.handleSelectChange.bind(this)}
+                  onChange={this.handleSelectChange}
                 >
                   <Option value="major">专科视频</Option>
                   <Option value="tel">电话视频</Option>
@@ -192,7 +197,7 @@ export default class NewList extends Component {
               </div>
             </div>
             <div style={{ height: 350 }}>
-              <ReactCharts option={this.state.serviceLineOption}></ReactCharts>
+              <ReactCharts option={this.state.serviceLineOption} />
             </div>
           </Col>
         </Row>

@@ -1,13 +1,18 @@
 import { Select, Avatar } from 'antd';
 import http from '@/utils/http';
+import React, { Component } from 'react';
+
+
 const { Option } = Select;
 
-export default class UserSelecter extends React.Component {
+export default class UserSelecter extends Component {
   constructor(props) {
     super(props);
   }
+
   state = {};
-  handleSearch(value) {
+
+  handleSearch = (value) => {
     if (value) {
       http
         .post('/issuer/user_list', {
@@ -16,7 +21,7 @@ export default class UserSelecter extends React.Component {
         .then(res => {
           const options = res.data.list.map(item => (
             <Option value={item.userId}>
-              <Avatar src={item.headImg} size="small"></Avatar>&nbsp;&nbsp;
+              <Avatar src={item.headImg} size="small" />&nbsp;&nbsp;
               {item.nickname}&nbsp;&nbsp;{item.mobile}
             </Option>
           ));
@@ -26,7 +31,8 @@ export default class UserSelecter extends React.Component {
       this.setState({ options: null });
     }
   }
-  handleChange(val) {
+
+  handleChange = (val) => {
     this.props.onChange(val);
   }
 
@@ -39,8 +45,8 @@ export default class UserSelecter extends React.Component {
         defaultActiveFirstOption={false}
         showArrow={false}
         filterOption={false}
-        onSearch={this.handleSearch.bind(this)}
-        onChange={this.handleChange.bind(this)}
+        onSearch={this.handleSearch}
+        onChange={this.handleChange}
         notFoundContent={null}
         allowClear
       >

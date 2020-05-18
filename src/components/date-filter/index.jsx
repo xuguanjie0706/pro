@@ -1,29 +1,32 @@
 import React, { Component } from 'react';
 import { Radio, DatePicker } from 'antd';
 import moment from 'moment';
+
 const { RangePicker } = DatePicker;
 
 export default class DateFilter extends Component {
   constructor(props) {
     super(props);
   }
+
   state = {
     dateType: '',
     date: [],
   };
+
   componentWillMount() {
     if (this.props.defaultValue) {
       let values = this.props.defaultValue;
       values = values.map(day => {
         if (day < 0) {
           return moment().subtract('days', Math.abs(day));
-        } else if (day === 0) {
+        } if (day === 0) {
           return moment();
-        } else if (day > 0) {
+        } if (day > 0) {
           return moment().add('days', day);
-        } else {
-          return null;
         }
+        return null;
+
       });
       this.setState({ date: values });
       this.props.onChange(
@@ -34,14 +37,15 @@ export default class DateFilter extends Component {
       );
     }
   }
+
   onTypeChange(e) {
     let values = this.props.ranges[e.target.value];
     values = values.map(day => {
       if (day < 0) {
         return moment().subtract('days', Math.abs(day));
-      } else if (day === 0) {
+      } if (day === 0) {
         return moment();
-      } else if (day > 0) {
+      } if (day > 0) {
         return moment().add('days', day);
       }
     });
@@ -54,12 +58,14 @@ export default class DateFilter extends Component {
       }),
     );
   }
+
   onChange(values, valueString) {
     this.setState({ date: values, dateType: '' });
     this.props.onChange(values, valueString);
   }
+
   render() {
-    let rangeRadios = [];
+    const rangeRadios = [];
     for (const i in this.props.ranges) {
       const obj = this.props.ranges[i];
       if (obj) {

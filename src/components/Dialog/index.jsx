@@ -1,9 +1,12 @@
 import { Modal, Button } from 'antd';
+import React, { Component } from 'react';
 
-export default class Dialog extends React.Component {
+
+export default class Dialog extends Component {
   constructor(props) {
     super(props);
   }
+
   state = { visible: false };
 
   showModal = () => {
@@ -12,8 +15,7 @@ export default class Dialog extends React.Component {
     });
   };
 
-  handleCancel = e => {
-    console.log(e);
+  handleCancel = () => {
     this.props.onClose();
   };
 
@@ -27,15 +29,15 @@ export default class Dialog extends React.Component {
           visible={this.props.visible}
           closable={this.props.closable}
           style={{ minHeight: 240, ...this.props.style }}
-          onCancel={this.handleCancel.bind(this)}
+          onCancel={this.handleCancel}
           footer={
             this.props.footer && this.props.footer.length
               ? this.props.footer
               : [
-                  <Button key="back" onClick={this.handleCancel.bind(this)}>
-                    关闭
+                <Button key="back" onClick={this.handleCancel}>
+                  关闭
                   </Button>,
-                ]
+              ]
           }
         >
           <div
