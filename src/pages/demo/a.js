@@ -1,15 +1,13 @@
 import React, { useRef, useState } from 'react';
 import ProTable from '@ant-design/pro-table';
-import { DownOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Divider, Dropdown, Menu, message, Input } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, Divider, Input } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import api from '@/api';
-import { queryRule, updateRule, addRule, removeRule } from './service';
 
 const Custom = () => {
   const actionRef = useRef();
-  const [createModalVisible, handleModalVisible] = useState(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState(false);
+  const [, handleModalVisible] = useState(false);
+  const [, handleUpdateModalVisible] = useState(false);
   const columns = [
     {
       title: '规则名称',
@@ -80,7 +78,7 @@ const Custom = () => {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
-      render: (_, record) => (
+      render: () => (
         <>
           <a
             onClick={() => {
@@ -105,7 +103,7 @@ const Custom = () => {
         // search={false}
         actionRef={actionRef}
         rowKey="key"
-        toolBarRender={(action) => [
+        toolBarRender={() => [
           <Button type="primary" onClick={() => handleModalVisible(true)}>
             <PlusOutlined /> 新建
           </Button>,
