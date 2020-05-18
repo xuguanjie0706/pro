@@ -55,6 +55,7 @@
     "@ant-design/pro-table": "2.2.7",
     "antd": "4.2.0",
     "classnames": "^2.2.6",
+    "echarts": "^4.7.0",
     "js-md5": "^0.7.3",
     "lodash": "^4.17.11",
     "moment": "^2.25.3",

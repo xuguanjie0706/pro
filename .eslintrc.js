@@ -35,6 +35,6 @@ module.exports = {
     'no-unused-expressions': 1, //禁止无用的表达式
     'no-unused-vars': 1,
     'block-scoped-var': 0, // 在块级作用域外访问块内定义的变量是否报错提示
-    'no-useless-constructor': 1,
+    'no-useless-constructor': 0,
   },
 };

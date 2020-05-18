@@ -1,0 +1,107 @@
+@import '~@/components/mobile/varible.less';
+.disPatchTableWrap {
+  overflow-x: auto;
+  padding-bottom: 30 / @u;
+}
+
+.disPatchTable {
+  min-width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  tr {
+    border-bottom: 1px solid #eeeeee;
+  }
+  th {
+    background-color: #f4f4f4;
+    border-top: 1px solid #eeeeee;
+    font-weight: 500;
+  }
+  th,
+  td {
+    white-space: nowrap;
+    font-size: 26 / @u;
+    line-height: 32 / @u;
+    padding: 24 / @u;
+    color: @text;
+  }
+  td {
+    background-color: #fff;
+    .usernameTd {
+      display: inline-block;
+      max-width: 160 / @u;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+  .copyTextIcon {
+    margin-left: 10 / @u;
+    display: inline-block;
+    width: 20 / @u;
+    height: 20 / @u;
+    background: url(~@/assets/img/mobile/btn_copy.svg) no-repeat center;
+    background-size: cover;
+  }
+
+  td.useSticky,
+  th.useSticky {
+    position: sticky !important;
+    left: 0;
+    z-index: 2;
+  }
+
+  .shadowRight::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: -1px;
+    width: 30px;
+    transform: translateX(100%);
+    content: '';
+    pointer-events: none;
+
+    -webkit-box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
+    box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.pagination {
+  width: 400 / @u;
+  margin: 40 / @u auto 0;
+  padding-bottom: 80 / @u;
+
+  :global {
+    .am-button {
+      height: 40px;
+      padding: 0 10px;
+    }
+  }
+}
+
+.userAvatar {
+  width: 30 / @u;
+  height: 30 / @u;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-right: 10 / @u;
+}
+
+.mobileText {
+  color: @primary;
+}
+
+.userNickname {
+  max-width: 240 / @u;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+:global(.am-pagination-wrap .active) {
+  color: @primary;
+}
+
+.maxWidth {
+  max-width: 300 / @u;
+  white-space: normal;
+  word-break: break-all;
+}

@@ -1,0 +1,65 @@
+//参照设计图
+// 本项目主题色值
+$color-theme: #3f87ff;
+$color-theme-1: #3879e6;
+$color-theme-2: #b2cfff;
+$color-theme-3: #ecf3ff;
+
+//辅色1
+$color-assist1: #f64444;
+$color-assist1-1: #dd3d3d;
+$color-assist1-2: #fbb4b4;
+$color-assist1-3: #feebeb;
+
+//辅色2
+$color-assist2: #39c575;
+$color-assist2-1: #33b069;
+$color-assist2-2: #afe7c7;
+$color-assist2-3: #eaf9f0;
+
+//辅色1
+$color-assist3: #ffa337;
+$color-assist3-1: #e59234;
+$color-assist3-2: #ffdab0;
+$color-assist3-3: #fff5eb;
+
+$color-nav: #000000;
+$color-border: #eeeeee;
+$color-bg: #f2f2f4;
+$color-white: #fff;
+$color-gray: #ccc;
+$color-input: #f4f4f4;
+$color-divide: #f2f2f4;
+$color-mask: rgba(0,0,0,0.5);
+
+$color-1: #333333; //主文字
+$color-2: #666666; //次文字
+$color-3: #999999; //提示文字
+
+$colors: (
+  (key: theme, value: $color-theme),
+  (key: white, value: $color-white),
+  (key: bg, value: $color-bg),
+  (key: 1, value: $color-1),
+  (key: 2, value: $color-2),
+  (key: 3, value: $color-3),
+  (key: input, value: $color-input),
+  (key: assist1, value: $color-assist1),
+  (key: assist2, value: $color-assist2),
+  (key: divide, value: $color-divide),
+  (key: mask, value: $color-mask),
+);
+
+@for $i from 1 through length($colors) {
+  $item: nth($colors, $i);
+  .color-#{map-get($item, key)} {
+    color: map-get($item, value);
+  }
+  .bgcolor-#{map-get($item, key)} {
+    background-color: map-get($item, value);
+  }
+}
+
+.bgcolor-transparent {
+  background:transparent !important;
+}

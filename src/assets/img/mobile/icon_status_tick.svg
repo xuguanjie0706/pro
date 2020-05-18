@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>icon_status_tick</title>
+    <desc>Created with Sketch.</desc>
+    <g id="手机" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="领取页面-成功" transform="translate(-58.000000, -260.000000)">
+            <g id="编组" transform="translate(58.000000, 256.000000)">
+                <g id="icon_status_tick" transform="translate(0.000000, 4.000000)">
+                    <circle id="椭圆形" fill="#39C575" cx="40" cy="40" r="40"></circle>
+                    <path d="M58.7082765,25.2917235 C60.4305745,27.0140215 60.4305745,29.8064183 58.7082765,31.5287163 L36.8788018,53.358191 C35.1565038,55.080489 32.364107,55.080489 30.641809,53.358191 L30.469862,53.1647841 L21.2917235,43.9861801 C19.5694255,42.2638821 19.5694255,39.4714853 21.2917235,37.7491873 C23.0140215,36.0268893 25.8064183,36.0268893 27.5287163,37.7491873 L33.7687065,43.9871165 L52.4712837,25.2917235 C54.1935817,23.5694255 56.9859785,23.5694255 58.7082765,25.2917235 Z" id="路径" stroke="#39C575" stroke-width="2" fill="#FFFFFF"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

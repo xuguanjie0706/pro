@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { history } from 'umi';
-import http from '@/utils/http';
-
+import { connect } from 'umi';
 import { Form, Input, Button } from 'antd';
 import md5 from 'js-md5';
 import styles from './index.less';
 
+
+@connect(({ login, loading }) => ({
+  userLogin: login,
+  submitting: loading.effects['login/login'],
+}))
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -15,55 +18,66 @@ export default class Login extends Component {
     isForget: false,
   };
 
-  login = (form) => {
-    if (form.username && form.password) {
-      form.username = form.username.trim();
-      http
-        .postRequestParam('/login_by_pwd', {
-          userName: form.username,
-          password: md5(form.username + form.password),
-        })
-        .then((res) => {
-          console.log(res, 231);
-          const {
-            userName,
-            realName,
-            mobile,
-            nickName,
-            role,
-            userTags,
-            channelCode,
-            channelName,
-            remark,
-            createAt,
-            channelTag,
-          } = res.data;
-          localStorage.setItem('userName', userName);
-          localStorage.setItem('realName', realName);
-          localStorage.setItem('mobile', mobile);
-          localStorage.setItem('nickName', nickName);
-          localStorage.setItem('role', role);
-          localStorage.setItem('createAt', createAt);
-          localStorage.setItem('userTags', userTags);
-          localStorage.setItem('channelCode', channelCode);
-          localStorage.setItem('channelName', channelName);
-          localStorage.setItem('channelTag', channelTag);
-          localStorage.setItem('remark', remark);
-          history.push('/dashboard/index');
-        });
-    }
-  };
 
   componentDidMount() {
-    console.log(this.$http);
+    // console.log(this.props);
   }
+
+  login = async (form) => {
+    const { dispatch } = this.props;
+    const value = { ...form };
+    if (value.userName && value.password) {
+      value.userName = value.userName.trim();
+      value.password = md5(value.userName + value.password);
+      try {
+        dispatch({
+          type: 'login/login',
+          payload: { params: value }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
+      //   http
+      //     .postRequestParam('/login_by_pwd', {
+      //       userName: value.username,
+      //       password: md5(value.username + value.password),
+      //     })
+      //     .then((res) => {
+      //       const {
+      //         userName,
+      //         realName,
+      //         mobile,
+      //         nickName,
+      //         role,
+      //         userTags,
+      //         channelCode,
+      //         channelName,
+      //         remark,
+      //         createAt,
+      //         channelTag,
+      //       } = res.data;
+      //       localStorage.setItem('userName', userName);
+      //       localStorage.setItem('realName', realName);
+      //       localStorage.setItem('mobile', mobile);
+      //       localStorage.setItem('nickName', nickName);
+      //       localStorage.setItem('role', role);
+      //       localStorage.setItem('createAt', createAt);
+      //       localStorage.setItem('userTags', userTags);
+      //       localStorage.setItem('channelCode', channelCode);
+      //       localStorage.setItem('channelName', channelName);
+      //       localStorage.setItem('channelTag', channelTag);
+      //       localStorage.setItem('remark', remark);
+      //       history.push('/dashboard/index');
+      //     });
+    }
+  };
 
   forgetPass = () => {
     this.setState({ isForget: true });
   };
 
   render() {
-    const formItems = [];
     return (
       <div className={styles.main}>
         <div className={styles.loginImg} />
@@ -77,13 +91,14 @@ export default class Login extends Component {
             }}
             onFinish={this.login}
           >
-            <Form.Item name="username" rules={[{ required: true, message: '用户名' }]}>
+            <Form.Item name="userName" rules={[{ required: true, message: '用户名' }, {
+              max: 16, message: '用户名不得超过16个字符'
+            }]}>
               <Input
                 size="large"
                 placeholder="用户名"
-                onChange={(e) => this.setState({ username: e.target.value })}
+                onChange={(e) => this.setState({ userName: e.target.value })}
                 style={{ borderRadius: 4 }}
-                maxLength={16}
                 prefix={<div className={styles.iconPhone} />}
               />
             </Form.Item>
@@ -100,7 +115,7 @@ export default class Login extends Component {
                     prefix={<div className={styles.iconCode} />}
                   />
                 </Form.Item>
-                <Button size="large" type="default" onClick={() => {}} style={{ marginLeft: 10 }}>
+                <Button size="large" type="default" onClick={() => { }} style={{ marginLeft: 10 }}>
                   获取验证码
                 </Button>
               </div>
@@ -138,7 +153,7 @@ export default class Login extends Component {
                 type="primary"
                 size="large"
                 htmlType="submit"
-                disabled={!this.state.username || !this.state.password}
+                disabled={!this.state.userName || !this.state.password}
                 className={styles.loginSubmit}
               >
                 登录

@@ -6,9 +6,16 @@
  * https://pro.ant.design/docs/deploy
  */
 export default {
+  // proxy: {
+  //   '/v1': {
+  //     target: 'http://beta-oms2.halove.com/',
+  //     changeOrigin: true,
+  //     pathRewrite: { '^/api': '' },
+  //   },
+  // },
   dev: {
-    '/api/': {
-      target: 'https://preview.pro.ant.design',
+    '/v1': {
+      target: 'http://beta-oms2.halove.com/',
       changeOrigin: true,
       pathRewrite: {
         '^': '',

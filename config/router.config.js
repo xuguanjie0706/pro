@@ -4,6 +4,11 @@ export default [
     component: '../layouts/SecurityLayout',
     routes: [
       {
+        path: '/login',
+        component: '@/layouts/login/index',
+        __isDynamic: true,
+      },
+      {
         path: '/',
         component: '../layouts/BasicLayout',
         authority: ['admin', 'user'],
@@ -12,19 +17,19 @@ export default [
             path: '/',
             redirect: '/demo',
           },
-          // {
-          //   path: 'dashboard',
-          //   name: '概览',
-          //   //component: '@/pages/products/index',
-          //   routes: [
-          //     {
-          //       name: '数据概览',
-          //       path: 'index',
-          //       component: '@/pages/dataView/index',
-          //       __isDynamic: true,
-          //     },
-          //   ],
-          // },
+          {
+            path: 'dashboard',
+            name: '概览',
+            //component: '@/pages/products/index',
+            routes: [
+              {
+                name: '数据概览',
+                path: 'index',
+                component: '@/pages/dataView/index',
+                __isDynamic: true,
+              },
+            ],
+          },
           {
             path: '/demo',
             name: 'demo',
@@ -76,8 +81,10 @@ export default [
           {
             component: './404',
           },
+
         ],
       },
+
       {
         component: './404',
       },

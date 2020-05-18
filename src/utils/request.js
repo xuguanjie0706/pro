@@ -28,7 +28,6 @@ const codeMessage = {
 
 const errorHandler = (error) => {
   const { response } = error;
-
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
@@ -51,13 +50,24 @@ const errorHandler = (error) => {
 
 const request = extend({
   errorHandler,
+  prefix: '/v1/starry/saas/',
   // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
 });
 
+
 class $request {
-  static init({ url, params, headers, data, method = 'get' }) {
-    return request(url, { params, headers, data, method });
+  static async init({ url, params, headers, data, method = 'get' }) {
+
+    const r = await request(url, { params, headers, data, method });
+    const { code, success, data: result, msg } = r;
+    if (code === 200 && success) {
+      return result;
+    }
+    return notification.error({
+      message: '请求失败',
+      description: msg,
+    });
   }
 
   static post({ ...option }) {

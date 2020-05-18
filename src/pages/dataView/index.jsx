@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
-import http from '@/utils/http';
 import {
-  NewList,
-  ServiceData,
   CardReceiveData,
   TitleCard,
-  UserPanalData,
   RightSuit,
 } from '@/components';
+
+import api from '@/api';
+
 import styles from './index.css';
 
 export default class dataView extends Component {
@@ -21,9 +20,12 @@ export default class dataView extends Component {
   };
 
   componentDidMount() {
-    http.post('/data_overview/user_statistics').then((res) => {
-      this.setState({ users: res.data });
+    api.dataOverview.userStatistics().then(r => {
+      this.setState({ users: r });
     });
+    // http.post('/data_overview/user_statistics').then((res) => {
+    //   this.setState({ users: res.data });
+    // });
   }
 
   render() {
@@ -36,7 +38,6 @@ export default class dataView extends Component {
               <Col span={24}>
                 <RightSuit type="overview" />
               </Col>
-
               <Col span={24}>
                 <div className={styles.block}>
                   <TitleCard title="用户统计" />
