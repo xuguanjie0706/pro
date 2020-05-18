@@ -7,7 +7,7 @@ module.exports = {
   },
   rules: {
     semi: [2, 'always'],
-    quotes: [1, 'double'],
+    quotes: [1, 'single'],
     'no-console': 1,
     eqeqeq: 2,
     'default-case': 1,
