@@ -23,9 +23,6 @@ export default class dataView extends Component {
     api.dataOverview.userStatistics().then(r => {
       this.setState({ users: r });
     });
-    // http.post('/data_overview/user_statistics').then((res) => {
-    //   this.setState({ users: res.data });
-    // });
   }
 
   render() {

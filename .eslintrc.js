@@ -36,5 +36,7 @@ module.exports = {
     'no-unused-vars': 1,
     'block-scoped-var': 0, // 在块级作用域外访问块内定义的变量是否报错提示
     'no-useless-constructor': 0,
+    'react/no-string-refs': 1,
+    "no-nested-ternary": 0,//禁止使用嵌套的三目运算
   },
 };

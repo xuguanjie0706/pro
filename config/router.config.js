@@ -40,12 +40,12 @@ export default [
                 component: '@/pages/sendRecord/index',
                 __isDynamic: true,
               },
-              // {
-              //   name: '代理人',
-              //   path: 'cardSenderManage',
-              //   component: '@/pages/cardSenderManage/index',
-              //   __isDynamic: true,
-              // },
+              {
+                name: '代理人',
+                path: 'cardSenderManage',
+                component: '@/pages/cardSenderManage/index',
+                __isDynamic: true,
+              },
               // {
               //   name: '代理人详情',
               //   path: 'cardSenderDetail',

@@ -41,7 +41,7 @@ export default class extends React.Component {
   }
 
   async getPkgList() {
-    const res = await api.cdkey.pkgList();
+    const res = await api.cdkey.pkgList({ data: {} });
     await this.setState({ pkgList: res });
   }
 

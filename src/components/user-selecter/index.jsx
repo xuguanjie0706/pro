@@ -1,5 +1,5 @@
 import { Select, Avatar } from 'antd';
-import http from '@/utils/http';
+import api from '@/api';
 import React, { Component } from 'react';
 
 
@@ -14,19 +14,19 @@ export default class UserSelecter extends Component {
 
   handleSearch = (value) => {
     if (value) {
-      http
-        .post('/issuer/user_list', {
+      api.issuer.userList({
+        data: {
           keyword: value,
-        })
-        .then(res => {
-          const options = res.data.list.map(item => (
-            <Option value={item.userId}>
-              <Avatar src={item.headImg} size="small" />&nbsp;&nbsp;
-              {item.nickname}&nbsp;&nbsp;{item.mobile}
-            </Option>
-          ));
-          this.setState({ options });
-        });
+        }
+      }).then(res => {
+        const options = res.list.map(item => (
+          <Option value={item.userId}>
+            <Avatar src={item.headImg} size="small" />&nbsp;&nbsp;
+            {item.nickname}&nbsp;&nbsp;{item.mobile}
+          </Option>
+        ));
+        this.setState({ options });
+      });
     } else {
       this.setState({ options: null });
     }
