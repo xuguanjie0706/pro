@@ -31,6 +31,31 @@ export default [
             ],
           },
           {
+            path: 'rights',
+            name: '权益',
+            routes: [
+              {
+                name: '分发记录',
+                path: 'sendRecord',
+                component: '@/pages/sendRecord/index',
+                __isDynamic: true,
+              },
+              // {
+              //   name: '代理人',
+              //   path: 'cardSenderManage',
+              //   component: '@/pages/cardSenderManage/index',
+              //   __isDynamic: true,
+              // },
+              // {
+              //   name: '代理人详情',
+              //   path: 'cardSenderDetail',
+              //   component: '@/pages/cardSenderDetail/index',
+              //   hide: true,
+              //   __isDynamic: true,
+              // },
+            ],
+          },
+          {
             path: '/demo',
             name: 'demo',
             icon: 'smile',
