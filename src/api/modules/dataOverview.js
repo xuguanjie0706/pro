@@ -29,7 +29,7 @@ export const cardData = (data) => {
  * @return {object} 接口对象
  */
 
-export const cardTrends = ({ data = {} }) => {
+export const cardTrends = (data = {}) => {
   return request.post({
     url: 'data_overview/card_trends', data
   });
@@ -46,7 +46,7 @@ export const cardTrends = ({ data = {} }) => {
  * @return {object} 接口对象
  */
 
-export const rightsStatistics = (data) => {
+export const rightsStatistics = (data = {}) => {
   return request.post({
     url: 'data_overview/rights_statistics', data
   });
@@ -63,8 +63,8 @@ export const rightsStatistics = (data) => {
  * @return {object} 接口对象
  */
 
-export const userStatistics = () => {
+export const userStatistics = (data = {}) => {
   return request.post({
-    url: 'data_overview/user_statistics',
+    url: 'data_overview/user_statistics', data
   });
 };

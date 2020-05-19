@@ -12,7 +12,7 @@ import request from '../../utils/request';
  * @see {@link https://beta-oms2.halove.com/v1/starry/saas/swagger-ui.html#/%E6%95%B0%E6%8D%AE%E6%A6%82%E8%A7%88/cardDataUsingPOST}
  * @return {object} 接口对象
  */
-export const cardIssueRecord = ({ data }) => {
+export const cardIssueRecord = (data = {}) => {
   return request.post({
     url: 'issuer/card_issue_record', data
   });
@@ -29,7 +29,7 @@ export const cardIssueRecord = ({ data }) => {
  * @return {object} 接口对象
  */
 
-export const distributionStatistics = ({ data = {} }) => {
+export const distributionStatistics = (data = {}) => {
   return request.post({
     url: 'issuer/distribution_statistics', data
   });
@@ -46,7 +46,7 @@ export const distributionStatistics = ({ data = {} }) => {
  * @return {object} 接口对象
  */
 
-export const rightsStatistics = ({ data = {} }) => {
+export const rightsStatistics = (data = {}) => {
   return request.post({
     url: 'issuer/rights_statistics', data
   });

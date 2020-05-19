@@ -106,7 +106,7 @@ export default class extends React.Component {
 
 
   getPkgList = () => {
-    api.cdkey.pkgList({ data: {} }).then(res => {
+    api.cdkey.pkgList().then(res => {
       this.setState({ pkgList: res });
     });
   }

@@ -74,9 +74,9 @@ export const pkgDetailList = ({ params, data }) => {
  * @return {object} 接口对象
  */
 
-export const pkgList = (data) => {
+export const pkgList = (data = {}) => {
   return request.post({
-    url: 'cdkey/pkg_list', ...data,
+    url: 'cdkey/pkg_list', data,
   });
 };
 

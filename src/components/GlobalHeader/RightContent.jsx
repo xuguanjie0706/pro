@@ -2,19 +2,17 @@ import { Tooltip, Tag } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import React from 'react';
 import { connect } from 'umi';
-import Avatar from './AvatarDropdown';
+// import Avatar from './AvatarDropdown';
+import Avatar from './AvatarDrop/index';
 import HeaderSearch from '../HeaderSearch';
 import SelectLang from '../SelectLang';
 import styles from './index.less';
 
-const ENVTagColor = {
-  dev: 'orange',
-  test: 'green',
-  pre: '#87d068',
-};
 
 const GlobalHeaderRight = (props) => {
-  const { theme, layout } = props;
+  const { theme, layout, ...option } = props;
+  console.log(option);
+
   let className = styles.right;
 
   if (theme === 'dark' && layout === 'topmenu') {
@@ -59,18 +57,15 @@ const GlobalHeaderRight = (props) => {
           <QuestionCircleOutlined />
         </a>
       </Tooltip> */}
-      {/* <Avatar /> */}
-      {/* {REACT_APP_ENV && (
-        <span>
-          <Tag color={ENVTagColor[REACT_APP_ENV]}>{REACT_APP_ENV}</Tag>
-        </span>
-      )} */}
-      <SelectLang className={styles.action} />
+      <Avatar />
+
+      {/* <SelectLang className={styles.action} /> */}
     </div>
   );
 };
 
-export default connect(({ settings }) => ({
+export default connect(({ settings, login }) => ({
+  user: login.info,
   theme: settings.navTheme,
   layout: settings.layout,
 }))(GlobalHeaderRight);

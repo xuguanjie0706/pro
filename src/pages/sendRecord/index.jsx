@@ -41,7 +41,7 @@ export default class extends React.Component {
   }
 
   async getPkgList() {
-    const res = await api.cdkey.pkgList({ data: {} });
+    const res = await api.cdkey.pkgList();
     await this.setState({ pkgList: res });
   }
 
@@ -68,17 +68,15 @@ export default class extends React.Component {
   search = async () => {
     const { userId, receieveDate, page, issuerName, pkgId, status, statusList } = this.state;
     const res = await api.issuer.cardIssueRecord({
-      data: {
-        issuerId: this.props.id,
-        userId,
-        startTime: receieveDate[0],
-        endTime: receieveDate[1],
-        pageSize: 10,
-        pageNum: page,
-        issuerName,
-        pkgId,
-        status,
-      }
+      issuerId: this.props.id,
+      userId,
+      startTime: receieveDate[0],
+      endTime: receieveDate[1],
+      pageSize: 10,
+      pageNum: page,
+      issuerName,
+      pkgId,
+      status,
     });
 
 

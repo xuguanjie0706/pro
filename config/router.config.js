@@ -1,3 +1,4 @@
+
 export default [
   {
     path: '/',
@@ -15,10 +16,10 @@ export default [
         routes: [
           {
             path: '/',
-            redirect: '/demo',
+            redirect: '/dashboard/index',
           },
           {
-            path: 'dashboard',
+            path: '/dashboard',
             name: '概览',
             //component: '@/pages/products/index',
             routes: [
@@ -32,6 +33,7 @@ export default [
           },
           {
             path: 'rights',
+            icon: 'smile',
             name: '权益',
             routes: [
               {
@@ -46,35 +48,47 @@ export default [
                 component: '@/pages/cardSenderManage/index',
                 __isDynamic: true,
               },
-              // {
-              //   name: '代理人详情',
-              //   path: 'cardSenderDetail',
-              //   component: '@/pages/cardSenderDetail/index',
-              //   hide: true,
-              //   __isDynamic: true,
-              // },
+              {
+                name: '代理人详情',
+                path: 'cardSenderDetail',
+                component: '@/pages/cardSenderDetail/index',
+                hide: true,
+                __isDynamic: true,
+              },
             ],
           },
           {
-            path: '/demo',
-            name: 'demo',
-            icon: 'smile',
-            // component: './demo',
+            path: 'user',
+            name: '用户',
             routes: [
               {
-                path: '/demo/a',
-                name: 'a',
-                icon: 'smile',
-                component: './demo/a',
-              },
-              {
-                path: '/demo/b',
-                name: 'b',
-                icon: 'smile',
-                component: './demo/b',
+                name: '用户管理',
+                path: 'userManage',
+                component: '@/pages/userManage/index',
+                __isDynamic: true,
               },
             ],
           },
+          // {
+          //   path: '/demo',
+          //   name: 'demo',
+          //   icon: 'smile',
+          //   // component: './demo',
+          //   routes: [
+          //     {
+          //       path: '/demo/a',
+          //       name: 'a',
+          //       icon: 'smile',
+          //       component: './demo/a',
+          //     },
+          //     {
+          //       path: '/demo/b',
+          //       name: 'b',
+          //       icon: 'smile',
+          //       component: './demo/b',
+          //     },
+          //   ],
+          // },
           // {
           //   path: '/welcome',
           //   name: 'welcome',
@@ -97,12 +111,12 @@ export default [
           //     },
           //   ],
           // },
-          {
-            name: 'list.table-list',
-            icon: 'table',
-            path: '/list',
-            component: './ListTableList',
-          },
+          // {
+          //   name: 'list.table-list',
+          //   icon: 'table',
+          //   path: '/list',
+          //   component: './ListTableList',
+          // },
           {
             component: './404',
           },

@@ -13,9 +13,9 @@ import request from '../../utils/request';
  * @return {object} 接口对象
  */
 
-export const List = ({ params, data }) => {
+export const List = (data) => {
   return request.post({
-    url: 'group/list', params, data,
+    url: 'group/list', data,
   });
 };
 
@@ -29,8 +29,8 @@ export const List = ({ params, data }) => {
  * @return {object} 接口对象
  */
 
-export const Save = ({ params, data }) => {
+export const Save = (data) => {
   return request.post({
-    url: 'group/save', params, data,
+    url: 'group/save', data,
   });
 };

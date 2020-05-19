@@ -99,9 +99,7 @@ export default class NewList extends Component {
     } else {
       const { id } = this.props;
       api.issuer.rightsStatistics({
-        data: {
-          issuerId: id
-        }
+        issuerId: id
       }).then(r => {
         this.parsedata(r);
       });

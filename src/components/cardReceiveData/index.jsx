@@ -51,9 +51,7 @@ export default class CardReceiveData extends Component {
 
   async getCardData(size) {
     const serviceData = await api.dataOverview.cardTrends({
-      data: {
-        type: Number(size),
-      }
+      type: Number(size),
     });
     const xdata = [];
     const lineData = [];

@@ -6,7 +6,8 @@ import * as cdkey from './modules/cdkey';
 import * as group from './modules/group';
 import * as tag from './modules/tag';
 import * as chnerIssuer from './modules/chnerIssuer';
+import * as chnerUserInfo from './modules/chnerUserInfo';
 
 export default {
-  user, base, dataOverview, issuer, cdkey, group, tag, chnerIssuer
+  user, base, dataOverview, issuer, cdkey, group, tag, chnerIssuer, chnerUserInfo
 };
