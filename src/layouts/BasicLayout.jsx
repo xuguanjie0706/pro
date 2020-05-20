@@ -11,7 +11,10 @@ import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { getAuthorityFromRouter } from '@/utils/utils';
-import logo from '../assets/logo.svg';
+// import logo from '../assets/logo.svg';
+import logo from '../assets/img/logo.png';
+import logoSmall from '../assets/img/logo.svg';
+
 
 const noMatch = (
   <Result
@@ -43,6 +46,7 @@ const BasicLayout = (props) => {
     location = {
       pathname: '/',
     },
+    collapsed
   } = props;
   /**
    * constructor
@@ -74,14 +78,15 @@ const BasicLayout = (props) => {
   const { formatMessage } = useIntl();
   return (
     <ProLayout
-      // logo={logo}
-      // formatMessage={formatMessage}
-      // menuHeaderRender={(logoDom, titleDom) => (
-      //   <Link to="/">
-      //     {logoDom}
-      //     {titleDom}
-      //   </Link>
-      // )}
+      style={{ height: '100%' }}
+      siderWidth={208}
+      menuHeaderRender={() => (
+        <Link to="/">
+          <img src={collapsed ? logoSmall : logo} alt="" />
+        </Link>
+      )}
+      fixedHeader
+      fixSiderbar
       onCollapse={handleMenuCollapse}
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps.isUrl || menuItemProps.children || !menuItemProps.path) {

@@ -26,7 +26,6 @@ export default class DateFilter extends Component {
           return moment().add('days', day);
         }
         return null;
-
       });
       this.setState({ date: values });
       this.props.onChange(

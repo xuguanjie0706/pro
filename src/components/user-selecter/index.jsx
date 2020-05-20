@@ -38,20 +38,22 @@ export default class UserSelecter extends Component {
 
   render() {
     return (
-      <Select
-        showSearch
-        value={this.state.value}
-        style={this.props.style ? this.props.style : { width: '100%' }}
-        defaultActiveFirstOption={false}
-        showArrow={false}
-        filterOption={false}
-        onSearch={this.handleSearch}
-        onChange={this.handleChange}
-        notFoundContent={null}
-        allowClear
-      >
-        {this.state.options}
-      </Select>
+      <>
+        <Select
+          showSearch
+          value={this.state.value}
+          style={this.props.style ? this.props.style : { width: '100%' }}
+          defaultActiveFirstOption={false}
+          showArrow={false}
+          filterOption={false}
+          onSearch={this.handleSearch}
+          onChange={this.handleChange}
+          notFoundContent={null}
+          allowClear
+        >
+          {this.state.options}
+        </Select>
+      </>
     );
   }
 }

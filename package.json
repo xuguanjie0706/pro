@@ -32,7 +32,6 @@
     "test:component": "umi test ./src/components",
     "tsc": "tsc"
   },
-
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
     "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js",

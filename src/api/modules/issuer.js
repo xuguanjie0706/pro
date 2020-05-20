@@ -7,7 +7,14 @@ import request from '../../utils/request';
  * @memberof module:apis
  * @description: 描述方法
  * @function cardIssueRecord
- * @param {type}  传入参数
+ * @param {time}  endTime userId
+ * @param {string} issuerName  userChannelCode
+ * @param {int}  pageNum userRole
+ * @param {int}  pageSize userRole
+ * @param {int}  pkgId userRole
+ * @param {time}  startTime userRole
+ * @param {int}  status userRole
+ * @param {string}  userId userRole
  * @author 陈(后端对接人名称)
  * @see {@link https://beta-oms2.halove.com/v1/starry/saas/swagger-ui.html#/%E6%95%B0%E6%8D%AE%E6%A6%82%E8%A7%88/cardDataUsingPOST}
  * @return {object} 接口对象
@@ -63,7 +70,7 @@ export const rightsStatistics = (data = {}) => {
  * @return {object} 接口对象
  */
 
-export const userList = ({ data = {} }) => {
+export const userList = (data = {}) => {
   return request.post({
     url: '/issuer/user_list', data
   });

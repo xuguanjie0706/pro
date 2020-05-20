@@ -1,4 +1,3 @@
-
 export default [
   {
     path: '/',
@@ -21,26 +20,28 @@ export default [
           {
             path: '/dashboard',
             name: '概览',
-            //component: '@/pages/products/index',
+            icon: "AppstoreOutlined",
             routes: [
               {
                 name: '数据概览',
                 path: 'index',
                 component: '@/pages/dataView/index',
                 __isDynamic: true,
+
               },
             ],
           },
           {
             path: 'rights',
-            icon: 'smile',
+            icon: 'CreditCardOutlined',
             name: '权益',
             routes: [
               {
                 name: '分发记录',
                 path: 'sendRecord',
-                component: '@/pages/sendRecord/index',
+                component: '@/pages/sendRecord/b',
                 __isDynamic: true,
+
               },
               {
                 name: '代理人',
@@ -60,6 +61,7 @@ export default [
           {
             path: 'user',
             name: '用户',
+            icon: 'UserOutlined',
             routes: [
               {
                 name: '用户管理',
@@ -69,26 +71,31 @@ export default [
               },
             ],
           },
-          // {
-          //   path: '/demo',
-          //   name: 'demo',
-          //   icon: 'smile',
-          //   // component: './demo',
-          //   routes: [
-          //     {
-          //       path: '/demo/a',
-          //       name: 'a',
-          //       icon: 'smile',
-          //       component: './demo/a',
-          //     },
-          //     {
-          //       path: '/demo/b',
-          //       name: 'b',
-          //       icon: 'smile',
-          //       component: './demo/b',
-          //     },
-          //   ],
-          // },
+          {
+            path: '/demo',
+            name: 'demo',
+            icon: 'smile',
+            routes: [
+              {
+                path: '/demo/a',
+                name: 'a',
+                icon: 'smile',
+                component: './demo/a',
+              },
+              {
+                path: '/demo/b',
+                name: 'b',
+                icon: 'smile',
+                component: './demo/b',
+              },
+              {
+                path: '/demo/c',
+                name: 'c',
+                icon: 'smile',
+                component: './demo/c',
+              },
+            ],
+          },
           // {
           //   path: '/welcome',
           //   name: 'welcome',

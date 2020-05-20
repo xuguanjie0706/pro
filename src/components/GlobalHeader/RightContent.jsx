@@ -10,8 +10,7 @@ import styles from './index.less';
 
 
 const GlobalHeaderRight = (props) => {
-  const { theme, layout, ...option } = props;
-  console.log(option);
+  const { theme, layout } = props;
 
   let className = styles.right;
 
