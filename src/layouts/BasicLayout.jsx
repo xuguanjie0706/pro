@@ -11,7 +11,6 @@ import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { getAuthorityFromRouter } from '@/utils/utils';
-// import logo from '../assets/logo.svg';
 import logo from '../assets/img/logo.png';
 import logoSmall from '../assets/img/logo.svg';
 
@@ -28,6 +27,7 @@ const noMatch = (
     }
   />
 );
+
 
 /**
  * use Authorized check all menu item
@@ -85,14 +85,13 @@ const BasicLayout = (props) => {
           <img src={collapsed ? logoSmall : logo} alt="" />
         </Link>
       )}
-      fixedHeader
-      fixSiderbar
+      // fixedHeader
+      // fixSiderbar
       onCollapse={handleMenuCollapse}
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps.isUrl || menuItemProps.children || !menuItemProps.path) {
           return defaultDom;
         }
-
         return <Link to={menuItemProps.path}>{defaultDom}</Link>;
       }}
       breadcrumbRender={(routers = []) => [
@@ -104,14 +103,14 @@ const BasicLayout = (props) => {
         },
         ...routers,
       ]}
-      // itemRender={(route, params, routes, paths) => {
-      //   const first = routes.indexOf(route) === 0;
-      //   return first ? (
-      //     <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
-      //   ) : (
-      //       <span>{route.breadcrumbName}</span>
-      //     );
-      // }}
+      itemRender={(route, params, routes, paths) => {
+        const first = routes.indexOf(route) === 0;
+        return first ? (
+          <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
+        ) : (
+            <span>{route.breadcrumbName}</span>
+          );
+      }}
       // footerRender={() => defaultFooterDom}
       menuDataRender={menuDataRender}
       rightContentRender={() => <RightContent />}

@@ -12,9 +12,9 @@ import request from '../../utils/request';
  * @return {object} 接口对象
  */
 
-export const batchGroupSave = ({ params, data }) => {
+export const batchGroupSave = (data) => {
   return request.post({
-    url: 'chner_issuer/batch_group_save', params, data,
+    url: 'chner_issuer/batch_group_save', data,
   });
 };
 
@@ -28,9 +28,9 @@ export const batchGroupSave = ({ params, data }) => {
  * @return {object} 接口对象
  */
 
-export const Create = ({ params, data }) => {
+export const Create = (data) => {
   return request.post({
-    url: 'chner_issuer/create', params, data,
+    url: 'chner_issuer/create', data,
   });
 };
 /**
@@ -43,9 +43,9 @@ export const Create = ({ params, data }) => {
  * @return {object} 接口对象
  */
 
-export const Liquidate = ({ params, data }) => {
+export const Liquidate = (data) => {
   return request.post({
-    url: 'chner_issuer/liquidate', params, data,
+    url: 'chner_issuer/liquidate', data,
   });
 };
 /**
@@ -58,9 +58,9 @@ export const Liquidate = ({ params, data }) => {
  * @return {object} 接口对象
  */
 
-export const List = ({ params, data }) => {
+export const List = (data) => {
   return request.post({
-    url: 'chner_issuer/list', params, data,
+    url: 'chner_issuer/list', data,
   });
 };
 

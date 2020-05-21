@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Input, Form, Row, Col, Select } from 'antd';
 import DateFilter from '@/components/CustomFormItem/DateFilter';
 import SearchSelect from '@/components/CustomApiFormItem/SearchSelect';
@@ -6,13 +6,11 @@ import moment from 'moment';
 
 const { Option } = Select;
 const Search = (props) => {
-  const { STATUS_LIST = [], pkgList, form } = props;
-  const statusList = Object.entries(STATUS_LIST);
-
+  const { form, otherGroupList = [], tagList = [] } = props;
 
   const changeTime = (time) => {
-    form.setFieldsValue({ 'startTime': time ? moment(time[0]).format('YYYY-MM-DD') : null });
-    form.setFieldsValue({ 'endTime': time ? moment(time[1]).format('YYYY-MM-DD') : null });
+    form.setFieldsValue({ 'createDtBeg': time ? moment(time[0]).format('YYYY-MM-DD') : null });
+    form.setFieldsValue({ 'createDtEnd': time ? moment(time[1]).format('YYYY-MM-DD') : null });
   };
   return (
     <Row gutter={16}>
@@ -26,46 +24,6 @@ const Search = (props) => {
       </Col>
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item
-          name="status"
-          label="状态"
-        >
-          <Select
-            placeholder="请选择状态"
-            style={{ width: '100%' }}
-            allowClear
-          >
-            {statusList.map(
-              (item) => (
-                <Option key={item[0]} value={item[0]}>
-                  {item[1]}
-                </Option>
-              )
-            )}
-          </Select>
-        </Form.Item>
-      </Col>
-      <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
-        <Form.Item
-          name="pkgId"
-          label="套餐"
-        >
-          <Select
-            placeholder="请选择套餐"
-            style={{ width: '100%' }}
-            allowClear
-          >
-            {pkgList.map(
-              (item) => (
-                <Option key={item.pkgId} value={item.pkgId}>
-                  {item.pkgName}
-                </Option>
-              )
-            )}
-          </Select>
-        </Form.Item>
-      </Col>
-      <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
-        <Form.Item
           name="userId"
           label="用户"
         >
@@ -74,19 +32,51 @@ const Search = (props) => {
       </Col>
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item
-          name="issuerName"
-          label="代理人"
+          name="groupId"
+          label="所属分组"
         >
-          <Input allowClear />
+          <Select
+            placeholder="请选择分组"
+            style={{ width: '100%' }}
+            allowClear
+          >
+            {otherGroupList.map(
+              (item) => (
+                <Option key={item.id} value={item.id}>
+                  {item.name}
+                </Option>
+              )
+            )}
+          </Select>
+        </Form.Item>
+      </Col>
+      <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
+        <Form.Item
+          name="tagId"
+          label="标签"
+        >
+          <Select
+            placeholder="请选择标签"
+            style={{ width: '100%' }}
+            allowClear
+          >
+            {tagList.map(
+              (item) => (
+                <Option key={item.id} value={item.id}>
+                  {item.name}
+                </Option>
+              )
+            )}
+          </Select>
         </Form.Item>
       </Col >
       <Form.Item
-        name="startTime"
+        name="createDtBeg"
       >
         <Input type="hidden" />
       </Form.Item>
       <Form.Item
-        name="endTime"
+        name="createDtEnd"
       >
         <Input type="hidden" />
       </Form.Item>

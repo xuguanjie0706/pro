@@ -13,7 +13,7 @@ import request from '../../utils/request';
  * @return {object} 接口对象
  */
 
-export const List = (data) => {
+export const List = (data = {}) => {
   return request.post({
     url: 'tag/list', data,
   });

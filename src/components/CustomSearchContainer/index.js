@@ -13,8 +13,6 @@ const CustomSearchContainer = (
   AddComponent
 ) => {
   const Index = (props) => {
-    console.log(12);
-
     // const defaultProps = {
     //   dafaultData: {},
     //   formItemLayout: {

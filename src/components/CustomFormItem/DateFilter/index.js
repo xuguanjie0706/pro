@@ -33,10 +33,8 @@ const DateFilter = ({ value = {}, onChange, TypeSource = defaultTypeSource, call
   }, []);
 
   useEffect(() => {
-    if (timeData) {
-      if (callback) { callback(timeData); }
-      onChange(timeData);
-    }
+    if (callback) { callback(timeData); }
+    onChange(timeData);
   }, [timeData]);
   return (
     <div>

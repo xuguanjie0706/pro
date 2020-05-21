@@ -25,6 +25,7 @@ export default [
               {
                 name: '数据概览',
                 path: 'index',
+                icon: "",
                 component: '@/pages/dataView/index',
                 __isDynamic: true,
 
@@ -39,21 +40,24 @@ export default [
               {
                 name: '分发记录',
                 path: 'sendRecord',
-                component: '@/pages/sendRecord/b',
+                icon: "",
+                component: '@/pages/sendRecord/index',
                 __isDynamic: true,
 
               },
               {
                 name: '代理人',
+                icon: "",
                 path: 'cardSenderManage',
                 component: '@/pages/cardSenderManage/index',
                 __isDynamic: true,
               },
               {
                 name: '代理人详情',
+                icon: "",
                 path: 'cardSenderDetail',
                 component: '@/pages/cardSenderDetail/index',
-                hide: true,
+                hideInMenu: true,
                 __isDynamic: true,
               },
             ],
@@ -65,6 +69,7 @@ export default [
             routes: [
               {
                 name: '用户管理',
+                icon: "",
                 path: 'userManage',
                 component: '@/pages/userManage/index',
                 __isDynamic: true,
@@ -80,19 +85,19 @@ export default [
                 path: '/demo/a',
                 name: 'a',
                 icon: 'smile',
-                component: './demo/a',
+                component: '@/testPages/demo/a',
               },
               {
-                path: '/demo/b',
+                path: '/demo/index',
                 name: 'b',
                 icon: 'smile',
-                component: './demo/b',
+                component: '@/testPages/demo/index',
               },
               {
                 path: '/demo/c',
                 name: 'c',
                 icon: 'smile',
-                component: './demo/c',
+                component: '@/testPages/demo/c',
               },
             ],
           },

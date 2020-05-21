@@ -10,15 +10,15 @@ const Search = (props) => {
   const statusList = Object.entries(STATUS_LIST);
 
 
-  const changeTime = (time) => {
-    form.setFieldsValue({ 'startTime': time ? moment(time[0]).format('YYYY-MM-DD') : null });
-    form.setFieldsValue({ 'endTime': time ? moment(time[1]).format('YYYY-MM-DD') : null });
+  const changeTime = (a) => {
+    form.setFieldsValue({ 'startTime': moment(a[0]).format('YYYY-MM-DD') });
+    form.setFieldsValue({ 'endTime': moment(a[1]).format('YYYY-MM-DD') });
   };
   return (
     <Row gutter={16}>
       <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={12}>
         <Form.Item
-          name="time"
+          name="username"
           label="发卡时间"
         >
           <DateFilter callback={changeTime} />
@@ -75,7 +75,7 @@ const Search = (props) => {
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item
           name="issuerName"
-          label="代理人"
+          label="代理商"
         >
           <Input allowClear />
         </Form.Item>

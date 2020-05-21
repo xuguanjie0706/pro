@@ -4,18 +4,23 @@
  * @return:
  */
 import React, { Component } from 'react';
-import { Modal, Form, Input } from 'antd';
+import { Modal, Form } from 'antd';
 
 const CustomModalContainer = (WrappedComponent1) => {
+
   class Index extends Component {
     static defaultProps = {
-      dafaultData: {},
+      defaultData: {},
       formItemLayout: {
-        labelCol: { span: 6 },
-        wrapperCol: { span: 14 },
+        labelCol: { span: 4 },
+        // wrapperCol: { span: 20 },
       },
       title: '数据新增',
       width: 520
+    }
+
+    constructor(props) {
+      super(props);
     }
 
     state = {
@@ -35,50 +40,51 @@ const CustomModalContainer = (WrappedComponent1) => {
     }
 
     handleCancle = () => {
-      const { form } = this.props;
       this.setState({
         visible: false,
       });
-      // form.resetFields();
     }
 
 
     hangeClick = (e) => {
-      const { onHandle, form } = this.props;
       e.preventDefault();
-      if (onHandle) {
-        form.validateFields((err, values) => {
-          if (!err) {
-            this.setState({
-              loading: true,
-            });
-            onHandle(values, () => {
-              // form.resetFields();
-              this.setState({
-                loading: false,
-                visible: false,
-              });
-            }, () => {
-              this.setState({
-                loading: false,
-              });
-            });
-          }
+      const { request, callback } = this.props;
+      this.refs.ModalForm.validateFields().then(async (values) => {
+        this.setState({
+          loading: true,
         });
-      }
+        if (request) {
+          const r = await request(values);
+          this.setState({
+            loading: false,
+            visible: !r,
+          });
+          if (r) {
+            this.resetFields();
+            callback && callback();
+          }
+        }
+      });
     }
 
 
+    setFieldsValue = (defaultData) => {
+      this.refs.ModalForm.setFieldsValue(defaultData);
+    }
+
+    resetFields = () => {
+      this.refs.ModalForm.resetFields();
+    }
+
     render() {
       const { visible, loading } = this.state;
-      const { formItemLayout, title, width, form, defaultData } = this.props;
-      // const { getFieldDecorator } = form;
+      const { formItemLayout, title, width } = this.props;
       const newProps = {
-        custom: {
-          visible: this.state.visible,
-          handleCancle: this.handleCancle,
-          handleShow: this.handleShow
-        }
+        visible: this.state.visible,
+        handleCancle: this.handleCancle,
+        handleShow: this.handleShow,
+        setFieldsValue: this.setFieldsValue,
+        resetFields: this.resetFields
       };
       return (
         <Modal
@@ -89,18 +95,15 @@ const CustomModalContainer = (WrappedComponent1) => {
           title={title}
           width={width}
         >
-          <Form {...formItemLayout} >
-            {/* {getFieldDecorator('_id', {
-              initialValue: defaultData._id,
-            })(
-              <Input type="hidden" />,
-            )} */}
+          <Form name="ModalForm" ref="ModalForm" {...formItemLayout} >
             <WrappedComponent1 {...this.props} {...newProps} />
           </Form>
         </Modal>
       );
     }
   }
+
+
   return Index;
 };
 

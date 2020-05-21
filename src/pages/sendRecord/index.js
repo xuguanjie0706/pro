@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import CustomTable from '@/components/CustomTable';
 import CustomSearchContainer from '@/components/CustomSearchContainer';
 import CustomSearchBtnContainer from '@/components/CustomSearchBtnContainer';
@@ -11,17 +11,44 @@ import Search from './Search';
 import ModalForm from './Form';
 
 const Custom = (props) => {
-  const { pkgList, loading } = props;
-  const [modelChild, setModelChild] = useState(null);
+  const { pkgList, dispatch } = props;
+
+  /* ******* 设置属性 *******  */
+  const [modelChild, setModelChild] = useState(null); // 新增弹窗
+  const [tableChild, setTableChild] = useState(null); // 列表弹窗
+  const [defaultData, setDefaultData] = useState({ id: 0 }); // 新增编辑默认值
+
+  /* ******* 设置属性 *******  */
+  console.log(tableChild);
+
+  /* ******* 设置实例 *******  */
   const modelRef = (ref) => {
     setModelChild(ref);
   };
 
-  const handleClick = () => {
+  const tableRef = (ref) => {
+    setTableChild(ref);
+  };
+
+  /* ******* 设置实例 ******* */
+
+  /* ******* 设置方法 ******* */
+  /* 新增弹窗 */
+  const handleEdit = async (item) => {
+    setDefaultData(item);
     if (modelChild) {
       modelChild.handleShow();
     }
   };
+
+  /* 删除弹窗 */
+  const showDelete = async (item) => {
+    setDefaultData(item);
+    if (deleteChild) {
+      deleteChild.handleShow();
+    }
+  };
+
   const filtername = (name) => {
     if (!name) {
       return '-';
@@ -30,21 +57,25 @@ const Custom = (props) => {
   };
 
 
+  /* ******* 设置方法 ******* */
+  /* 初始化 */
   const initLoad = async () => {
-    const { dispatch } = props;
-    await dispatch({
+    dispatch({
       type: 'base/getPkgList'
     });
   };
-
+  /* ******* 监听 ******* */
   useEffect(() => {
     initLoad();
   }, []);
+  /* ******* 监听 ******* */
 
-  const addBtn = useMemo(() => () => <Button style={{ marginBottom: 10 }} type="primary" onClick={handleClick}>添加代理人</Button>, [pkgList]);
-  const SearchTable = useMemo(() => {
-    return loading === false ? CustomSearchContainer(CustomTable, Search, CustomSearchBtnContainer(), addBtn) : PageLoading;
-  }, [loading]);
+  /* 新增按钮 */
+  // const addBtn = useCallback(() => <Button style={{ marginBottom: 10 }} type="primary" onClick={() => handleEdit({ id: 0 })}>添加代理人</Button>, [modelChild]);
+  /* 表单列表 */
+  const SearchTable = useCallback(CustomSearchContainer(CustomTable, Search, CustomSearchBtnContainer()), []);
+  /* 底部按钮 */
+  /* 自定义字段 */
   const columns = [
     {
       title: '卡号',
@@ -74,11 +105,6 @@ const Custom = (props) => {
       dataIndex: 'issueTime',
       key: 'issueTime',
     },
-    // {
-    //   title: '分组',
-    //   dataIndex: 'groupName',
-    //   key: 'groupName',
-    // },
     {
       title: '领取手机号',
       dataIndex: 'userMobile',
@@ -108,10 +134,23 @@ const Custom = (props) => {
       key: 'remark',
     },
   ];
-  return <>
-    <SearchTable rowKey="id" STATUS_LIST={STATUS_LIST} request={api.issuer.cardIssueRecord} loading columns={columns} pkgList={pkgList} />
-    <ModalForm onRef={modelRef} />
-  </>;
+
+  return (<>
+    <SearchTable
+      rowKey="id"
+      STATUS_LIST={STATUS_LIST}
+      request={api.issuer.cardIssueRecord}
+      loading columns={columns}
+      pkgList={pkgList}
+      onTableRef={tableRef}
+    />
+    <ModalForm
+      onRef={modelRef}
+      defaultData={defaultData}
+      request={defaultData.id ? api.chnerIssuer.Update : api.chnerIssuer.Create}
+      callback={tableChild && tableChild.initData}
+      pkgList={pkgList} />
+  </>);
 };
 
 

@@ -22,10 +22,6 @@ class CustomTable extends Component {
       count: 10,
       page: 1,
       loading: true,
-      // id: null,
-      // detailData: {
-      //   enable: true
-      // },
       list: [],
       selectedKey: []
     };
@@ -52,10 +48,10 @@ class CustomTable extends Component {
   };
 
   initData = async value => {
-    const { defaultSearchData, form, request } = this.props;
+    const { defaultSearchData, request } = this.props;
     const { page, count } = this.state;
     const data = {
-      page, count, ...value, ...defaultSearchData
+      pageNum: page, pageSize: count, ...value, ...defaultSearchData
     };
     this.setState({
       loading: true,
@@ -106,18 +102,18 @@ class CustomTable extends Component {
       columns,
       expandedRowRender,
       defaultExpandAllRows,
-      isSelect,
       FooterComponent,
-      rowKey = '_id'
+      rowKey = '_id',
+      ...options
     } = this.props;
-    const rowSelection = {
-      onChange: (selectedRowKeys) => {
-        this.setState({
-          selectedKey: selectedRowKeys
-        });
-      },
-      selectedRowKeys: selectedKey
-    };
+    // const rowSelection = {
+    //   onChange: (selectedRowKeys) => {
+    //     this.setState({
+    //       selectedKey: selectedRowKeys
+    //     });
+    //   },
+    //   selectedRowKeys: selectedKey
+    // };
     const footer = () => (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         {FooterComponent} <Pagination {...paginationData} />
@@ -125,16 +121,17 @@ class CustomTable extends Component {
     );
     return (
       <Table
+        {...options}
         defaultExpandAllRows={defaultExpandAllRows}
         expandedRowRender={expandedRowRender}
         columns={columns}
-        loading={loading}
         dataSource={list}
         rowKey={rowKey}
         size="middle"
         pagination={FooterComponent ? false : paginationData}
-        rowSelection={isSelect ? rowSelection : null}
+        // rowSelection={rowSelection}
         footer={FooterComponent ? footer : null}
+        loading={loading}
       />
     );
   }

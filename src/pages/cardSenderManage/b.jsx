@@ -53,9 +53,9 @@ export default class extends React.Component {
     const { refs } = this;
     refs.cardSendDialog.validateFields().then(async () => {
       if (dialogForm.id) {
-        await api.chnerIssuer.Update({ data: dialogForm });
+        await api.chnerIssuer.Update(dialogForm);
       } else {
-        await api.chnerIssuer.Create({ data: dialogForm });
+        await api.chnerIssuer.Create(dialogForm);
       }
       message.success('操作成功');
       this.setState({ dialogVisiable: false });
@@ -72,16 +72,16 @@ export default class extends React.Component {
   search = async () => {
     const { issuerMobile, issuerName, receieveDate, page, parentIssuerName, groupId } = this.state;
     const res = await api.chnerIssuer.List({
-      data: {
-        issuerMobile,
-        issuerName,
-        createDtBeg: receieveDate[0],
-        createDtEnd: receieveDate[1],
-        pageSize: 10,
-        pageNum: page,
-        parentIssuerName,
-        groupId,
-      }
+
+      issuerMobile,
+      issuerName,
+      createDtBeg: receieveDate[0],
+      createDtEnd: receieveDate[1],
+      pageSize: 10,
+      pageNum: page,
+      parentIssuerName,
+      groupId,
+
     });
 
     this.setState({
@@ -113,9 +113,9 @@ export default class extends React.Component {
 
   getGroupList = () => {
     api.group.List({
-      data: {
-        type: 1
-      }
+
+      type: 1
+
     }).then(groupList => {
       this.setState({ groupList });
     });
@@ -125,9 +125,9 @@ export default class extends React.Component {
     const { refs } = this;
     refs.newGroupDialog.validateFields().then(values => {
       api.group.Save({
-        data: {
-          ...values, type: 1
-        }
+
+        ...values, type: 1
+
       }).then(() => {
         message.success('添加成功');
         this.getGroupList();
@@ -175,17 +175,16 @@ export default class extends React.Component {
   }
 
   confirmGroupChange = () => {
-
     const { changeGroupId, handleList } = this.state;
     if (!changeGroupId) {
       message.error('请选择分组');
       return;
     }
     api.chnerIssuer.batchGroupSave({
-      data: {
-        idList: handleList,
-        groupId: changeGroupId,
-      }
+
+      idList: handleList,
+      groupId: changeGroupId,
+
     }).then(() => {
       message.success('操作成功');
       this.setState({ groupChangeVisiable: false });
@@ -212,8 +211,6 @@ export default class extends React.Component {
       return Promise.resolve();
     }
     return Promise.reject('请正确输入手机号！');
-
-
   }
 
   checkAmount = (rule, value, max) => {
