@@ -5,11 +5,12 @@ import moment from 'moment';
 
 const { Option } = Select;
 const Search = (props) => {
-  const { pkgList, form, groupList } = props;
+  const { pkgList, form, groupList, defaultSearchData } = props;
+  console.log(defaultSearchData);
 
   const changeTime = (time) => {
-    form.setFieldsValue({ 'createDtBeg': time ? moment(time[0]).format('YYYY-MM-DD') : null });
-    form.setFieldsValue({ 'createDtEnd': time ? moment(time[1]).format('YYYY-MM-DD') : null });
+    form.setFieldsValue({ 'createDtBeg': time.length ? moment(time[0]).format('YYYY-MM-DD') : null });
+    form.setFieldsValue({ 'createDtEnd': time.length ? moment(time[1]).format('YYYY-MM-DD') : null });
   };
   return (
     <Row gutter={16}>
@@ -72,6 +73,11 @@ const Search = (props) => {
       </Form.Item>
       <Form.Item
         name="endTime"
+      >
+        <Input type="hidden" />
+      </Form.Item>
+      <Form.Item
+        name="issuerId"
       >
         <Input type="hidden" />
       </Form.Item>

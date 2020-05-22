@@ -460,7 +460,7 @@ export default class extends React.Component {
                 type="primary"
                 onClick={this.confirmAdd}
               >
-                {this.state.step === 1 ? '确认' : '续期'}
+                确认
               </Button>
             ) : (
                 <Button

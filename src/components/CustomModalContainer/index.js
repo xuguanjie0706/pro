@@ -46,25 +46,50 @@ const CustomModalContainer = (WrappedComponent1) => {
     }
 
 
-    hangeClick = (e) => {
-      e.preventDefault();
-      const { request, callback } = this.props;
-      this.refs.ModalForm.validateFields().then(async (values) => {
-        this.setState({
-          loading: true,
-        });
-        if (request) {
-          const r = await request(values);
-          this.setState({
-            loading: false,
-            visible: !r,
-          });
-          if (r) {
-            this.resetFields();
-            callback && callback();
-          }
-        }
+    hangeClick = async () => {
+      const { request, callback, isClearn = true } = this.props;
+      // const isTouch = await this.refs.ModalForm.isFieldTouched({ groupId });
+      // console.log(isTouch);
+
+      const values = await this.refs.ModalForm.validateFields();
+      this.setState({
+        loading: true,
       });
+      if (request) {
+        const r = await request(values);
+        this.setState({
+          loading: false,
+          visible: !r,
+        });
+        if (r) {
+          isClearn && this.resetFields();
+          callback && callback();
+        }
+      } else {
+        this.setState({
+          loading: false,
+          visible: false,
+        });
+      }
+
+      // this.refs.ModalForm.validateFields().then(async (values) => {
+      //   console.log(values);
+
+      //   this.setState({
+      //     loading: true,
+      //   });
+      //   if (request) {
+      //     const r = await request(values);
+      //     this.setState({
+      //       loading: false,
+      //       visible: !r,
+      //     });
+      //     if (r) {
+      //       this.resetFields();
+      //       callback && callback();
+      //     }
+      //   }
+      // });
     }
 
 
@@ -78,7 +103,7 @@ const CustomModalContainer = (WrappedComponent1) => {
 
     render() {
       const { visible, loading } = this.state;
-      const { formItemLayout, title, width } = this.props;
+      const { formItemLayout, title, width, footer } = this.props;
       const newProps = {
         visible: this.state.visible,
         handleCancle: this.handleCancle,
@@ -94,6 +119,7 @@ const CustomModalContainer = (WrappedComponent1) => {
           confirmLoading={loading}
           title={title}
           width={width}
+          footer={footer}
         >
           <Form name="ModalForm" ref="ModalForm" {...formItemLayout} >
             <WrappedComponent1 {...this.props} {...newProps} />

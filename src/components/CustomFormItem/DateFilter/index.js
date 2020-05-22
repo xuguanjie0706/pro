@@ -17,7 +17,7 @@ const DateFilter = ({ value = {}, onChange, TypeSource = defaultTypeSource, call
 
   const changePicker = (e) => {
     setDateType('');
-    setTimeData(e);
+    setTimeData(e || []);
   };
 
   const changeType = (e) => {

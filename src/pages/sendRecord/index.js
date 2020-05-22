@@ -11,7 +11,7 @@ import Search from './Search';
 import ModalForm from './Form';
 
 const Custom = (props) => {
-  const { pkgList, dispatch } = props;
+  const { pkgList, dispatch, defaultSearchData } = props;
 
   /* ******* 设置属性 *******  */
   const [modelChild, setModelChild] = useState(null); // 新增弹窗
@@ -143,6 +143,7 @@ const Custom = (props) => {
       loading columns={columns}
       pkgList={pkgList}
       onTableRef={tableRef}
+      defaultSearchData={defaultSearchData}
     />
     <ModalForm
       onRef={modelRef}

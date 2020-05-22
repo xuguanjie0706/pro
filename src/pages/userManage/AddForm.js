@@ -26,7 +26,7 @@ const CustomForm = (props) => {
       <Form.Item
         noStyle
         name="type"
-        initialValue="1">
+        initialValue="2">
         <Input type="hidden" />
       </Form.Item>
     </>

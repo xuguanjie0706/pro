@@ -8,6 +8,7 @@ import { STATUS_LIST } from '@/utils/enum';
 import { connect } from 'umi';
 import Search from './Search';
 import ModalForm from './Form';
+import LookForm from './LookForm';
 
 const statusObj = {
   0: '暂无权益',
@@ -17,15 +18,18 @@ const statusObj = {
   4: '30天内到期',
 };
 const Custom = (props) => {
-  const { tagList, dispatch, otherGroupList } = props;
+  const { tagList, dispatch, otherGroupList, pkgList } = props;
+  // console.log(tagList);
 
   /* ******* 设置属性 *******  */
   const [modelChild, setModelChild] = useState(null); // 新增弹窗
+  const [LookChild, setLookChild] = useState(null); // 查看弹窗
   const [tableChild, setTableChild] = useState(null); // 列表弹窗
   const [defaultData, setDefaultData] = useState({ id: 0 }); // 新增编辑默认值
+  const [step, setStep] = useState(0);
 
   /* ******* 设置属性 *******  */
-  console.log(tableChild);
+  // console.log(tableChild);
 
   /* ******* 设置实例 *******  */
   const modelRef = (ref) => {
@@ -34,6 +38,10 @@ const Custom = (props) => {
 
   const tableRef = (ref) => {
     setTableChild(ref);
+  };
+
+  const lookRef = (ref) => {
+    setLookChild(ref);
   };
 
   /* ******* 设置实例 ******* */
@@ -48,9 +56,10 @@ const Custom = (props) => {
   };
   /* 查看弹窗 */
   const handleLook = async (item) => {
+    setStep(0);
     setDefaultData(item);
-    if (modelChild) {
-      modelChild.handleShow();
+    if (LookChild) {
+      LookChild.handleShow();
     }
   };
 
@@ -60,6 +69,9 @@ const Custom = (props) => {
   const initLoad = async () => {
     dispatch({
       type: 'base/getTagList'
+    });
+    dispatch({
+      type: 'base/getPkgList'
     });
     dispatch({
       type: 'base/getGroupList',
@@ -114,8 +126,8 @@ const Custom = (props) => {
       render: groupId => (
         <span>
           {groupId
-            ? this.state.groupList.find(item => item.id === groupId)
-              ? this.state.groupList.find(item => item.id === groupId).name
+            ? otherGroupList.find(item => item.id === groupId)
+              ? otherGroupList.find(item => item.id === groupId).name
               : '-'
             : '-'}
         </span>
@@ -130,16 +142,16 @@ const Custom = (props) => {
         // 最多只显示3个标签
         return (
           <div>
-            {this.state.tagList.length > 0 &&
+            {tagList.length > 0 &&
               record.slice(0, 3).map(
                 id =>
-                  !!this.state.tagList.find(item => item.id === id) && (
+                  !!tagList.find(item => item.id === id) && (
                     <span
                       key={id}
                       style={{ display: 'inline-block' }}
                       className="padding4 margin4 bgcolor-input color-1 font-size-2"
                     >
-                      {this.state.tagList.find(item => item.id === id).name}
+                      {tagList.find(item => item.id === id).name}
                     </span>
                   ),
               )}
@@ -193,12 +205,50 @@ const Custom = (props) => {
     <ModalForm
       onRef={modelRef}
       defaultData={defaultData}
-      request={defaultData.id ? api.chnerIssuer.Update : api.chnerIssuer.Create}
+      request={api.chnerUserInfo.Update}
       callback={tableChild && tableChild.initData}
-    // pkgList={pkgList}
+      otherGroupList={otherGroupList}
+      tagList={tagList}
+      dispatch={dispatch}
+      isClearn={false}
+    />
+    <LookForm
+      onRef={lookRef}
+      title="拥有权益"
+      defaultData={defaultData}
+      request={api.cdkey.allocateUser}
+      callback={tableChild && tableChild.initData}
+      otherGroupList={otherGroupList}
+      tagList={tagList}
+      dispatch={dispatch}
+      isClearn={false}
+      step={step}
+      pkgList={pkgList}
+      footer={[
+        <Button key="back" onClick={() => LookChild.handleCancle()}>
+          取消
+        </Button>,
+        step === 1 ? (
+          <Button
+            key="submit"
+            type="primary"
+            onClick={() => LookChild.hangeClick()}
+          >
+            {step === 1 ? '确认' : '续期'}
+          </Button>
+        ) : (
+            <Button
+              type="primary"
+              key="xuqi"
+              onClick={() => setStep(1)}
+            >
+              {defaultData.privilegeStatus === 0 ? '分发' : '续期'}
+            </Button>
+          ),
+      ]}
     />
   </>);
 };
 
 
-export default connect(({ base, loading }) => ({ tagList: base.tagList, otherGroupList: base.otherGroupList, loading: loading.effects['base/getPkgList'] }))(Custom);
+export default connect(({ base, loading }) => ({ pkgList: base.pkgList, tagList: base.tagList, otherGroupList: base.otherGroupList, loading: loading.effects['base/getPkgList'] }))(Custom);

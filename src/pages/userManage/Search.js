@@ -9,8 +9,8 @@ const Search = (props) => {
   const { form, otherGroupList = [], tagList = [] } = props;
 
   const changeTime = (time) => {
-    form.setFieldsValue({ 'createDtBeg': time ? moment(time[0]).format('YYYY-MM-DD') : null });
-    form.setFieldsValue({ 'createDtEnd': time ? moment(time[1]).format('YYYY-MM-DD') : null });
+    form.setFieldsValue({ 'createDtBeg': time.length ? moment(time[0]).format('YYYY-MM-DD') : null });
+    form.setFieldsValue({ 'createDtEnd': time.length ? moment(time[1]).format('YYYY-MM-DD') : null });
   };
   return (
     <Row gutter={16}>

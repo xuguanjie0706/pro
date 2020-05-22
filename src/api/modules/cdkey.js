@@ -12,9 +12,9 @@ import request from '../../utils/request';
  * @return {object} 接口对象
  */
 
-export const allocateUser = ({ params, data }) => {
+export const allocateUser = (data) => {
   return request.post({
-    url: 'cdkey/allocate_2_user', params, data,
+    url: 'cdkey/allocate_2_user', data,
   });
 };
 
@@ -91,9 +91,9 @@ export const pkgList = (data = {}) => {
  * @return {object} 接口对象
  */
 
-export const transferUsert = ({ params, data }) => {
+export const transferUsert = (data) => {
   return request.post({
-    url: 'cdkey/transfer_2_usert', params, data,
+    url: 'cdkey/transfer_2_usert', data,
   });
 };
 

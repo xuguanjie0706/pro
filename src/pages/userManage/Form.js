@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, Button } from 'antd';
-import CustomModalContainer from '@/components/CustomModalContainer/index';
+import CustomModalContainer from '@/components/CustomModalContainer';
+import TagSelect from '@/components/CustomApiFormItem/TagSelect';
 import AddForm from './AddForm';
 
+const { TextArea } = Input;
 const { Option } = Select;
 
 const CustomForm = (props) => {
-  const { defaultData = { list: [] }, setFieldsValue, groupList = [], actionType, dispatch } = props;
+  const { defaultData = {}, setFieldsValue, resetFields, otherGroupList = [], tagList = [], dispatch } = props;
+  // console.log(tagList, 1232);
 
   const [addChild, setAddChild] = useState(null);
   const modelRef = (ref) => {
@@ -15,15 +18,19 @@ const CustomForm = (props) => {
   console.log(defaultData);
 
   useEffect(() => {
-    const list = defaultData.list.map(item => actionType === 2 ? item.id : item.issuerId);
-    setFieldsValue({ [`${actionType === 2 ? 'idList' : 'issuerIdList'}`]: list });
-  }, [defaultData.list.length]);
+    if (defaultData.id) {
+      setFieldsValue(defaultData);
+    } else {
+      resetFields();
+    }
+  }, [defaultData.id]);
 
   const handleEdit = async () => {
     if (addChild) {
       addChild.handleShow();
     }
   };
+
   const request = (payload) => {
     return dispatch({
       type: 'base/addGroup',
@@ -33,25 +40,34 @@ const CustomForm = (props) => {
 
   return (
     <>
-      {actionType === 2 ?
-        <Form.Item
-          label="分组"
-        >
-          <Form.Item noStyle name="groupId" rules={[{ required: true, message: '请选择分组' }]}>
-            <Select allowClear style={{ width: 200 }}>
-              {
-                groupList.map(item => <Option key={item.id} value={item.id}>{item.name}</Option>)
-              }
-            </Select>
-          </Form.Item>
-          <Button onClick={handleEdit} style={{ marginLeft: 10 }}>添加分组</Button>
-        </Form.Item>
-        : '清退后代理人将不再拥有发卡权限，是否确认清退？'
-      }
       <Form.Item
-        noStyle
-        name={actionType === 2 ? 'idList' : 'issuerIdList'}
+        label="分组"
       >
+        <Form.Item noStyle name="groupId" >
+          <Select allowClear style={{ width: 200 }}>
+            {
+              otherGroupList.map(item => <Option key={item.id} value={item.id}>{item.name}</Option>)
+            }
+          </Select>
+        </Form.Item>
+        <Button onClick={handleEdit} style={{ marginLeft: 10 }}>添加分组</Button>
+      </Form.Item>
+
+
+      <Form.Item
+        label="标签"
+        name="tagIdList"
+      >
+        <TagSelect tagList={tagList} />
+      </Form.Item>
+      <Form.Item
+        label="备注"
+        name="remark"
+      >
+        <TextArea autoSize={{ minRows: 3, maxRows: 5 }} type="textarea" allowClear />
+      </Form.Item>
+      <Form.Item
+        name="id">
         <Input type="hidden" />
       </Form.Item>
       <AddForm

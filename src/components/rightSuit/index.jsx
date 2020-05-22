@@ -1,3 +1,11 @@
+/*
+ * @Author: xgj
+ * @since: 2020-05-18 18:57:45
+ * @lastTime: 2020-05-22 14:02:33
+ * @LastAuthor: xgj
+ * @FilePath: /mui-demo/src/components/rightSuit/index.jsx
+ * @message:  首页组件
+ */
 import React, { Component } from 'react';
 import { Table } from 'antd';
 

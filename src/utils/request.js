@@ -62,7 +62,7 @@ class $request {
     const r = await request(url, { params, headers, data, method });
     const { code, success, data: result, msg } = r;
     if (code === 200 && success) {
-      return result;
+      return result || true;
     }
     return notification.error({
       message: '请求失败',

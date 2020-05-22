@@ -25,10 +25,8 @@ const CustomSearchContainer = (
 
     const { formItemLayout } = props;
     const [form] = Form.useForm();
-    const [visible, setVisible] = useState(false);
-    const [loading, setLoading] = useState(false);
     const [child, setChild] = useState(null);
-    const [defaultData, setDefaultData] = useState({});
+    // const [defaultData, setDefaultData] = useState({});
 
     const onRef = (ref) => {
       setChild(ref);
@@ -55,7 +53,7 @@ const CustomSearchContainer = (
               onFinish={handleSubmit}
               {...formItemLayout}
             >
-              <SearchComponent defaultData={defaultData} form={form} {...props} />
+              <SearchComponent form={form} {...props} />
               {ButtonComponent && (
                 <ButtonComponent {...props} />
               )}

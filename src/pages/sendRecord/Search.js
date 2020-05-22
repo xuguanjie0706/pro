@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Input, Form, Row, Col, Select } from 'antd';
 import DateFilter from '@/components/CustomFormItem/DateFilter';
 import SearchSelect from '@/components/CustomApiFormItem/SearchSelect';
@@ -6,13 +6,13 @@ import moment from 'moment';
 
 const { Option } = Select;
 const Search = (props) => {
-  const { STATUS_LIST = [], pkgList, form } = props;
+  const { STATUS_LIST = [], pkgList, form, defaultSearchData } = props;
   const statusList = Object.entries(STATUS_LIST);
 
-
+  form.setFieldsValue(defaultSearchData);
   const changeTime = (time) => {
-    form.setFieldsValue({ 'startTime': time ? moment(time[0]).format('YYYY-MM-DD') : null });
-    form.setFieldsValue({ 'endTime': time ? moment(time[1]).format('YYYY-MM-DD') : null });
+    form.setFieldsValue({ 'startTime': time.length ? moment(time[0]).format('YYYY-MM-DD') : null });
+    form.setFieldsValue({ 'endTime': time.length ? moment(time[1]).format('YYYY-MM-DD') : null });
   };
   return (
     <Row gutter={16}>
@@ -87,6 +87,11 @@ const Search = (props) => {
       </Form.Item>
       <Form.Item
         name="endTime"
+      >
+        <Input type="hidden" />
+      </Form.Item>
+      <Form.Item
+        name="issuerId"
       >
         <Input type="hidden" />
       </Form.Item>

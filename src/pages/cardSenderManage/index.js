@@ -12,7 +12,7 @@ import DeleteForm from './DeleteForm';
 import GroupForm from './GroupForm';
 
 const Custom = (props) => {
-  const { pkgList, groupList, history, dispatch } = props;
+  const { pkgList, groupList, history, dispatch, defaultSearchData } = props;
 
   /* ******* 设置属性 *******  */
   const [modelChild, setModelChild] = useState(null); // 新增弹窗
@@ -204,6 +204,7 @@ const Custom = (props) => {
       onTableRef={tableRef}
       FooterComponent={FooterComponent}
       rowSelection={rowSelection}
+      defaultSearchData={defaultSearchData}
     />
     <ModalForm
       onRef={modelRef}
