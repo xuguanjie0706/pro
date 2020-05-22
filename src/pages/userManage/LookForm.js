@@ -14,14 +14,13 @@ const CustomForm = (props) => {
   const [amount, setAmout] = useState(0);
 
   const selectChange = (value) => {
-    console.log(value);
-    const it = pkg.find(item => item.pkgId === value);
+    const it = pkg.find((item) => item.pkgId === value);
     setAmout(it.amount);
   };
 
   useEffect(() => {
     if (defaultData.id) {
-      api.cdkey.pkgList({ chnerUserId: defaultData.id }).then(r => {
+      api.cdkey.pkgList({ chnerUserId: defaultData.id }).then((r) => {
         setPkg(r);
         defaultData.pkgId = r[0].pkgId;
         defaultData.chnerUserId = defaultData.id;
@@ -32,10 +31,8 @@ const CustomForm = (props) => {
     }
   }, [defaultData.id]);
 
-
   useEffect(() => {
-    if (pkg.length)
-      selectChange(pkg[0].pkgId);
+    if (pkg.length) selectChange(pkg[0].pkgId);
   }, [pkg.length]);
   return (
     <>
@@ -65,20 +62,17 @@ const CustomForm = (props) => {
       )}
       {step === 1 && (
         <div style={{ display: 'block', width: '100%' }}>
-          <Form.Item label="选择套餐" name="pkgId" >
+          <Form.Item label="选择套餐" name="pkgId">
             <Select allowClear style={{ width: 180 }} onChange={selectChange}>
-              {
-                pkgList.map(item => <Option value={item.pkgId} title={item.pkgName}
-                  key={item.pkgId}>{item.pkgName}</Option>)
-              }
+              {pkgList.map((item) => (
+                <Option value={item.pkgId} title={item.pkgName} key={item.pkgId}>
+                  {item.pkgName}
+                </Option>
+              ))}
             </Select>
           </Form.Item>
           <Form.Item label="备注" name="remark">
-            <Input.TextArea
-              style={{ width: 180 }}
-              maxLength={20}
-            // onChange={e => this.setState({ remark: e.target.value })}
-            />
+            <Input.TextArea style={{ width: 180 }} maxLength={20} />
           </Form.Item>
           <Form.Item noStyle name="issueType" initialValue="4">
             <Input type="hidden" />
@@ -90,7 +84,6 @@ const CustomForm = (props) => {
             <span style={{ color: '#F64444' }}>*</span>
             <span>向用户发送一次所选中套餐，剩余{amount}</span>
           </Form.Item>
-
         </div>
       )}
     </>

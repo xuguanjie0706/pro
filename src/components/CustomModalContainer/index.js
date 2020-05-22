@@ -7,7 +7,6 @@ import React, { Component } from 'react';
 import { Modal, Form } from 'antd';
 
 const CustomModalContainer = (WrappedComponent1) => {
-
   class Index extends Component {
     static defaultProps = {
       defaultData: {},
@@ -16,8 +15,8 @@ const CustomModalContainer = (WrappedComponent1) => {
         // wrapperCol: { span: 20 },
       },
       title: '数据新增',
-      width: 520
-    }
+      width: 520,
+    };
 
     constructor(props) {
       super(props);
@@ -26,30 +25,28 @@ const CustomModalContainer = (WrappedComponent1) => {
     state = {
       visible: false,
       loading: false,
-    }
+    };
 
     componentDidMount() {
       this.props.onRef(this);
     }
 
-
     handleShow = () => {
       this.setState({
-        visible: true
+        visible: true,
       });
-    }
+    };
 
     handleCancle = () => {
       this.setState({
         visible: false,
       });
-    }
-
+    };
 
     hangeClick = async () => {
       const { request, callback, isClearn = true } = this.props;
-      // const isTouch = await this.refs.ModalForm.isFieldTouched({ groupId });
-      // console.log(isTouch);
+      const isTouch = await this.refs.ModalForm.isFieldsTouched([], true);
+      console.log(isTouch);
 
       const values = await this.refs.ModalForm.validateFields();
       this.setState({
@@ -90,16 +87,15 @@ const CustomModalContainer = (WrappedComponent1) => {
       //     }
       //   }
       // });
-    }
-
+    };
 
     setFieldsValue = (defaultData) => {
       this.refs.ModalForm.setFieldsValue(defaultData);
-    }
+    };
 
     resetFields = () => {
       this.refs.ModalForm.resetFields();
-    }
+    };
 
     render() {
       const { visible, loading } = this.state;
@@ -109,7 +105,7 @@ const CustomModalContainer = (WrappedComponent1) => {
         handleCancle: this.handleCancle,
         handleShow: this.handleShow,
         setFieldsValue: this.setFieldsValue,
-        resetFields: this.resetFields
+        resetFields: this.resetFields,
       };
       return (
         <Modal
@@ -121,14 +117,13 @@ const CustomModalContainer = (WrappedComponent1) => {
           width={width}
           footer={footer}
         >
-          <Form name="ModalForm" ref="ModalForm" {...formItemLayout} >
+          <Form name="ModalForm" ref="ModalForm" {...formItemLayout}>
             <WrappedComponent1 {...this.props} {...newProps} />
           </Form>
         </Modal>
       );
     }
   }
-
 
   return Index;
 };

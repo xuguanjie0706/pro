@@ -1,5 +1,3 @@
-
-
 import request from '../../utils/request';
 
 /**
@@ -14,7 +12,8 @@ import request from '../../utils/request';
 
 export const batchGroupSave = (data) => {
   return request.post({
-    url: 'chner_issuer/batch_group_save', data,
+    url: 'chner_issuer/batch_group_save',
+    data,
   });
 };
 
@@ -30,7 +29,8 @@ export const batchGroupSave = (data) => {
 
 export const Create = (data) => {
   return request.post({
-    url: 'chner_issuer/create', data,
+    url: 'chner_issuer/create',
+    data,
   });
 };
 /**
@@ -45,7 +45,8 @@ export const Create = (data) => {
 
 export const Liquidate = (data) => {
   return request.post({
-    url: 'chner_issuer/liquidate', data,
+    url: 'chner_issuer/liquidate',
+    data,
   });
 };
 /**
@@ -60,7 +61,8 @@ export const Liquidate = (data) => {
 
 export const List = (data) => {
   return request.post({
-    url: 'chner_issuer/list', data,
+    url: 'chner_issuer/list',
+    data,
   });
 };
 
@@ -76,6 +78,7 @@ export const List = (data) => {
 
 export const Update = (data) => {
   return request.post({
-    url: 'chner_issuer/update', ...data,
+    url: 'chner_issuer/update',
+    data,
   });
 };
