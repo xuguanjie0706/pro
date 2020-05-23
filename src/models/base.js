@@ -6,7 +6,8 @@ const Model = {
     pkgList: [],
     groupList: [],
     groupOtherList: [],
-    tagList: []
+    tagList: [],
+    tagOtherList: [],
   },
   effects: {
     *getPkgList({ payload }, { select, call, put }) {
@@ -16,7 +17,7 @@ const Model = {
         yield put({
           type: 'changeBaseData',
           payload: response,
-          key: 'pkgList'
+          key: 'pkgList',
         });
       }
     },
@@ -27,7 +28,7 @@ const Model = {
         yield put({
           type: 'changeBaseData',
           payload: response,
-          key: payload.type === 1 ? 'groupList' : 'otherGroupList'
+          key: payload.type === 1 ? 'groupList' : 'otherGroupList',
         });
       }
     },
@@ -38,7 +39,7 @@ const Model = {
         yield put({
           type: 'changeBaseData',
           payload: response,
-          key: 'tagList'
+          key: payload.type === 2 ? 'tagList' : 'tagOtherList',
         });
       }
     },
@@ -48,25 +49,25 @@ const Model = {
       yield put({
         type: 'changeBaseData',
         payload: response,
-        key: payload.type === 1 ? 'groupList' : 'otherGroupList'
+        key: payload.type === 1 ? 'groupList' : 'otherGroupList',
       });
       return response;
     },
     *addTag({ payload }, { call, put }) {
-      yield call(api.group.Save, payload);
+      const d = yield call(api.tag.Save, payload);
       const response = yield call(api.tag.List, { type: payload.type });
       yield put({
         type: 'changeBaseData',
         payload: response,
-        key: 'tagList'
+        key: payload.type === 2 ? 'tagList' : 'tagOtherList',
       });
-      return response;
+      return d;
     },
   },
   reducers: {
     changeBaseData(state, { payload, key }) {
       return { ...state, [key]: payload };
-    }
+    },
   },
 };
 export default Model;

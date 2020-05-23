@@ -8,14 +8,19 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 const CustomForm = (props) => {
-  const { defaultData = {}, setFieldsValue, resetFields, otherGroupList = [], tagList = [], dispatch } = props;
-  // console.log(tagList, 1232);
-
+  const {
+    defaultData = {},
+    setFieldsValue,
+    resetFields,
+    otherGroupList = [],
+    tagList = [],
+    dispatch,
+  } = props;
   const [addChild, setAddChild] = useState(null);
   const modelRef = (ref) => {
     setAddChild(ref);
   };
-  console.log(defaultData);
+  // console.log(defaultData);
 
   useEffect(() => {
     if (defaultData.id) {
@@ -31,50 +36,43 @@ const CustomForm = (props) => {
     }
   };
 
-  const request = (payload) => {
+  const request = (name) => {
     return dispatch({
-      type: 'base/addGroup',
-      payload
+      type: 'base/addTag',
+      payload: {
+        name,
+        type: 2,
+      },
     });
   };
 
   return (
     <>
-      <Form.Item
-        label="分组"
-      >
-        <Form.Item noStyle name="groupId" >
+      <Form.Item label="分组">
+        <Form.Item noStyle name="groupId">
           <Select allowClear style={{ width: 200 }}>
-            {
-              otherGroupList.map(item => <Option key={item.id} value={item.id}>{item.name}</Option>)
-            }
+            {otherGroupList.map((item) => (
+              <Option key={item.id} value={item.id}>
+                {item.name}
+              </Option>
+            ))}
           </Select>
         </Form.Item>
-        <Button onClick={handleEdit} style={{ marginLeft: 10 }}>添加分组</Button>
+        <Button onClick={handleEdit} style={{ marginLeft: 10 }}>
+          添加分组
+        </Button>
       </Form.Item>
 
-
-      <Form.Item
-        label="标签"
-        name="tagIdList"
-      >
-        <TagSelect tagList={tagList} />
+      <Form.Item label="标签" name="tagIdList">
+        <TagSelect tagList={tagList} request={(name) => request(name)} />
       </Form.Item>
-      <Form.Item
-        label="备注"
-        name="remark"
-      >
+      <Form.Item label="备注" name="remark">
         <TextArea autoSize={{ minRows: 3, maxRows: 5 }} type="textarea" allowClear />
       </Form.Item>
-      <Form.Item
-        name="id">
+      <Form.Item name="id">
         <Input type="hidden" />
       </Form.Item>
-      <AddForm
-        onRef={modelRef}
-        title="添加分组"
-        request={request}
-      />
+      <AddForm onRef={modelRef} title="添加分组" request={request} />
     </>
   );
 };

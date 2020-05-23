@@ -30,11 +30,11 @@ export default defineConfig({
   theme: {
     // ...darkTheme,
     // '@primary-color': '#1464E8',
-    // '@item-hover-bg': '#F3F7FF',
+    '@item-hover-bg': '#F3F7FF',
     'primary-color': defaultSettings.primaryColor,
   },
   // @ts-ignore
-  title: "微医通后台管理",
+  title: '微医通后台管理',
   ignoreMomentLocale: true,
   proxy: proxy[REACT_APP_ENV || 'dev'],
   manifest: {

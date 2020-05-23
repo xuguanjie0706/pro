@@ -1,53 +1,36 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import CustomTable from '@/components/CustomTable';
 import CustomSearchContainer from '@/components/CustomSearchContainer';
 import CustomSearchBtnContainer from '@/components/CustomSearchBtnContainer';
-import { PageLoading } from '@ant-design/pro-layout';
-import { Button, Avatar } from 'antd';
+import { Avatar } from 'antd';
 import api from '@/api';
 import { STATUS_LIST } from '@/utils/enum';
 import { connect } from 'umi';
 import Search from './Search';
-import ModalForm from './Form';
+// import ModalForm from './Form';
 
 const Custom = (props) => {
   const { pkgList, dispatch, defaultSearchData } = props;
 
   /* ******* 设置属性 *******  */
-  const [modelChild, setModelChild] = useState(null); // 新增弹窗
-  const [tableChild, setTableChild] = useState(null); // 列表弹窗
-  const [defaultData, setDefaultData] = useState({ id: 0 }); // 新增编辑默认值
+  // const [modelChild, setModelChild] = useState(null); // 新增弹窗
+  // const [tableChild, setTableChild] = useState(null); // 列表弹窗
+  // const [defaultData, setDefaultData] = useState({ id: 0 }); // 新增编辑默认值
 
   /* ******* 设置属性 *******  */
-  console.log(tableChild);
 
   /* ******* 设置实例 *******  */
-  const modelRef = (ref) => {
-    setModelChild(ref);
-  };
+  // const modelRef = (ref) => {
+  //   setModelChild(ref);
+  // };
 
-  const tableRef = (ref) => {
-    setTableChild(ref);
-  };
+  // const tableRef = (ref) => {
+  //   setTableChild(ref);
+  // };
 
   /* ******* 设置实例 ******* */
 
   /* ******* 设置方法 ******* */
-  /* 新增弹窗 */
-  const handleEdit = async (item) => {
-    setDefaultData(item);
-    if (modelChild) {
-      modelChild.handleShow();
-    }
-  };
-
-  /* 删除弹窗 */
-  const showDelete = async (item) => {
-    setDefaultData(item);
-    if (deleteChild) {
-      deleteChild.handleShow();
-    }
-  };
 
   const filtername = (name) => {
     if (!name) {
@@ -56,12 +39,11 @@ const Custom = (props) => {
     return name.length > 5 ? `${name.slice(0, 5)}...` : name;
   };
 
-
   /* ******* 设置方法 ******* */
   /* 初始化 */
   const initLoad = async () => {
     dispatch({
-      type: 'base/getPkgList'
+      type: 'base/getPkgList',
     });
   };
   /* ******* 监听 ******* */
@@ -73,7 +55,10 @@ const Custom = (props) => {
   /* 新增按钮 */
   // const addBtn = useCallback(() => <Button style={{ marginBottom: 10 }} type="primary" onClick={() => handleEdit({ id: 0 })}>添加代理人</Button>, [modelChild]);
   /* 表单列表 */
-  const SearchTable = useCallback(CustomSearchContainer(CustomTable, Search, CustomSearchBtnContainer()), []);
+  const SearchTable = useCallback(
+    CustomSearchContainer(CustomTable, Search, CustomSearchBtnContainer()),
+    [],
+  );
   /* 底部按钮 */
   /* 自定义字段 */
   const columns = [
@@ -90,12 +75,7 @@ const Custom = (props) => {
       width: 160,
       render: (text, item) => (
         <div title={text}>
-          <Avatar
-            key={item.cardNo}
-            src={item.userAvatar}
-            size={24}
-            style={{ marginRight: 8 }}
-          />
+          <Avatar key={item.cardNo} src={item.userAvatar} size={24} style={{ marginRight: 8 }} />
           <span key={text}>{filtername(text)}</span>
         </div>
       ),
@@ -125,7 +105,7 @@ const Custom = (props) => {
       title: '状态',
       dataIndex: 'status',
       key: 'status',
-      render: (text) => <span >{STATUS_LIST[text]}</span>
+      render: (text) => <span>{STATUS_LIST[text]}</span>,
     },
     {
       title: '备注',
@@ -135,24 +115,29 @@ const Custom = (props) => {
     },
   ];
 
-  return (<>
-    <SearchTable
-      rowKey="id"
-      STATUS_LIST={STATUS_LIST}
-      request={api.issuer.cardIssueRecord}
-      loading columns={columns}
-      pkgList={pkgList}
-      onTableRef={tableRef}
-      defaultSearchData={defaultSearchData}
-    />
-    <ModalForm
+  return (
+    <>
+      <SearchTable
+        rowKey="id"
+        STATUS_LIST={STATUS_LIST}
+        request={api.issuer.cardIssueRecord}
+        loading
+        columns={columns}
+        pkgList={pkgList}
+        // onTableRef={tableRef}
+        defaultSearchData={defaultSearchData}
+      />
+      {/* <ModalForm
       onRef={modelRef}
       defaultData={defaultData}
       request={defaultData.id ? api.chnerIssuer.Update : api.chnerIssuer.Create}
       callback={tableChild && tableChild.initData}
-      pkgList={pkgList} />
-  </>);
+      pkgList={pkgList} /> */}
+    </>
+  );
 };
 
-
-export default connect(({ base, loading }) => ({ pkgList: base.pkgList, loading: loading.effects['base/getPkgList'] }))(Custom);
+export default connect(({ base, loading }) => ({
+  pkgList: base.pkgList,
+  loading: loading.effects['base/getPkgList'],
+}))(Custom);

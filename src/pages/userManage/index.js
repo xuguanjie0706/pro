@@ -19,7 +19,7 @@ const statusObj = {
 };
 const Custom = (props) => {
   const { tagList, dispatch, otherGroupList, pkgList } = props;
-  // console.log(tagList);
+  // console.log(tagList, 'table');
 
   /* ******* 设置属性 *******  */
   const [modelChild, setModelChild] = useState(null); // 新增弹窗
@@ -63,19 +63,19 @@ const Custom = (props) => {
     }
   };
 
-
   /* ******* 设置方法 ******* */
   /* 初始化 */
   const initLoad = async () => {
     dispatch({
-      type: 'base/getTagList'
+      type: 'base/getTagList',
+      payload: { type: 2 },
     });
     dispatch({
-      type: 'base/getPkgList'
+      type: 'base/getPkgList',
     });
     dispatch({
       type: 'base/getGroupList',
-      payload: { type: 2 }
+      payload: { type: 2 },
     });
   };
   /* ******* 监听 ******* */
@@ -87,7 +87,10 @@ const Custom = (props) => {
   /* 新增按钮 */
   // const addBtn = useCallback(() => <Button style={{ marginBottom: 10 }} type="primary" onClick={() => handleEdit({ id: 0 })}>添加代理人</Button>, [modelChild]);
   /* 表单列表 */
-  const SearchTable = useCallback(CustomSearchContainer(CustomTable, Search, CustomSearchBtnContainer()), []);
+  const SearchTable = useCallback(
+    CustomSearchContainer(CustomTable, Search, CustomSearchBtnContainer()),
+    [],
+  );
   /* 底部按钮 */
   /* 自定义字段 */
   const columns = [
@@ -97,12 +100,7 @@ const Custom = (props) => {
       width: 160,
       key: 'id',
       render: (text, item) => [
-        <Avatar
-          key={item.id}
-          size={24}
-          src={item.headImg}
-          style={{ marginRight: 8 }}
-        />,
+        <Avatar key={item.id} size={24} src={item.headImg} style={{ marginRight: 8 }} />,
         <span key={text}>{text || '-'}</span>,
       ],
     },
@@ -123,11 +121,11 @@ const Custom = (props) => {
       dataIndex: 'groupId',
       width: 120,
       key: 'groupId',
-      render: groupId => (
+      render: (groupId) => (
         <span>
           {groupId
-            ? otherGroupList.find(item => item.id === groupId)
-              ? otherGroupList.find(item => item.id === groupId).name
+            ? otherGroupList.find((item) => item.id === groupId)
+              ? otherGroupList.find((item) => item.id === groupId).name
               : '-'
             : '-'}
         </span>
@@ -137,21 +135,21 @@ const Custom = (props) => {
       title: '标签',
       dataIndex: 'tagIdList',
       key: 'tagIdList',
-      render: record => {
+      render: (record) => {
         if (!record) return <span />;
         // 最多只显示3个标签
         return (
           <div>
             {tagList.length > 0 &&
               record.slice(0, 3).map(
-                id =>
-                  !!tagList.find(item => item.id === id) && (
+                (id) =>
+                  !!tagList.find((item) => item.id === id) && (
                     <span
                       key={id}
                       style={{ display: 'inline-block' }}
                       className="padding4 margin4 bgcolor-input color-1 font-size-2"
                     >
-                      {tagList.find(item => item.id === id).name}
+                      {tagList.find((item) => item.id === id).name}
                     </span>
                   ),
               )}
@@ -164,16 +162,14 @@ const Custom = (props) => {
       dataIndex: 'remark',
       key: 'remark',
       ellipsis: true,
-      render: remark => (
-        <span style={{ wordBreak: 'break-word' }}>{remark || '-'}</span>
-      ),
+      render: (remark) => <span style={{ wordBreak: 'break-word' }}>{remark || '-'}</span>,
     },
     {
       title: '权益状态',
       dataIndex: 'privilegeStatus',
       key: 'privilegeStatus',
       width: 120,
-      render: status => <span>{statusObj[status]}</span>,
+      render: (status) => <span>{statusObj[status]}</span>,
     },
     {
       title: '操作',
@@ -192,63 +188,62 @@ const Custom = (props) => {
     },
   ];
 
-  return (<>
-    <SearchTable
-      rowKey="id"
-      STATUS_LIST={STATUS_LIST}
-      request={api.chnerUserInfo.List}
-      loading columns={columns}
-      otherGroupList={otherGroupList}
-      tagList={tagList}
-      onTableRef={tableRef}
-    />
-    <ModalForm
-      onRef={modelRef}
-      defaultData={defaultData}
-      request={api.chnerUserInfo.Update}
-      callback={tableChild && tableChild.initData}
-      otherGroupList={otherGroupList}
-      tagList={tagList}
-      dispatch={dispatch}
-      isClearn={false}
-    />
-    <LookForm
-      onRef={lookRef}
-      title="拥有权益"
-      defaultData={defaultData}
-      request={api.cdkey.allocateUser}
-      callback={tableChild && tableChild.initData}
-      otherGroupList={otherGroupList}
-      tagList={tagList}
-      dispatch={dispatch}
-      isClearn={false}
-      step={step}
-      pkgList={pkgList}
-      footer={[
-        <Button key="back" onClick={() => LookChild.handleCancle()}>
-          取消
-        </Button>,
-        step === 1 ? (
-          <Button
-            key="submit"
-            type="primary"
-            onClick={() => LookChild.hangeClick()}
-          >
-            {step === 1 ? '确认' : '续期'}
-          </Button>
-        ) : (
-            <Button
-              type="primary"
-              key="xuqi"
-              onClick={() => setStep(1)}
-            >
+  return (
+    <>
+      <SearchTable
+        rowKey="id"
+        STATUS_LIST={STATUS_LIST}
+        request={api.chnerUserInfo.List}
+        loading
+        columns={columns}
+        otherGroupList={otherGroupList}
+        tagList={tagList}
+        onTableRef={tableRef}
+      />
+      <ModalForm
+        onRef={modelRef}
+        defaultData={defaultData}
+        request={api.chnerUserInfo.Update}
+        callback={tableChild && tableChild.initData}
+        otherGroupList={otherGroupList}
+        tagList={tagList}
+        dispatch={dispatch}
+        isClearn={false}
+      />
+      <LookForm
+        onRef={lookRef}
+        title="拥有权益"
+        defaultData={defaultData}
+        request={api.cdkey.allocateUser}
+        callback={tableChild && tableChild.initData}
+        otherGroupList={otherGroupList}
+        tagList={tagList}
+        dispatch={dispatch}
+        isClearn={false}
+        step={step}
+        pkgList={pkgList}
+        footer={[
+          <Button key="back" onClick={() => LookChild.handleCancle()}>
+            取消
+          </Button>,
+          step === 1 ? (
+            <Button key="submit" type="primary" onClick={() => LookChild.hangeClick()}>
+              确认
+            </Button>
+          ) : (
+            <Button type="primary" key="xuqi" onClick={() => setStep(1)}>
               {defaultData.privilegeStatus === 0 ? '分发' : '续期'}
             </Button>
           ),
-      ]}
-    />
-  </>);
+        ]}
+      />
+    </>
+  );
 };
 
-
-export default connect(({ base, loading }) => ({ pkgList: base.pkgList, tagList: base.tagList, otherGroupList: base.otherGroupList, loading: loading.effects['base/getPkgList'] }))(Custom);
+export default connect(({ base, loading }) => ({
+  pkgList: base.pkgList,
+  tagList: base.tagList,
+  otherGroupList: base.otherGroupList,
+  loading: loading.effects['base/getPkgList'],
+}))(Custom);

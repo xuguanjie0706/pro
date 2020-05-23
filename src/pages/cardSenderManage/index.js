@@ -26,7 +26,6 @@ const Custom = (props) => {
   const [actionType, setActionType] = useState(1); // 批量操作类型
 
   /* ******* 设置属性 *******  */
-  console.log(tableChild);
 
   /* ******* 设置实例 *******  */
   const modelRef = (ref) => {
@@ -70,16 +69,15 @@ const Custom = (props) => {
     }
   };
 
-
   /* ******* 设置方法 ******* */
   /* 初始化 */
   const initLoad = async () => {
     dispatch({
       type: 'base/getGroupList',
-      payload: { type: 1 }
+      payload: { type: 1 },
     });
     dispatch({
-      type: 'base/getPkgList'
+      type: 'base/getPkgList',
     });
   };
   /* ******* 监听 ******* */
@@ -93,14 +91,35 @@ const Custom = (props) => {
   /* ******* 监听 ******* */
 
   /* 新增按钮 */
-  const addBtn = useCallback(() => <Button style={{ marginBottom: 10 }} type="primary" onClick={() => handleEdit({ id: 0 })}>添加代理人</Button>, [modelChild]);
+  const addBtn = useCallback(
+    () => (
+      <Button style={{ marginBottom: 10 }} type="primary" onClick={() => handleEdit({ id: 0 })}>
+        添加代理人
+      </Button>
+    ),
+    [modelChild],
+  );
   /* 表单列表 */
-  const SearchTable = useCallback(CustomSearchContainer(CustomTable, Search, CustomSearchBtnContainer(), addBtn), [addBtn]);
+  const SearchTable = useCallback(
+    CustomSearchContainer(CustomTable, Search, CustomSearchBtnContainer(), addBtn),
+    [addBtn],
+  );
   /* 底部按钮 */
-  const FooterComponent = (<div>
-    <Button type="primary" disabled={!selectedKey.length} onClick={() => handleAllGroup(1)} style={{ marginRight: 10 }}>批量清退</Button>
-    <Button type="primary" disabled={!selectedKey.length} onClick={() => handleAllGroup(2)}>批量分组</Button>
-  </div>);
+  const FooterComponent = (
+    <div>
+      <Button
+        type="primary"
+        disabled={!selectedKey.length}
+        onClick={() => handleAllGroup(1)}
+        style={{ marginRight: 10 }}
+      >
+        批量清退
+      </Button>
+      <Button type="primary" disabled={!selectedKey.length} onClick={() => handleAllGroup(2)}>
+        批量分组
+      </Button>
+    </div>
+  );
   /* 自定义字段 */
   const columns = [
     {
@@ -128,11 +147,11 @@ const Custom = (props) => {
       title: '分组',
       dataIndex: 'groupId',
       key: 'groupId',
-      render: groupId => (
+      render: (groupId) => (
         <span>
           {groupId
-            ? groupList.find(item => item.id === groupId)
-              ? groupList.find(item => item.id === groupId).name
+            ? groupList.find((item) => item.id === groupId)
+              ? groupList.find((item) => item.id === groupId).name
               : '-'
             : '-'}
         </span>
@@ -163,18 +182,14 @@ const Custom = (props) => {
             }
           >
             详情
-              </Button>
-          <Button type="link"
-            onClick={() => handleEdit(item)}
-          >
+          </Button>
+          <Button type="link" onClick={() => handleEdit(item)}>
             编辑
-              </Button>
-          {item.cleared ? '' : (
-            <Button
-              type="link"
-              style={{ color: '#666666' }}
-              onClick={() => showDelete(item)}
-            >
+          </Button>
+          {item.cleared ? (
+            ''
+          ) : (
+            <Button type="link" style={{ color: '#666666' }} onClick={() => showDelete(item)}>
               清退
             </Button>
           )}
@@ -189,48 +204,57 @@ const Custom = (props) => {
       setSelectedKey(selectedRowKeys);
       setSelectedRowsData(selectedRows);
     },
-    selectedRowKeys: selectedKey
+    selectedRowKeys: selectedKey,
   };
 
-
-  return (<>
-    <SearchTable
-      rowKey="id"
-      STATUS_LIST={STATUS_LIST}
-      request={api.chnerIssuer.List}
-      loading columns={columns}
-      pkgList={pkgList}
-      groupList={groupList}
-      onTableRef={tableRef}
-      FooterComponent={FooterComponent}
-      rowSelection={rowSelection}
-      defaultSearchData={defaultSearchData}
-    />
-    <ModalForm
-      onRef={modelRef}
-      defaultData={defaultData}
-      request={defaultData.id ? api.chnerIssuer.Update : api.chnerIssuer.Create}
-      callback={tableChild && tableChild.initData}
-      pkgList={pkgList} />
-    <DeleteForm
-      onRef={deleteRef}
-      defaultData={defaultData}
-      title="清退"
-      callback={tableChild && tableChild.initData}
-      request={api.chnerIssuer.Liquidate}
-    />
-    <GroupForm
-      onRef={groupRef}
-      dispatch={dispatch}
-      groupList={groupList}
-      defaultData={defaultGroupData}
-      callback={() => { tableChild && tableChild.initData(); setSelectedKey([]); }}
-      title={actionType === 1 ? '清退' : '分组'}
-      actionType={actionType}
-      request={actionType === 1 ? api.chnerIssuer.Liquidate : api.chnerIssuer.batchGroupSave}
-    />
-  </>);
+  return (
+    <>
+      <SearchTable
+        rowKey="id"
+        STATUS_LIST={STATUS_LIST}
+        request={api.chnerIssuer.List}
+        loading
+        columns={columns}
+        pkgList={pkgList}
+        groupList={groupList}
+        onTableRef={tableRef}
+        FooterComponent={FooterComponent}
+        rowSelection={rowSelection}
+        defaultSearchData={defaultSearchData}
+      />
+      <ModalForm
+        onRef={modelRef}
+        defaultData={defaultData}
+        request={defaultData.id ? api.chnerIssuer.Update : api.chnerIssuer.Create}
+        callback={tableChild && tableChild.initData}
+        pkgList={pkgList}
+      />
+      <DeleteForm
+        onRef={deleteRef}
+        defaultData={defaultData}
+        title="清退"
+        callback={tableChild && tableChild.initData}
+        request={api.chnerIssuer.Liquidate}
+      />
+      <GroupForm
+        onRef={groupRef}
+        dispatch={dispatch}
+        groupList={groupList}
+        defaultData={defaultGroupData}
+        callback={() => {
+          tableChild && tableChild.initData();
+          setSelectedKey([]);
+        }}
+        title={actionType === 1 ? '清退' : '分组'}
+        actionType={actionType}
+        request={actionType === 1 ? api.chnerIssuer.Liquidate : api.chnerIssuer.batchGroupSave}
+      />
+    </>
+  );
 };
 
-
-export default connect(({ base, loading }) => ({ pkgList: base.pkgList, groupList: base.groupList, loading: loading.effects['base/getPkgList'] }))(Custom);
+export default connect(({ base, loading }) => ({
+  pkgList: base.pkgList,
+  groupList: base.groupList,
+  loading: loading.effects['base/getPkgList'],
+}))(Custom);
