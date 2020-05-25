@@ -6,10 +6,14 @@ import more from '@/assets/img/avatar/btn_more.png';
 import styles from './index.less';
 
 const LoginUserHeader = (props = {}) => {
-  const { tag, name, createAt = '19994' } = props;
+  const { user, dispatch } = props;
+  const { name, createAt, channelTag: tag } = user;
+  // console.log(options, history);
 
   const logOut = () => {
-
+    dispatch({
+      type: 'login/loginOut'
+    });
   };
 
   return (
@@ -20,7 +24,7 @@ const LoginUserHeader = (props = {}) => {
           <div style={{ paddingTop: 8 }}>
             <div className={styles.channelTag}>{tag}</div>
             <div className={styles.time}>
-              创建日期：{createAt.substring(0, 10)}
+              创建日期： {createAt && createAt.substring(0, 10)}
             </div>
           </div>
         }
@@ -46,4 +50,4 @@ const LoginUserHeader = (props = {}) => {
   );
 };
 
-export default connect(({ user }) => ({ user }))(LoginUserHeader);
+export default connect(({ login }) => ({ user: login.info }))(LoginUserHeader);

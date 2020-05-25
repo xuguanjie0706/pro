@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-18 18:57:45
- * @lastTime: 2020-05-25 12:14:58
+ * @lastTime: 2020-05-25 16:16:34
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/components/rightSuit/index.jsx
  * @message:  首页组件
@@ -25,7 +25,7 @@ export default class NewList extends Component {
       {
         title: '权益套餐',
         dataIndex: 'pkgName',
-        key: 'pkgName',
+        key: 'pkgNam',
         render: (val, row) => {
           const obj = {
             children: val,
@@ -75,7 +75,7 @@ export default class NewList extends Component {
       {
         title: '数量',
         dataIndex: 'stock',
-        key: 'num',
+        key: 'num1',
         render: (text, row) => {
           const obj = {
             children: (
@@ -141,7 +141,7 @@ export default class NewList extends Component {
             style={{ borderRadius: '8px' }}
             columns={this.state.suitColumns}
             dataSource={this.state.suitData}
-            rowKey="id"
+            rowKey="pkgName"
             bordered
             pagination={false}
           />

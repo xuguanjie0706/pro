@@ -16,7 +16,7 @@ export default [
       {
         path: '/',
         component: '../layouts/BasicLayout',
-        authority: ['admin', 'user'],
+        // authority: ['admin', 'user'],
         routes: [
           {
             path: '/',
@@ -42,7 +42,7 @@ export default [
             path: '/agent',
             name: '代理',
             icon: "SolutionOutlined",
-
+            authority: ["1", '2'],
             routes: [
               {
                 name: '代理商',
@@ -50,7 +50,7 @@ export default [
                 icon: "",
                 component: '@/pages/agentPeople/index',
                 __isDynamic: true,
-                // authority: ['admin', 'user'],
+
               },
               {
                 name: '推广',

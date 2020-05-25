@@ -52,11 +52,12 @@ const BasicLayout = (props) => {
    */
 
   useEffect(() => {
-    // if (dispatch) {
-    //   dispatch({
-    //     type: 'user/fetchCurrent',
-    //   });
-    // }
+    // console.log(props.isLogin);
+    if (!props.isLogin) {
+      dispatch({
+        type: 'login/userInfo',
+      });
+    }
   }, []);
   /**
    * init variables
@@ -74,8 +75,9 @@ const BasicLayout = (props) => {
   const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
     authority: undefined,
   };
+
   const { formatMessage } = useIntl();
-  console.log(props.login);
+  // console.log(props.login);
 
   return (
     <ProLayout
@@ -119,6 +121,7 @@ const BasicLayout = (props) => {
       {...settings}
     >
       <Authorized authority={authorized.authority} noMatch={noMatch}>
+        {/* <Authorized authority={'user'} noMatch={noMatch}> */}
         {children}
       </Authorized>
     </ProLayout>
@@ -128,5 +131,6 @@ const BasicLayout = (props) => {
 export default connect(({ global, login, settings }) => ({
   collapsed: global.collapsed,
   login: login.info,
+  isLogin: login.status,
   settings,
 }))(BasicLayout);
