@@ -1,0 +1,30 @@
+.dis-cell-list {
+  // display: table;
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 127px;
+  overflow: auto;
+  padding-bottom: 1px;
+  // border-collapse: collapse;
+}
+.dis-cell-item {
+  box-sizing: border-box;
+  width: 126px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  padding: 0 12px;
+  border: 1px solid rgba(238, 238, 238, 1);
+  margin-right: -1px;
+  margin-bottom: -1px;
+  // text-align: center;
+}
+.dis-cell {
+  display: flex;
+}
+.dis-cell-left {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background: rgba(244, 244, 244, 1);
+}

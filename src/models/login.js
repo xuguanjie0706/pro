@@ -9,7 +9,9 @@ const Model = {
   namespace: 'login',
   state: {
     status: undefined,
-    info: {}
+    info: {
+      role: 1
+    }
   },
   effects: {
     *login({ payload }, { call, put }) {

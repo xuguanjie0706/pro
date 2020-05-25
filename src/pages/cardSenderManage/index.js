@@ -1,3 +1,11 @@
+/*
+ * @Author: xgj
+ * @since: 2020-05-23 09:05:37
+ * @lastTime: 2020-05-23 10:41:45
+ * @LastAuthor: xgj
+ * @FilePath: /mui-demo/src/pages/cardSenderManage/index.js
+ * @message:代理人
+ */
 import React, { useState, useEffect, useCallback } from 'react';
 import CustomTable from '@/components/CustomTable';
 import CustomSearchContainer from '@/components/CustomSearchContainer';
@@ -189,10 +197,10 @@ const Custom = (props) => {
           {item.cleared ? (
             ''
           ) : (
-            <Button type="link" style={{ color: '#666666' }} onClick={() => showDelete(item)}>
-              清退
-            </Button>
-          )}
+              <Button type="link" style={{ color: '#666666' }} onClick={() => showDelete(item)}>
+                清退
+              </Button>
+            )}
         </span>
       ),
     },

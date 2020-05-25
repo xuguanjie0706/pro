@@ -9,6 +9,11 @@ export default [
         __isDynamic: true,
       },
       {
+        path: '/applyingAgency',
+        component: '@/outPages/ApplyingAgency/index',
+        __isDynamic: true,
+      },
+      {
         path: '/',
         component: '../layouts/BasicLayout',
         authority: ['admin', 'user'],
@@ -21,6 +26,7 @@ export default [
             path: '/dashboard',
             name: '概览',
             icon: "AppstoreOutlined",
+
             routes: [
               {
                 name: '数据概览',
@@ -33,17 +39,53 @@ export default [
             ],
           },
           {
+            path: '/agent',
+            name: '代理',
+            icon: "SolutionOutlined",
+
+            routes: [
+              {
+                name: '代理商',
+                path: 'agentPeople',
+                icon: "",
+                component: '@/pages/agentPeople/index',
+                __isDynamic: true,
+                // authority: ['admin', 'user'],
+              },
+              {
+                name: '推广',
+                path: 'extension',
+                icon: "",
+                component: '@/pages/extensionView/index',
+                __isDynamic: true,
+              },
+              {
+                name: '权益划转',
+                path: 'transferEquity',
+                icon: "",
+                component: '@/pages/TransferEquity/index',
+                __isDynamic: true,
+              },
+            ],
+          },
+          {
             path: 'rights',
             icon: 'CreditCardOutlined',
             name: '权益',
             routes: [
+              {
+                name: '批量分发',
+                path: 'distribute',
+                icon: "",
+                component: '@/pages/distributeView/index',
+                __isDynamic: true,
+              },
               {
                 name: '分发记录',
                 path: 'sendRecord',
                 icon: "",
                 component: '@/pages/sendRecord/index',
                 __isDynamic: true,
-
               },
               {
                 name: '代理人',
@@ -135,12 +177,13 @@ export default [
 
         ],
       },
-
       {
         component: './404',
       },
+
     ],
   },
+
   {
     component: './404',
   },

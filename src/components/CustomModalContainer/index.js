@@ -23,7 +23,7 @@ const CustomModalContainer = (WrappedComponent1) => {
     }
 
     state = {
-      visible: false,
+      visible: this.props.visible || false,
       loading: false,
     };
 
@@ -45,8 +45,8 @@ const CustomModalContainer = (WrappedComponent1) => {
 
     hangeClick = async () => {
       const { request, callback, isClearn = true } = this.props;
-      const isTouch = await this.refs.ModalForm.isFieldsTouched([], true);
-      console.log(isTouch);
+      // const isTouch = await this.refs.ModalForm.isFieldsTouched([], true);
+      // console.log(isTouch);
 
       const values = await this.refs.ModalForm.validateFields();
       this.setState({
@@ -118,6 +118,7 @@ const CustomModalContainer = (WrappedComponent1) => {
           footer={footer}
         >
           <Form name="ModalForm" ref="ModalForm" {...formItemLayout}>
+            {this.props.children}
             <WrappedComponent1 {...this.props} {...newProps} />
           </Form>
         </Modal>

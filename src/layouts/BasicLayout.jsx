@@ -6,7 +6,6 @@
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import React, { useEffect } from 'react';
 import { Link, useIntl, connect } from 'umi';
-import { GithubOutlined } from '@ant-design/icons';
 import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
@@ -76,6 +75,8 @@ const BasicLayout = (props) => {
     authority: undefined,
   };
   const { formatMessage } = useIntl();
+  console.log(props.login);
+
   return (
     <ProLayout
       style={{ height: '100%' }}
@@ -124,7 +125,8 @@ const BasicLayout = (props) => {
   );
 };
 
-export default connect(({ global, settings }) => ({
+export default connect(({ global, login, settings }) => ({
   collapsed: global.collapsed,
+  login: login.info,
   settings,
 }))(BasicLayout);

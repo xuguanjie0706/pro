@@ -1,10 +1,10 @@
 /*
  * @Author: xgj
- * @since: 2020-05-23 09:05:37
- * @lastTime: 2020-05-23 10:41:20
+ * @since: 2020-05-23 09:11:54
+ * @lastTime: 2020-05-23 10:43:22
  * @LastAuthor: xgj
- * @FilePath: /mui-demo/src/pages/sendRecord/index.js
- * @message:分发记录
+ * @FilePath: /mui-demo/src/pages/agentPeople/index.js
+ * @message:代理商
  */
 import React, { useEffect, useCallback } from 'react';
 import CustomTable from '@/components/CustomTable';
@@ -71,16 +71,14 @@ const Custom = (props) => {
   /* 自定义字段 */
   const columns = [
     {
-      title: '卡号',
+      title: '代理商名称',
       dataIndex: 'cardNo',
-      width: 110,
       key: 'cardNo',
     },
     {
-      title: '用户',
+      title: '联系电话',
       dataIndex: 'nickName',
       key: 'nickName',
-      width: 160,
       render: (text, item) => (
         <div title={text}>
           <Avatar key={item.cardNo} src={item.userAvatar} size={24} style={{ marginRight: 8 }} />
@@ -89,23 +87,22 @@ const Custom = (props) => {
       ),
     },
     {
-      title: '发卡时间',
+      title: '添加日期',
       dataIndex: 'issueTime',
       key: 'issueTime',
     },
     {
-      title: '领取手机号',
+      title: '类型',
       dataIndex: 'userMobile',
-      width: 140,
       key: 'userMobile',
     },
     {
-      title: '套餐名称',
+      title: '代理信息',
       dataIndex: 'pkgName',
       key: 'pkgName',
     },
     {
-      title: '代理人',
+      title: '权益套餐',
       dataIndex: 'issuerName',
       key: 'issuerName',
     },
@@ -116,7 +113,7 @@ const Custom = (props) => {
       render: (text) => <span>{STATUS_LIST[text]}</span>,
     },
     {
-      title: '备注',
+      title: '下级代理商数',
       ellipsis: true,
       dataIndex: 'remark',
       key: 'remark',

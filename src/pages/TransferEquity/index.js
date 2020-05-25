@@ -1,50 +1,50 @@
 /*
  * @Author: xgj
- * @since: 2020-05-23 09:05:37
- * @lastTime: 2020-05-23 10:41:20
+ * @since: 2020-05-23 10:40:31
+ * @lastTime: 2020-05-23 11:12:41
  * @LastAuthor: xgj
- * @FilePath: /mui-demo/src/pages/sendRecord/index.js
- * @message:分发记录
+ * @FilePath: /mui-demo/src/pages/TransferEquity/index.js
+ * @message:权益划转
  */
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import CustomTable from '@/components/CustomTable';
 import CustomSearchContainer from '@/components/CustomSearchContainer';
 import CustomSearchBtnContainer from '@/components/CustomSearchBtnContainer';
-import { Avatar } from 'antd';
+import { Button } from 'antd';
 import api from '@/api';
 import { STATUS_LIST } from '@/utils/enum';
 import { connect } from 'umi';
 import Search from './Search';
-// import ModalForm from './Form';
+import ModalForm from './Form';
 
 const Custom = (props) => {
   const { pkgList, dispatch, defaultSearchData } = props;
 
   /* ******* 设置属性 *******  */
-  // const [modelChild, setModelChild] = useState(null); // 新增弹窗
-  // const [tableChild, setTableChild] = useState(null); // 列表弹窗
-  // const [defaultData, setDefaultData] = useState({ id: 0 }); // 新增编辑默认值
+  const [modelChild, setModelChild] = useState(null); // 新增弹窗
+  const [tableChild, setTableChild] = useState(null); // 列表弹窗
+  const [defaultData, setDefaultData] = useState({ id: 0 }); // 新增编辑默认值
 
   /* ******* 设置属性 *******  */
 
   /* ******* 设置实例 *******  */
-  // const modelRef = (ref) => {
-  //   setModelChild(ref);
-  // };
+  const modelRef = (ref) => {
+    setModelChild(ref);
+  };
 
-  // const tableRef = (ref) => {
-  //   setTableChild(ref);
-  // };
+  const tableRef = (ref) => {
+    setTableChild(ref);
+  };
 
   /* ******* 设置实例 ******* */
 
   /* ******* 设置方法 ******* */
-
-  const filtername = (name) => {
-    if (!name) {
-      return '-';
+  /* 新增弹窗 */
+  const handleEdit = async (item) => {
+    setDefaultData(item);
+    if (modelChild) {
+      modelChild.handleShow();
     }
-    return name.length > 5 ? `${name.slice(0, 5)}...` : name;
   };
 
   /* ******* 设置方法 ******* */
@@ -61,51 +61,51 @@ const Custom = (props) => {
   /* ******* 监听 ******* */
 
   /* 新增按钮 */
-  // const addBtn = useCallback(() => <Button style={{ marginBottom: 10 }} type="primary" onClick={() => handleEdit({ id: 0 })}>添加代理人</Button>, [modelChild]);
+  const addBtn = useCallback(
+    () => (
+      <Button style={{ marginBottom: 10 }} type="primary" onClick={() => handleEdit({ id: 0 })}>
+        权益划转
+      </Button>
+    ),
+    [modelChild],
+  );
   /* 表单列表 */
   const SearchTable = useCallback(
-    CustomSearchContainer(CustomTable, Search, CustomSearchBtnContainer()),
-    [],
+    CustomSearchContainer(CustomTable, Search, CustomSearchBtnContainer(), addBtn),
+    [addBtn],
   );
   /* 底部按钮 */
   /* 自定义字段 */
   const columns = [
     {
-      title: '卡号',
+      title: '代理商名称',
       dataIndex: 'cardNo',
       width: 110,
       key: 'cardNo',
     },
     {
-      title: '用户',
+      title: '联系电话',
       dataIndex: 'nickName',
       key: 'nickName',
-      width: 160,
-      render: (text, item) => (
-        <div title={text}>
-          <Avatar key={item.cardNo} src={item.userAvatar} size={24} style={{ marginRight: 8 }} />
-          <span key={text}>{filtername(text)}</span>
-        </div>
-      ),
     },
     {
-      title: '发卡时间',
+      title: '权益套餐',
       dataIndex: 'issueTime',
       key: 'issueTime',
     },
     {
-      title: '领取手机号',
+      title: '代理信息',
       dataIndex: 'userMobile',
       width: 140,
       key: 'userMobile',
     },
     {
-      title: '套餐名称',
+      title: '划转时间',
       dataIndex: 'pkgName',
       key: 'pkgName',
     },
     {
-      title: '代理人',
+      title: '数量',
       dataIndex: 'issuerName',
       key: 'issuerName',
     },
@@ -132,15 +132,16 @@ const Custom = (props) => {
         loading
         columns={columns}
         pkgList={pkgList}
-        // onTableRef={tableRef}
+        onTableRef={tableRef}
         defaultSearchData={defaultSearchData}
       />
-      {/* <ModalForm
-      onRef={modelRef}
-      defaultData={defaultData}
-      request={defaultData.id ? api.chnerIssuer.Update : api.chnerIssuer.Create}
-      callback={tableChild && tableChild.initData}
-      pkgList={pkgList} /> */}
+      <ModalForm
+        onRef={modelRef}
+        visible
+        defaultData={defaultData}
+        request={defaultData.id ? api.chnerIssuer.Update : api.chnerIssuer.Create}
+        callback={tableChild && tableChild.initData}
+        pkgList={pkgList} />
     </>
   );
 };

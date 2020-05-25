@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-18 18:57:45
- * @lastTime: 2020-05-22 14:02:33
+ * @lastTime: 2020-05-25 12:14:58
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/components/rightSuit/index.jsx
  * @message:  首页组件
@@ -44,12 +44,12 @@ export default class NewList extends Component {
       {
         title: '所含权益',
         dataIndex: 'prdName',
-        key: 'id',
+        key: 'prdName',
       },
       {
         title: '权益说明',
         dataIndex: 'prdDesc',
-        key: 'id',
+        key: 'prdDesc',
       },
     ],
   };
@@ -65,17 +65,17 @@ export default class NewList extends Component {
       {
         title: '有效期/天',
         dataIndex: 'validDays',
-        key: 'id',
+        key: 'validDays',
       },
       {
         title: '次数',
         dataIndex: 'times',
-        key: 'id',
+        key: 'times',
       },
       {
         title: '数量',
         dataIndex: 'stock',
-        key: 'id',
+        key: 'num',
         render: (text, row) => {
           const obj = {
             children: (

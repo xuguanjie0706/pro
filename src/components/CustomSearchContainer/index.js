@@ -40,10 +40,10 @@ const CustomSearchContainer = (
 
     return (
       <>
-        {SearchComponent && (
+        {AddComponent && <AddComponent />}
+        {TableComponent && (
           <Card size="small" style={{ marginBottom: 12 }}>
-            {AddComponent && <AddComponent />}
-            <Form
+            {SearchComponent && (<Form
               style={{
                 'backgroundColor': 'rgb(244, 244, 244)',
                 'padding': '16px 16px 8px',
@@ -57,10 +57,10 @@ const CustomSearchContainer = (
               {ButtonComponent && (
                 <ButtonComponent {...props} />
               )}
-            </Form>
-            {TableComponent && (
-              <TableComponent onFatherRef={onRef} {...props} />
-            )}
+            </Form>)}
+
+            <TableComponent onFatherRef={onRef} {...props} />
+
           </Card>
         )}
 

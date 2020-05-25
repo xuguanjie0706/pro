@@ -1,3 +1,11 @@
+/*
+ * @Author: xgj
+ * @since: 2020-05-19 10:50:01
+ * @lastTime: 2020-05-23 10:42:59
+ * @LastAuthor: xgj
+ * @FilePath: /mui-demo/src/pages/cardSenderDetail/index.jsx
+ * @message:代理人详情
+ */
 import React from 'react';
 import { history } from 'umi';
 import { TitleCard } from '@/components';

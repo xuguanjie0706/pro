@@ -29,6 +29,8 @@ export const getPageQuery = () => parse(window.location.href.split('?')[1]);
  */
 
 export const getAuthorityFromRouter = (router = [], pathname) => {
+  console.log(router, pathname);
+
   const authority = router.find(
     ({ routes, path = '/' }) =>
       (path && pathRegexp(path).exec(pathname)) ||
@@ -45,6 +47,7 @@ export const getRouteAuthority = (path, routeData) => {
       if (route.authority) {
         authorities = route.authority;
       } // exact match
+      console.log(route.authority);
 
       if (route.path === path) {
         authorities = route.authority || authorities;
