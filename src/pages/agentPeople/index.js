@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:11:54
- * @lastTime: 2020-05-23 10:43:22
+ * @lastTime: 2020-05-26 11:03:31
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/agentPeople/index.js
  * @message:代理商
@@ -10,7 +10,6 @@ import React, { useEffect, useCallback } from 'react';
 import CustomTable from '@/components/CustomTable';
 import CustomSearchContainer from '@/components/CustomSearchContainer';
 import CustomSearchBtnContainer from '@/components/CustomSearchBtnContainer';
-import { Avatar } from 'antd';
 import api from '@/api';
 import { STATUS_LIST } from '@/utils/enum';
 import { connect } from 'umi';
@@ -40,12 +39,6 @@ const Custom = (props) => {
 
   /* ******* 设置方法 ******* */
 
-  const filtername = (name) => {
-    if (!name) {
-      return '-';
-    }
-    return name.length > 5 ? `${name.slice(0, 5)}...` : name;
-  };
 
   /* ******* 设置方法 ******* */
   /* 初始化 */
@@ -72,39 +65,34 @@ const Custom = (props) => {
   const columns = [
     {
       title: '代理商名称',
-      dataIndex: 'cardNo',
-      key: 'cardNo',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: '联系电话',
-      dataIndex: 'nickName',
-      key: 'nickName',
-      render: (text, item) => (
-        <div title={text}>
-          <Avatar key={item.cardNo} src={item.userAvatar} size={24} style={{ marginRight: 8 }} />
-          <span key={text}>{filtername(text)}</span>
-        </div>
-      ),
+      dataIndex: 'contact',
+      key: 'contact',
     },
     {
       title: '添加日期',
-      dataIndex: 'issueTime',
-      key: 'issueTime',
+      dataIndex: 'createAt',
+      key: 'createAt',
     },
     {
       title: '类型',
-      dataIndex: 'userMobile',
-      key: 'userMobile',
+      dataIndex: 'agentType',
+      key: 'agentType',
     },
     {
       title: '代理信息',
-      dataIndex: 'pkgName',
-      key: 'pkgName',
+      dataIndex: 'agentAreaList',
+      key: 'agentAreaList',
+      render: (text => text.map(item => <span>{item.agentArea}{item.agentLevel}</span>))
     },
     {
       title: '权益套餐',
-      dataIndex: 'issuerName',
-      key: 'issuerName',
+      dataIndex: 'pkgList',
+      key: 'pkgList',
     },
     {
       title: '状态',
@@ -114,9 +102,8 @@ const Custom = (props) => {
     },
     {
       title: '下级代理商数',
-      ellipsis: true,
-      dataIndex: 'remark',
-      key: 'remark',
+      dataIndex: 'childAgentAmount',
+      key: 'childAgentAmount',
     },
   ];
 
@@ -125,7 +112,7 @@ const Custom = (props) => {
       <SearchTable
         rowKey="id"
         STATUS_LIST={STATUS_LIST}
-        request={api.issuer.cardIssueRecord}
+        request={api.agent.list}
         loading
         columns={columns}
         pkgList={pkgList}

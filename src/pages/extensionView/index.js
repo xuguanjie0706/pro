@@ -1,19 +1,19 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:27:06
- * @lastTime: 2020-05-25 11:32:36
+ * @lastTime: 2020-05-26 17:31:21
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/extensionView/index.js
  * @message:推广
  */
 import React, { useEffect, useCallback, useState } from 'react';
-import CustomTable from '@/components/CustomTable';
+// import CustomTable from '@/components/CustomTable';
 import CustomTabsTable from '@/components/CustomTabsTable';
 import CustomSearchContainer from '@/components/CustomSearchContainer';
 import CustomSearchBtnContainer from '@/components/CustomSearchBtnContainer';
 import { Button } from 'antd';
 import api from '@/api';
-import { STATUS_LIST } from '@/utils/enum';
+import { LEVEL_LIST } from '@/utils/enum';
 import { connect } from 'umi';
 import Search from './Search';
 import ModalForm from './Form';
@@ -86,42 +86,43 @@ const Custom = (props) => {
   const columns = [
     {
       title: '代理商名称',
-      dataIndex: 'cardNo',
-      width: 110,
-      key: 'cardNo',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: '联系电话',
-      dataIndex: 'nickName',
-      key: 'nickName',
+      dataIndex: 'contact',
+      key: 'contact',
     },
     {
       title: '添加日期',
-      dataIndex: 'issueTime',
-      key: 'issueTime',
+      dataIndex: 'createAt',
+      key: 'createAt',
     },
     {
       title: '类型',
-      dataIndex: 'userMobile',
-      width: 140,
-      key: 'userMobile',
+      dataIndex: 'agentType',
+      key: 'agentType',
     },
     {
       title: '代理信息',
-      dataIndex: 'pkgName',
-      key: 'pkgName',
+      dataIndex: 'agentApplyAreaList',
+      key: 'agentApplyAreaList',
+      render: text => text && text.map(item => <div key={item.id}>{item.agentArea}{LEVEL_LIST[item.agentLevel]}</div>)
     },
     {
       title: '拒绝原因',
-      dataIndex: 'pkgName1',
-      key: 'pkgName1',
+      dataIndex: 'statusDesc',
+      key: 'statusDesc',
       render: (text, rows) => (
-        <Button
+
+
+        < Button
           type="link"
           onClick={() => handleTool(rows)}
         >
           详情
-        </Button>)
+        </Button >)
 
     }
   ];
@@ -129,13 +130,13 @@ const Custom = (props) => {
   return (
     <>
       <SearchTable
-
         rowKey="id"
-        STATUS_LIST={STATUS_LIST}
-        request={api.issuer.cardIssueRecord}
+        LEVEL_LIST={LEVEL_LIST}
+        request={api.agent.applyList}
         loading
         columns={columns}
         pkgList={pkgList}
+        tableChild={tableChild}
         onTableRef={tableRef}
         defaultSearchData={defaultSearchData}
         tabList={[{ title: '审核通过', key: 1 }, { title: '审核中', key: 2 }, { title: '拒绝审核', key: 3 }]}
@@ -154,8 +155,8 @@ const Custom = (props) => {
         onRef={toolRef}
         footer={[<Button type="primary" onClick={() => ToolChild.handleCancle()}>确定</Button>]}
       >
-        <h2>批量分发处理中</h2>
-        <p>可刷新批量分发页面查看分发状态</p>
+        <h2>{defaultData.statusDesc}</h2>
+        {/* <p>可刷新批量分发页面查看分发状态</p> */}
       </ToolForm>
     </>
   );

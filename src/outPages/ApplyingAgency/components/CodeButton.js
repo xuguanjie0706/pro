@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, message } from 'antd';
 
 const CodeButton = (props) => {
@@ -9,12 +9,8 @@ const CodeButton = (props) => {
   const [disabled, setDisabled] = useState(false);
   let timer = null;
   const setCode = async () => {
-    const value = form.getFieldValue('mobile');
-
-    console.log(value);
-
-
-    const r = request && await request();
+    const contact = form.getFieldValue('contact');
+    const r = request && await request({ contact });
     if (r) {
       setDisabled(true);
       timer = setInterval(() => {
@@ -27,10 +23,17 @@ const CodeButton = (props) => {
           setTime(delay);
         }
       }, 1000);
+
     } else {
-      message.error('发送失败');
+      // message.error('发送失败');
     }
   };
+  useEffect(() => {
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
   return (
     <>
       <Button onClick={setCode} disabled={disabled} type="link" style={{ position: 'absolute', left: 300 }}>

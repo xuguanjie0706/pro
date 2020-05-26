@@ -17,3 +17,9 @@ export const ROLE_LIST = {
   6: '销售',
   7: '产业合伙人'
 };
+
+export const LEVEL_LIST = {
+  1: '区域独家代理',
+  2: '区域代理',
+  3: '健康团团长'
+};

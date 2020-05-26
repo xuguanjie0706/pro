@@ -7,7 +7,23 @@ import * as group from './modules/group';
 import * as tag from './modules/tag';
 import * as chnerIssuer from './modules/chnerIssuer';
 import * as chnerUserInfo from './modules/chnerUserInfo';
+import * as agentApply from './modules/agentApply';
+import * as file from './modules/file';
+import * as agent from './modules/agent';
+import * as bank from './modules/bank';
 
 export default {
-  user, base, dataOverview, issuer, cdkey, group, tag, chnerIssuer, chnerUserInfo
+  user,
+  base,
+  dataOverview,
+  issuer,
+  cdkey,
+  group,
+  tag,
+  chnerIssuer,
+  chnerUserInfo,
+  agentApply,
+  file,
+  agent,
+  bank
 };

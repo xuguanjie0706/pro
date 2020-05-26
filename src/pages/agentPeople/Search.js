@@ -1,19 +1,14 @@
 import React from 'react';
 import { Input, Form, Row, Col, Select } from 'antd';
-import DateFilter from '@/components/CustomFormItem/DateFilter';
-import SearchSelect from '@/components/CustomApiFormItem/SearchSelect';
-import moment from 'moment';
+
 
 const { Option } = Select;
 const Search = (props) => {
-  const { STATUS_LIST = [], pkgList, form, defaultSearchData } = props;
+  const { STATUS_LIST = [], form, defaultSearchData } = props;
   const statusList = Object.entries(STATUS_LIST);
 
   form.setFieldsValue(defaultSearchData);
-  const changeTime = (time) => {
-    form.setFieldsValue({ 'startTime': time.length ? moment(time[0]).format('YYYY-MM-DD') : null });
-    form.setFieldsValue({ 'endTime': time.length ? moment(time[1]).format('YYYY-MM-DD') : null });
-  };
+
   return (
     <Row gutter={16}>
       {/* <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={12}>

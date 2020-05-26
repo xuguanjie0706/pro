@@ -23,7 +23,7 @@ class CustomTable extends Component {
       page: 1,
       loading: true,
       list: [],
-      selectedKey: []
+      // selectedKey: []
     };
   }
 
@@ -41,11 +41,11 @@ class CustomTable extends Component {
     clearTimeout(this.outInitData);
   }
 
-  cleanSelectedKey = () => {
-    this.setState({
-      selectedKey: []
-    });
-  };
+  // cleanSelectedKey = () => {
+  //   this.setState({
+  //     selectedKey: []
+  //   });
+  // };
 
   initData = async value => {
     const { defaultSearchData, request } = this.props;
@@ -86,7 +86,7 @@ class CustomTable extends Component {
   };
 
   render() {
-    const { count, total, list, loading, selectedKey, page } = this.state;
+    const { count, total, list, loading, page } = this.state;
     const paginationData = {
       defaultCurrent: 1,
       current: page,

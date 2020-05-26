@@ -40,5 +40,6 @@ module.exports = {
     'no-nested-ternary': 0, //禁止使用嵌套的三目运算
     'no-unused-expressions': 0,
     'react/no-string-refs': 0,
+    'no-throw-literal': 0
   },
 };

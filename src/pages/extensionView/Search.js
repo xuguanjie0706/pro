@@ -1,20 +1,18 @@
 import React from 'react';
 import { Input, Form, Row, Col, Select } from 'antd';
-import DateFilter from '@/components/CustomFormItem/DateFilter';
-import SearchSelect from '@/components/CustomApiFormItem/SearchSelect';
-import moment from 'moment';
+
 
 const { Option } = Select;
 const Search = (props) => {
-  const { STATUS_LIST = [], pkgList, form, defaultSearchData } = props;
-  const statusList = Object.entries(STATUS_LIST);
+  const { LEVEL_LIST = [], form, defaultSearchData } = props;
 
+  const levelList = Object.entries(LEVEL_LIST);
   form.setFieldsValue(defaultSearchData);
   return (
     <Row gutter={16}>
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item
-          name="issuerName"
+          name="name"
           label="代理商名称"
         >
           <Input allowClear />
@@ -22,7 +20,7 @@ const Search = (props) => {
       </Col >
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item
-          name="issuerName"
+          name="contact"
           label="联系电话"
         >
           <Input allowClear />
@@ -30,7 +28,7 @@ const Search = (props) => {
       </Col >
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item
-          name="status"
+          name="agentLevel"
           label="代理级别"
         >
           <Select
@@ -38,7 +36,7 @@ const Search = (props) => {
             style={{ width: '100%' }}
             allowClear
           >
-            {statusList.map(
+            {levelList.map(
               (item) => (
                 <Option key={item[0]} value={item[0]}>
                   {item[1]}
@@ -48,8 +46,6 @@ const Search = (props) => {
           </Select>
         </Form.Item>
       </Col>
-
-
     </Row >
   );
 };

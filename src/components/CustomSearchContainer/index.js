@@ -34,7 +34,7 @@ const CustomSearchContainer = (
 
 
     const handleSubmit = value => {
-      child.initData({ page: 0, ...value });
+      child.initData({ pageNum: 1, ...value });
     };
 
 
@@ -58,8 +58,7 @@ const CustomSearchContainer = (
                 <ButtonComponent {...props} />
               )}
             </Form>)}
-
-            <TableComponent onFatherRef={onRef} {...props} />
+            <TableComponent form={form} onFatherRef={onRef} {...props} />
 
           </Card>
         )}

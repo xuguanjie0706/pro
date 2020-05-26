@@ -1,4 +1,8 @@
-import axios from 'axios';
+/**
+ * request 网络请求工具
+ * 更详细的 api 文档: https://github.com/umijs/umi-request
+ */
+import { extend } from 'umi-request';
 import { notification } from 'antd';
 
 const codeMessage = {
@@ -26,9 +30,9 @@ const errorHandler = (error) => {
   const { response } = error;
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
-    const { status } = response;
+    const { status, url } = response;
     notification.error({
-      message: `请求错误 ${status}`,
+      message: `请求错误 ${status}: ${url}`,
       description: errorText,
     });
   } else if (!response) {
@@ -40,31 +44,31 @@ const errorHandler = (error) => {
 
   return response;
 };
+/**
+ * 配置request请求时的默认参数
+ */
 
-const instance = axios.create({
-  baseURL: '/v1/starry/saas/',
-  timeout: 1000,
+const request = extend({
+  errorHandler,
+  prefix: '/v1/starry/saas/',
+  // 默认错误处理
+  credentials: 'include', // 默认请求是否带上cookie
 });
 
-class $request {
-  static async init({ url, params, headers, data, method = 'get', onUploadProgress }) {
 
-    try {
-      const r = await instance.request({ url, params, headers, data, method, onUploadProgress });
-      const { data: resultData } = r;
-      const { code, success, data: result, msg } = resultData;
-      if (code === 200 && success) {
-        return result || true;
-      }
-      notification.error({
-        message: '请求失败',
-        description: msg,
-      });
-      return false;
-    } catch (error) {
-      errorHandler(error);
-      return false;
+class $request {
+  static async init({ url, params, headers, data, method = 'get' }) {
+
+    const r = await request(url, { params, headers, data, method });
+    const { code, success, data: result, msg } = r;
+    if (code === 200 && success) {
+      return result || true;
     }
+
+    return notification.error({
+      message: '请求失败',
+      description: msg,
+    });
   }
 
   static post({ ...option }) {

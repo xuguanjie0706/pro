@@ -39,11 +39,7 @@
       "prettier --write"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint-staged"
-    }
-  },
+ 
   "browserslist": [
     "> 1%",
     "last 2 versions",
@@ -54,6 +50,7 @@
     "@ant-design/pro-layout": "^5.0.8",
     "@ant-design/pro-table": "2.2.7",
     "antd": "4.2.0",
+    "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "copy-to-clipboard": "^3.3.1",
     "echarts": "^4.7.0",

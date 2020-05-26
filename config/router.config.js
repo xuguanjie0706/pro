@@ -9,7 +9,7 @@ export default [
         __isDynamic: true,
       },
       {
-        path: '/applyingAgency',
+        path: '/applyingAgency/:inviteUid',
         component: '@/outPages/ApplyingAgency/index',
         __isDynamic: true,
       },

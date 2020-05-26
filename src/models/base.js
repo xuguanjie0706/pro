@@ -8,8 +8,22 @@ const Model = {
     groupOtherList: [],
     tagList: [],
     tagOtherList: [],
+    bankList: []
   },
   effects: {
+    *getBankList({ payload }, { select, call, put }) {
+      const bankList = yield select(({ base }) => base.bankList);
+      if (bankList.length === 0) {
+        const response = yield call(api.bank.list, payload);
+        if (response) {
+          yield put({
+            type: 'changeBaseData',
+            payload: response,
+            key: 'bankList',
+          });
+        }
+      }
+    },
     *getPkgList({ payload }, { select, call, put }) {
       const pkgList = yield select(({ base }) => base.pkgList);
       if (pkgList.length === 0) {

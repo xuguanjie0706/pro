@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Radio } from 'antd';
 import '../index.less';
 import { phoneValidator } from '@/utils/validator';
+import api from '@/api';
 import CodeButton from './CodeButton';
 
 
@@ -13,25 +14,30 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 const BaseForm = (props) => {
-  const { setStep, setAgentType } = props;
+  const { setStep, setAgentType, inviteUid, setDefaultData } = props;
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
   const defaultData = {
-    daili: '1',
-    mobile: '18079442433'
+    agentType: '1',
+    contact: '18906764747',
+    inviteUid
   };
 
-  const handleClick = (values) => {
-    console.log(values);
-    // form.validateFields().then(r => {
-    //   console.log(r);
-
-    // });
-    setStep(1);
+  const handleClick = async (values) => {
+    setLoading(true);
+    const r = await api.agentApply.applyFirst(values);
+    if (r) {
+      setLoading(false);
+      setDefaultData(r);
+      setStep(1);
+    } else {
+      setLoading(false);
+    }
   };
 
-  const changePhone = (values) => {
-    console.log(values);
-  };
+  useEffect(() => {
+
+  }, []);
 
   const changeRadio = (e) => {
     setAgentType(e.target.value);
@@ -41,7 +47,7 @@ const BaseForm = (props) => {
       <div style={{ paddingTop: 32 }}>
         <Form.Item
           label="代理商类型"
-          name="daili"
+          name="agentType"
           rules={[{ required: true }]}
         >
           <Radio.Group onChange={changeRadio}>
@@ -51,27 +57,29 @@ const BaseForm = (props) => {
         </Form.Item>
         <Form.Item
           required
-          name="mobile"
+          name="contact"
           rules={[{ validator: phoneValidator }]}
           label="联系电话">
-          <Input className="width400" onChange={changePhone} />
+          <Input className="width400" />
         </Form.Item>
         <Form.Item label="验证码" required >
           <Form.Item noStyle name="code" rules={[{ required: true, message: '请输入验证码' }]}>
             <Input className="width400" />
           </Form.Item>
-          <CodeButton form={form} delay={5} style={{ position: 'absolute', left: 300 }} />
-          {/* <Button type="link" >
-            发送验证码
-          </Button> */}
+          <CodeButton request={api.agentApply.sendSmsCode} form={form} delay={5} style={{ position: 'absolute', left: 300 }} />
+        </Form.Item>
+        <Form.Item
+          name="inviteUid"
+        >
+          <Input type="hidden" />
         </Form.Item>
         <Form.Item
           style={{ paddingBottom: 32 }}
           {...tailLayout}>
-          <Button htmlType="submit" type="primary">下一步</Button>
+          <Button loading={loading} htmlType="submit" type="primary">下一步</Button>
         </Form.Item>
       </div>
-    </Form>
+    </Form >
   );
 };
 

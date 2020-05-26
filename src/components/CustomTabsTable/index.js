@@ -4,22 +4,23 @@ import { Tabs } from 'antd';
 
 const { TabPane } = Tabs;
 const CustomTabsTable = (props) => {
-  const { tabList } = props;
-  console.log(tabList);
-
+  const { tabList, tableChild, form } = props;
   const [status, setStatus] = useState(1);
-  function callback(key) {
-    setStatus(key);
-  }
+  const callback = async (key) => {
+    await setStatus(key);
+    tableChild && tableChild.initData(form.getFieldsValue());
+  };
 
   // const Index = (TableComponents) => {
   return (
-    <Tabs type="card" defaultActiveKey={status} onChange={callback}>
-      {tabList.map(item => <TabPane tab={item.title} key={item.key}>
-        <CustomTable {...props} />
-      </TabPane>)
-      }
-    </Tabs>
+    <>
+      <Tabs type="card" defaultActiveKey={status} onChange={callback}>
+        {tabList.map(item => <TabPane tab={item.title} key={item.key} />)
+        }
+      </Tabs>
+      <CustomTable {...props} defaultSearchData={{ status }} />
+
+    </>
   );
   // };
   // return Index;
