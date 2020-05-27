@@ -41,6 +41,14 @@ export default defineConfig({
   ignoreMomentLocale: true,
   proxy: proxy[REACT_APP_ENV || 'dev'],
   manifest: {
-    basePath: '/',
+    // basePath: './',
+    publicPath: './',
+  },
+  // base: './',
+  // publicPath: './',
+  // 加速打包不进行babel
+  nodeModulesTransform: {
+    type: 'none',
+    exclude: [],
   },
 });

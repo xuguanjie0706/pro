@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:27:06
- * @lastTime: 2020-05-26 17:31:21
+ * @lastTime: 2020-05-27 14:51:34
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/extensionView/index.js
  * @message:推广
@@ -15,6 +15,7 @@ import { Button } from 'antd';
 import api from '@/api';
 import { LEVEL_LIST } from '@/utils/enum';
 import { connect } from 'umi';
+import { getBaseUrl } from '@/utils/utils';
 import Search from './Search';
 import ModalForm from './Form';
 import ToolForm from './ToolForm';
@@ -46,8 +47,11 @@ const Custom = (props) => {
 
   /* ******* 设置方法 ******* */
   /* 新增弹窗 */
-  const handleEdit = async (item) => {
-    setDefaultData(item);
+  const handleEdit = async () => {
+    const code = await api.user.getInviteUrl({ inviteBaseUrl: `${getBaseUrl()}applyingAgency` });
+    console.log({ code });
+
+    setDefaultData({ code });
     if (modelChild) {
       modelChild.handleShow();
     }
@@ -64,9 +68,9 @@ const Custom = (props) => {
   /* ******* 设置方法 ******* */
   /* 初始化 */
   const initLoad = async () => {
-    dispatch({
-      type: 'base/getPkgList',
-    });
+    // dispatch({
+    //   type: 'base/getPkgList',
+    // });
   };
   /* ******* 监听 ******* */
   useEffect(() => {
@@ -108,7 +112,7 @@ const Custom = (props) => {
       title: '代理信息',
       dataIndex: 'agentApplyAreaList',
       key: 'agentApplyAreaList',
-      render: text => text && text.map(item => <div key={item.id}>{item.agentArea}{LEVEL_LIST[item.agentLevel]}</div>)
+      render: text => text && text.map((item, index) => <div key={(item.agentLevel + index).toString()}>{item.agentArea}{LEVEL_LIST[item.agentLevel]}</div>)
     },
     {
       title: '拒绝原因',
@@ -135,7 +139,7 @@ const Custom = (props) => {
         request={api.agent.applyList}
         loading
         columns={columns}
-        pkgList={pkgList}
+        // pkgList={pkgList}
         tableChild={tableChild}
         onTableRef={tableRef}
         defaultSearchData={defaultSearchData}
@@ -149,14 +153,15 @@ const Custom = (props) => {
         defaultData={defaultData}
         request={defaultData.id ? api.chnerIssuer.Update : api.chnerIssuer.Create}
         callback={tableChild && tableChild.initData}
-        pkgList={pkgList} />
+      // pkgList={pkgList}
+      />
       <ToolForm
         title="拒绝原因"
         onRef={toolRef}
         footer={[<Button type="primary" onClick={() => ToolChild.handleCancle()}>确定</Button>]}
       >
-        <h2>{defaultData.statusDesc}</h2>
-        {/* <p>可刷新批量分发页面查看分发状态</p> */}
+        {/* <h2>{defaultData.statusDesc}</h2> */}
+        <p>{defaultData.statusDesc}</p>
       </ToolForm>
     </>
   );

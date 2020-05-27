@@ -231,10 +231,10 @@ const Custom = (props) => {
               确认
             </Button>
           ) : (
-            <Button type="primary" key="xuqi" onClick={() => setStep(1)}>
-              {defaultData.privilegeStatus === 0 ? '分发' : '续期'}
-            </Button>
-          ),
+              <Button type="primary" key="xuqi" onClick={() => setStep(1)}>
+                {defaultData.privilegeStatus === 0 ? '分发' : '续期'}
+              </Button>
+            ),
         ]}
       />
     </>

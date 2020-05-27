@@ -56,3 +56,18 @@ export const getRouteAuthority = (path, routeData) => {
   });
   return authorities;
 };
+
+
+export const getBaseUrl = () => {
+  const { NODE_ENV } = process.env;
+  let BaseUrl = null;
+  if (NODE_ENV === 'development') {
+    BaseUrl = 'http://www.baidu.com/';
+  } else {
+    BaseUrl = 'http://www.baidu1.com/';
+  }
+
+  return BaseUrl;
+
+
+};

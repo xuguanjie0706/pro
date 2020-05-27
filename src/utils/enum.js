@@ -23,3 +23,9 @@ export const LEVEL_LIST = {
   2: '区域代理',
   3: '健康团团长'
 };
+
+
+export const AGENT_STATUS_LIST = {
+  0: '正常',
+  1: '已冻结',
+};

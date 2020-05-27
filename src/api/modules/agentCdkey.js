@@ -60,6 +60,6 @@ export const transferAgent = (data = {}) => {
  */
 export const transferList = (data = {}) => {
   return request.post({
-    url: '/agent_cdkey/transfer_list', data,
+    url: 'agent_cdkey/transfer_list', data,
   });
 };

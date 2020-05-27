@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:11:54
- * @lastTime: 2020-05-26 11:03:31
+ * @lastTime: 2020-05-27 15:31:25
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/agentPeople/index.js
  * @message:代理商
@@ -11,13 +11,13 @@ import CustomTable from '@/components/CustomTable';
 import CustomSearchContainer from '@/components/CustomSearchContainer';
 import CustomSearchBtnContainer from '@/components/CustomSearchBtnContainer';
 import api from '@/api';
-import { STATUS_LIST } from '@/utils/enum';
+import { LEVEL_LIST, AGENT_STATUS_LIST } from '@/utils/enum';
 import { connect } from 'umi';
 import Search from './Search';
 // import ModalForm from './Form';
 
 const Custom = (props) => {
-  const { pkgList, dispatch, defaultSearchData } = props;
+  const { cdkeyPkgList, dispatch, defaultSearchData } = props;
 
   /* ******* 设置属性 *******  */
   // const [modelChild, setModelChild] = useState(null); // 新增弹窗
@@ -44,7 +44,7 @@ const Custom = (props) => {
   /* 初始化 */
   const initLoad = async () => {
     dispatch({
-      type: 'base/getPkgList',
+      type: 'base/getCdkeyPkgList',
     });
   };
   /* ******* 监听 ******* */
@@ -82,23 +82,25 @@ const Custom = (props) => {
       title: '类型',
       dataIndex: 'agentType',
       key: 'agentType',
+      // render: (text => LEVEL_LIST[text])
     },
     {
       title: '代理信息',
       dataIndex: 'agentAreaList',
       key: 'agentAreaList',
-      render: (text => text.map(item => <span>{item.agentArea}{item.agentLevel}</span>))
+      render: (text => text && text.map(item => <span key={item.agentArea} >{item.agentArea}{item.agentLevel}</span>))
     },
     {
       title: '权益套餐',
       dataIndex: 'pkgList',
       key: 'pkgList',
+      render: (text => text && text.map(item => <span key={item.pkgName}>{item.pkgName}</span>))
     },
     {
       title: '状态',
       dataIndex: 'status',
       key: 'status',
-      render: (text) => <span>{STATUS_LIST[text]}</span>,
+      render: (text) => <span>{AGENT_STATUS_LIST[text]}</span>,
     },
     {
       title: '下级代理商数',
@@ -111,11 +113,12 @@ const Custom = (props) => {
     <>
       <SearchTable
         rowKey="id"
-        STATUS_LIST={STATUS_LIST}
+        AGENT_STATUS_LIST={AGENT_STATUS_LIST}
+        LEVEL_LIST={LEVEL_LIST}
         request={api.agent.list}
         loading
         columns={columns}
-        pkgList={pkgList}
+        cdkeyPkgList={cdkeyPkgList}
         // onTableRef={tableRef}
         defaultSearchData={defaultSearchData}
       />
@@ -129,7 +132,6 @@ const Custom = (props) => {
   );
 };
 
-export default connect(({ base, loading }) => ({
-  pkgList: base.pkgList,
-  loading: loading.effects['base/getPkgList'],
+export default connect(({ base }) => ({
+  cdkeyPkgList: base.cdkeyPkgList,
 }))(Custom);

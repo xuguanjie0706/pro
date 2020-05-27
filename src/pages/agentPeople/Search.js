@@ -4,24 +4,16 @@ import { Input, Form, Row, Col, Select } from 'antd';
 
 const { Option } = Select;
 const Search = (props) => {
-  const { STATUS_LIST = [], form, defaultSearchData } = props;
-  const statusList = Object.entries(STATUS_LIST);
-
+  const { LEVEL_LIST = [], AGENT_STATUS_LIST = [], cdkeyPkgList = [], form, defaultSearchData } = props;
+  const agentStatusList = Object.entries(AGENT_STATUS_LIST);
+  const levelList = Object.entries(LEVEL_LIST);
   form.setFieldsValue(defaultSearchData);
 
   return (
     <Row gutter={16}>
-      {/* <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={12}>
-        <Form.Item
-          name="time"
-          label="发卡时间"
-        >
-          <DateFilter callback={changeTime} />
-        </Form.Item>
-      </Col> */}
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item
-          name="issuerName"
+          name="name"
           label="代理商名称"
         >
           <Input allowClear />
@@ -29,7 +21,7 @@ const Search = (props) => {
       </Col >
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item
-          name="issuerName"
+          name="contact"
           label="联系电话"
         >
           <Input allowClear />
@@ -37,7 +29,7 @@ const Search = (props) => {
       </Col >
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item
-          name="issuerName"
+          name="agentLevel"
           label="代理级别"
         >
           <Select
@@ -45,7 +37,7 @@ const Search = (props) => {
             style={{ width: '100%' }}
             allowClear
           >
-            {statusList.map(
+            {levelList.map(
               (item) => (
                 <Option key={item[0]} value={item[0]}>
                   {item[1]}
@@ -57,7 +49,7 @@ const Search = (props) => {
       </Col >
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item
-          name="issuerName"
+          name="pkgId"
           label="权益套餐"
         >
           <Select
@@ -65,10 +57,10 @@ const Search = (props) => {
             style={{ width: '100%' }}
             allowClear
           >
-            {statusList.map(
+            {cdkeyPkgList.map(
               (item) => (
-                <Option key={item[0]} value={item[0]}>
-                  {item[1]}
+                <Option key={item.pkdId} value={item.pkgId}>
+                  {item.pkgName}
                 </Option>
               )
             )}
@@ -85,7 +77,7 @@ const Search = (props) => {
             style={{ width: '100%' }}
             allowClear
           >
-            {statusList.map(
+            {agentStatusList.map(
               (item) => (
                 <Option key={item[0]} value={item[0]}>
                   {item[1]}

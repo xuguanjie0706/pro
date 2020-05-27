@@ -11,6 +11,8 @@ import * as agentApply from './modules/agentApply';
 import * as file from './modules/file';
 import * as agent from './modules/agent';
 import * as bank from './modules/bank';
+import * as agentCdkey from './modules/agentCdkey';
+import * as cardBinding from './modules/cardBinding';
 
 export default {
   user,
@@ -25,5 +27,7 @@ export default {
   agentApply,
   file,
   agent,
-  bank
+  bank,
+  agentCdkey,
+  cardBinding
 };

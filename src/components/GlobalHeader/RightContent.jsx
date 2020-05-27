@@ -1,11 +1,11 @@
-import { Tooltip, Tag } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+// import { Tooltip, Tag } from 'antd';
+// import { QuestionCircleOutlined } from '@ant-design/icons';
 import React from 'react';
 import { connect } from 'umi';
 // import Avatar from './AvatarDropdown';
 import Avatar from './AvatarDrop/index';
-import HeaderSearch from '../HeaderSearch';
-import SelectLang from '../SelectLang';
+// import HeaderSearch from '../HeaderSearch';
+// import SelectLang from '../SelectLang';
 import styles from './index.less';
 
 
@@ -57,7 +57,6 @@ const GlobalHeaderRight = (props) => {
         </a>
       </Tooltip> */}
       <Avatar />
-
       {/* <SelectLang className={styles.action} /> */}
     </div>
   );

@@ -41,21 +41,19 @@
 //     display: block;
 //   }
 // }
-// .header {
-//   background-color: #fff;
-//   height: 60px;
-//   position: fixed;
-//   top: 0;
-//   left: 208px;
-//   width: calc(100vw - 208px);
-//   line-height: 60px;
-//   text-align: end;
-//   padding: 0 20px;
-//   z-index: 2;
-//   display: flex;
-//   align-items: center;
-//   justify-content: flex-end;
-// }
+.header {
+  background-color: #fff;
+  height: 60px;
+  position: fixed;
+  margin: 0;
+  right: 20px;
+  width: 94px;
+  flex-direction: row;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 // .channelTag {
 //   color: #333333;
 //   font-size: 14px;
@@ -72,6 +70,9 @@
   border-radius: 4px;
   cursor: pointer;
 }
+// .header {
+//   z-index: 1000;
+// }
 .logout:hover {
   background-color: #f3f7ff;
   color: #1464e8;

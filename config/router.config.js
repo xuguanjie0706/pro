@@ -42,7 +42,7 @@ export default [
             path: '/agent',
             name: '代理',
             icon: "SolutionOutlined",
-            authority: ["1", '2'],
+            // authority: ["1", '2'], 
             routes: [
               {
                 name: '代理商',
@@ -118,31 +118,31 @@ export default [
               },
             ],
           },
-          {
-            path: '/demo',
-            name: 'demo',
-            icon: 'smile',
-            routes: [
-              {
-                path: '/demo/a',
-                name: 'a',
-                icon: 'smile',
-                component: '@/testPages/demo/a',
-              },
-              {
-                path: '/demo/index',
-                name: 'b',
-                icon: 'smile',
-                component: '@/testPages/demo/index',
-              },
-              {
-                path: '/demo/c',
-                name: 'c',
-                icon: 'smile',
-                component: '@/testPages/demo/c',
-              },
-            ],
-          },
+          // {
+          //   path: '/demo',
+          //   name: 'demo',
+          //   icon: 'smile',
+          //   routes: [
+          //     {
+          //       path: '/demo/a',
+          //       name: 'a',
+          //       icon: 'smile',
+          //       component: '@/testPages/demo/a',
+          //     },
+          //     {
+          //       path: '/demo/index',
+          //       name: 'b',
+          //       icon: 'smile',
+          //       component: '@/testPages/demo/index',
+          //     },
+          //     {
+          //       path: '/demo/c',
+          //       name: 'c',
+          //       icon: 'smile',
+          //       component: '@/testPages/demo/c',
+          //     },
+          //   ],
+          // },
           // {
           //   path: '/welcome',
           //   name: 'welcome',

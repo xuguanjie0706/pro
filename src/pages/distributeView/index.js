@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:27:41
- * @lastTime: 2020-05-23 10:42:10
+ * @lastTime: 2020-05-27 16:23:35
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/distributeView/index.js
  * @message:批量分发
@@ -9,7 +9,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import CustomTable from '@/components/CustomTable';
 import CustomSearchContainer from '@/components/CustomSearchContainer';
-import CustomSearchBtnContainer from '@/components/CustomSearchBtnContainer';
 import { Avatar, Button } from 'antd';
 import api from '@/api';
 import { STATUS_LIST } from '@/utils/enum';
@@ -51,21 +50,28 @@ const Custom = (props) => {
 
   /* ******* 设置方法 ******* */
   const handleEdit = async (item) => {
-    console.log(item);
-    ErrorChild.handleShow();
-    ToolChild.handleShow();
+    // console.log(item);
+    // ErrorChild.handleShow();
+    // ToolChild.handleShow();
     setDefaultData(item);
     if (modelChild) {
       modelChild.handleShow();
     }
   };
 
+  const handleError = async (item) => {
+    setDefaultData(item);
+    if (ErrorChild) {
+      ErrorChild.handleShow();
+    }
+  };
+
   /* ******* 设置方法 ******* */
   /* 初始化 */
   const initLoad = async () => {
-    dispatch({
-      type: 'base/getPkgList',
-    });
+    // dispatch({
+    //   type: 'base/getPkgList',
+    // });
   };
   /* ******* 监听 ******* */
   useEffect(() => {
@@ -85,13 +91,13 @@ const Custom = (props) => {
   const columns = [
     {
       title: '权益套餐',
-      dataIndex: 'cardNo',
-      key: 'cardNo',
+      dataIndex: 'pkgName',
+      key: 'pkgName',
     },
     {
       title: '分发时间',
-      dataIndex: 'nickName',
-      key: 'nickName',
+      dataIndex: 'createAt',
+      key: 'createAt',
     },
     {
       title: '分发数量',
@@ -100,19 +106,18 @@ const Custom = (props) => {
     },
     {
       title: '状态',
-      dataIndex: 'userMobile',
-      width: 140,
-      key: 'userMobile',
+      dataIndex: 'status',
+      key: 'status',
     },
     {
       title: '失败记录',
-      dataIndex: 'pkgName',
-      key: 'pkgName',
+      key: 'error',
+      render: text => <span onClick={() => handleError(text)}>查看</span>
     },
     {
       title: '分发记录',
-      dataIndex: 'issuerName',
-      key: 'issuerName',
+      key: 'fenfa',
+      render: text => <span onClick={() => handleError(text)}>下载</span>
     },
   ];
 
@@ -121,7 +126,7 @@ const Custom = (props) => {
       <SearchTable
         rowKey="id"
         STATUS_LIST={STATUS_LIST}
-        request={api.issuer.cardIssueRecord}
+        request={api.cardBinding.batchList}
         loading
         columns={columns}
         pkgList={pkgList}
@@ -129,6 +134,7 @@ const Custom = (props) => {
         defaultSearchData={defaultSearchData}
       />
       <ModalForm
+        formItemLayout={{ labelCol: { span: 6 }, }}
         onRef={modelRef}
         defaultData={defaultData}
         request={defaultData.id ? api.chnerIssuer.Update : api.chnerIssuer.Create}

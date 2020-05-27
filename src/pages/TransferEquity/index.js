@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 10:40:31
- * @lastTime: 2020-05-23 11:12:41
+ * @lastTime: 2020-05-27 16:16:14
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/TransferEquity/index.js
  * @message:权益划转
@@ -16,13 +16,16 @@ import { STATUS_LIST } from '@/utils/enum';
 import { connect } from 'umi';
 import Search from './Search';
 import ModalForm from './Form';
+import ToolForm from './ToolForm';
 
 const Custom = (props) => {
-  const { pkgList, dispatch, defaultSearchData } = props;
+  const { cdkeyPkgList, dispatch, defaultSearchData } = props;
+
 
   /* ******* 设置属性 *******  */
   const [modelChild, setModelChild] = useState(null); // 新增弹窗
   const [tableChild, setTableChild] = useState(null); // 列表弹窗
+  const [ToolChild, setToolChild] = useState(null); // 列表弹窗
   const [defaultData, setDefaultData] = useState({ id: 0 }); // 新增编辑默认值
 
   /* ******* 设置属性 *******  */
@@ -36,6 +39,9 @@ const Custom = (props) => {
     setTableChild(ref);
   };
 
+  const toolRef = (ref) => {
+    setToolChild(ref);
+  };
   /* ******* 设置实例 ******* */
 
   /* ******* 设置方法 ******* */
@@ -51,7 +57,7 @@ const Custom = (props) => {
   /* 初始化 */
   const initLoad = async () => {
     dispatch({
-      type: 'base/getPkgList',
+      type: 'base/getCdkeyPkgList',
     });
   };
   /* ******* 监听 ******* */
@@ -128,25 +134,34 @@ const Custom = (props) => {
       <SearchTable
         rowKey="id"
         STATUS_LIST={STATUS_LIST}
-        request={api.issuer.cardIssueRecord}
+        request={api.agentCdkey.transferList}
         loading
         columns={columns}
-        pkgList={pkgList}
+        cdkeyPkgList={cdkeyPkgList}
         onTableRef={tableRef}
         defaultSearchData={defaultSearchData}
       />
       <ModalForm
         onRef={modelRef}
         visible
+        title="权益划转"
         defaultData={defaultData}
-        request={defaultData.id ? api.chnerIssuer.Update : api.chnerIssuer.Create}
-        callback={tableChild && tableChild.initData}
-        pkgList={pkgList} />
+        request={api.agentCdkey.transferAgent}
+        callback={ToolChild && ToolChild.handleShow}
+        cdkeyPkgList={cdkeyPkgList} />
+
+      <ToolForm
+        title="提示"
+        onRef={toolRef}
+        footer={[<Button type="primary" onClick={() => ToolChild.handleCancle()}>确定</Button>]}
+      >
+        <h3>权益划转处理中</h3>
+        <p>可刷新权益划转页面查看划转状态</p>
+      </ToolForm>
     </>
   );
 };
 
-export default connect(({ base, loading }) => ({
-  pkgList: base.pkgList,
-  loading: loading.effects['base/getPkgList'],
+export default connect(({ base }) => ({
+  cdkeyPkgList: base.cdkeyPkgList,
 }))(Custom);
