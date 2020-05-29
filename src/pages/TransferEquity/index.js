@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 10:40:31
- * @lastTime: 2020-05-27 16:16:14
+ * @lastTime: 2020-05-29 16:32:06
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/TransferEquity/index.js
  * @message:权益划转
@@ -12,14 +12,14 @@ import CustomSearchContainer from '@/components/CustomSearchContainer';
 import CustomSearchBtnContainer from '@/components/CustomSearchBtnContainer';
 import { Button } from 'antd';
 import api from '@/api';
-import { STATUS_LIST } from '@/utils/enum';
+import { TRANSFER_STATUS_LIST, LEVEL_LIST } from '@/utils/enum';
 import { connect } from 'umi';
 import Search from './Search';
 import ModalForm from './Form';
 import ToolForm from './ToolForm';
 
 const Custom = (props) => {
-  const { cdkeyPkgList, dispatch, defaultSearchData } = props;
+  const { pkgList, dispatch, defaultSearchData } = props;
 
 
   /* ******* 设置属性 *******  */
@@ -57,7 +57,7 @@ const Custom = (props) => {
   /* 初始化 */
   const initLoad = async () => {
     dispatch({
-      type: 'base/getCdkeyPkgList',
+      type: 'base/getPkgList',
     });
   };
   /* ******* 监听 ******* */
@@ -85,41 +85,43 @@ const Custom = (props) => {
   const columns = [
     {
       title: '代理商名称',
-      dataIndex: 'cardNo',
-      width: 110,
-      key: 'cardNo',
+      dataIndex: 'toName',
+      key: 'toName',
+      width: 100
     },
     {
       title: '联系电话',
-      dataIndex: 'nickName',
-      key: 'nickName',
+      dataIndex: 'toContact',
+      key: 'toContact',
+      width: 124
     },
     {
       title: '权益套餐',
-      dataIndex: 'issueTime',
-      key: 'issueTime',
-    },
-    {
-      title: '代理信息',
-      dataIndex: 'userMobile',
-      width: 140,
-      key: 'userMobile',
-    },
-    {
-      title: '划转时间',
       dataIndex: 'pkgName',
       key: 'pkgName',
     },
     {
+      title: '代理信息',
+      dataIndex: 'agentAreaList',
+      key: 'agentAreaList',
+      width: 210,
+      render: text => text && text.map(item => <div key={item.agentArea}>{item.agentArea} {LEVEL_LIST[item.agentLevel]}</div>)
+    },
+    {
+      title: '划转时间',
+      dataIndex: 'createAt',
+      key: 'createAt',
+    },
+    {
       title: '数量',
-      dataIndex: 'issuerName',
-      key: 'issuerName',
+      dataIndex: 'amount',
+      key: 'amount',
     },
     {
       title: '状态',
       dataIndex: 'status',
       key: 'status',
-      render: (text) => <span>{STATUS_LIST[text]}</span>,
+      render: (text) => <span>{TRANSFER_STATUS_LIST[text]}</span>,
     },
     {
       title: '备注',
@@ -133,22 +135,22 @@ const Custom = (props) => {
     <>
       <SearchTable
         rowKey="id"
-        STATUS_LIST={STATUS_LIST}
+        // STATUS_LIST={STATUS_LIST}
         request={api.agentCdkey.transferList}
         loading
         columns={columns}
-        cdkeyPkgList={cdkeyPkgList}
+        pkgList={pkgList}
         onTableRef={tableRef}
         defaultSearchData={defaultSearchData}
       />
       <ModalForm
         onRef={modelRef}
-        visible
+        // visible
         title="权益划转"
         defaultData={defaultData}
         request={api.agentCdkey.transferAgent}
         callback={ToolChild && ToolChild.handleShow}
-        cdkeyPkgList={cdkeyPkgList} />
+        pkgList={pkgList} />
 
       <ToolForm
         title="提示"
@@ -163,5 +165,5 @@ const Custom = (props) => {
 };
 
 export default connect(({ base }) => ({
-  cdkeyPkgList: base.cdkeyPkgList,
+  pkgList: base.pkgList,
 }))(Custom);

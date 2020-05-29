@@ -4,8 +4,9 @@ import '../index.less';
 import AgentArea from '@/components/CustomFormItem/AgentArea';
 import { connect } from 'umi';
 import api from '@/api';
+import PeopleCardUpload from '@/components/CustomApiFormItem/PeopleCardUpload';
 import CardRoom from './CardRoom';
-import PeopleCardUpload from './PeopleCardUpload';
+// import PeopleCardUpload from './PeopleCardUpload';
 
 const layout = {
   labelCol: { span: 8 },
@@ -142,9 +143,8 @@ const SecondFrom = (props) => {
           <Input className="width400" />
         </Form.Item>
         <Form.Item
-          label="id"
+          noStyle
           name="id"
-          rules={[{ required: true, message: '请填写支行名称' }]}
         >
           <Input type="hidden" className="width400" />
         </Form.Item>

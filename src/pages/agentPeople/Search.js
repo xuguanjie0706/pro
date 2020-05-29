@@ -4,7 +4,7 @@ import { Input, Form, Row, Col, Select } from 'antd';
 
 const { Option } = Select;
 const Search = (props) => {
-  const { LEVEL_LIST = [], AGENT_STATUS_LIST = [], cdkeyPkgList = [], form, defaultSearchData } = props;
+  const { LEVEL_LIST = [], AGENT_STATUS_LIST = [], pkgList = [], form, defaultSearchData } = props;
   const agentStatusList = Object.entries(AGENT_STATUS_LIST);
   const levelList = Object.entries(LEVEL_LIST);
   form.setFieldsValue(defaultSearchData);
@@ -39,7 +39,7 @@ const Search = (props) => {
           >
             {levelList.map(
               (item) => (
-                <Option key={item[0]} value={item[0]}>
+                <Option key={item[0] + item[1]} value={item[0]}>
                   {item[1]}
                 </Option>
               )
@@ -57,9 +57,9 @@ const Search = (props) => {
             style={{ width: '100%' }}
             allowClear
           >
-            {cdkeyPkgList.map(
+            {pkgList.map(
               (item) => (
-                <Option key={item.pkdId} value={item.pkgId}>
+                <Option key={item.pkdId + item.pkgName} value={item.pkgId}>
                   {item.pkgName}
                 </Option>
               )
@@ -79,7 +79,7 @@ const Search = (props) => {
           >
             {agentStatusList.map(
               (item) => (
-                <Option key={item[0]} value={item[0]}>
+                <Option key={item[0] + item[1]} value={item[0]}>
                   {item[1]}
                 </Option>
               )

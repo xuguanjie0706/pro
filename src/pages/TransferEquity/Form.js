@@ -7,17 +7,17 @@ import api from '@/api';
 const { Option } = Select;
 const { TextArea } = Input;
 const CustomForm = (props) => {
-  const { defaultData, dispatch, cdkeyPkgDetailList = [] } = props;
+  const { defaultData, dispatch, pkgDetailList = [] } = props;
   const [selectItem, setSelectItem] = useState({});
   const [agentList, setAgentList] = useState([]);
 
   const selectChange = (value) => {
-    setSelectItem(cdkeyPkgDetailList.find(item => item.pkgId === value));
+    setSelectItem(pkgDetailList.find(item => item.pkgId === value));
   };
 
   const initLoad = () => {
     dispatch({
-      type: 'base/getCdkeyPkgDetailList'
+      type: 'base/getPkgDetailList'
     });
     api.agent.selectionList().then(r => {
       setAgentList(r);
@@ -47,7 +47,7 @@ const CustomForm = (props) => {
         rules={[{ required: true, message: '请选择权益包' }]}
       >
         <Select onChange={selectChange}>
-          {cdkeyPkgDetailList.map((item) => (
+          {pkgDetailList.map((item) => (
             <Option key={item.pkgId} value={item.pkgId}>
               {item.pkgName}
             </Option>
@@ -117,7 +117,7 @@ const CustomForm = (props) => {
 };
 
 export default connect(({ base }) => ({
-  cdkeyPkgDetailList: base.cdkeyPkgDetailList
+  pkgDetailList: base.pkgDetailList
 }))(CustomModalContainer(CustomForm));
 
 // export default CustomModalContainer(CustomForm);

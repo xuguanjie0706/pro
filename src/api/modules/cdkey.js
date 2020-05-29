@@ -58,9 +58,9 @@ export const batchAllocateUser = ({ params, data }) => {
  * @return {object} 接口对象
  */
 
-export const pkgDetailList = ({ params, data }) => {
+export const pkgDetailList = (data = {}) => {
   return request.post({
-    url: 'cdkey/pkg_detail_list', params, data,
+    url: 'cdkey/pkg_detail_list', data,
   });
 };
 

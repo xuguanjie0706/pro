@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-18 18:57:45
- * @lastTime: 2020-05-25 16:16:34
+ * @lastTime: 2020-05-29 15:22:52
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/components/rightSuit/index.jsx
  * @message:  首页组件
@@ -102,14 +102,21 @@ export default class NewList extends Component {
       this.state.suitColumns.push(...extracol);
       await this.setState({ suitColumns });
       api.dataOverview.rightsStatistics().then(r => {
-        this.parsedata(r);
+        if (r) {
+          this.parsedata(r);
+        } else {
+          // history.push('/login');
+        }
       });
     } else {
       const { id } = this.props;
       api.issuer.rightsStatistics({
         issuerId: id
       }).then(r => {
-        this.parsedata(r);
+        if (r) {
+          this.parsedata(r);
+        }
+
       });
     }
 
@@ -117,7 +124,7 @@ export default class NewList extends Component {
 
   parsedata(data) {
     const list = [];
-    data.forEach(item => {
+    data && data.forEach(item => {
       item.rightsDetails.forEach((right, index) => {
         list.push({
           ...right,

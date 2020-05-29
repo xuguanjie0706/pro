@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-18 18:57:45
- * @lastTime: 2020-05-22 14:04:44
+ * @lastTime: 2020-05-29 14:13:19
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/components/cardReceiveData/index.jsx
  * @message:首页组件
@@ -58,30 +58,35 @@ export default class CardReceiveData extends Component {
   }
 
   async getCardData(size) {
-    const serviceData = await api.dataOverview.cardTrends({
-      type: Number(size),
-    });
-    const xdata = [];
-    const lineData = [];
-    serviceData.sort((a, b) => a.period - b.period);
-    serviceData.forEach(item => {
-      const it = { ...item };
-      if (size === '1') {
-        if (it.period < 10) {
-          it.period = `0${it.period}:00`;
-        } else {
-          it.period += ':00';
+    try {
+      const serviceData = await api.dataOverview.cardTrends({
+        type: Number(size),
+      });
+      const xdata = [];
+      const lineData = [];
+      serviceData.sort((a, b) => a.period - b.period);
+      serviceData.forEach(item => {
+        const it = { ...item };
+        if (size === '1') {
+          if (it.period < 10) {
+            it.period = `0${it.period}:00`;
+          } else {
+            it.period += ':00';
+          }
         }
-      }
-      xdata.push(it.period);
-      lineData.push(it.cnt);
-    });
-    const { serviceLineOption: opt } = this.state;
-    opt.xAxis.data = xdata;
-    opt.series[0].data = lineData;
-    this.setState({
-      serviceLineOption: opt,
-    });
+        xdata.push(it.period);
+        lineData.push(it.cnt);
+      });
+      const { serviceLineOption: opt } = this.state;
+      opt.xAxis.data = xdata;
+      opt.series[0].data = lineData;
+      this.setState({
+        serviceLineOption: opt,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   handleSizeChange = (e) => {

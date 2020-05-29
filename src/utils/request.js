@@ -43,23 +43,27 @@ const errorHandler = (error) => {
 
 const instance = axios.create({
   baseURL: '/v1/starry/saas/',
-  timeout: 1000,
+  timeout: 3500,
 });
 
 class $request {
-  static async init({ url, params, headers, data, method = 'get', onUploadProgress }) {
+  static async init({ url, params, headers, data, method = 'get', onUploadProgress, isNotice = true }) {
 
     try {
       const r = await instance.request({ url, params, headers, data, method, onUploadProgress });
       const { data: resultData } = r;
       const { code, success, data: result, msg } = resultData;
-      if (code === 200 && success) {
-        return result || true;
+      if (isNotice) {
+        if (code === 200 && success) {
+          return result || true;
+        }
+        notification.error({
+          message: '请求失败',
+          description: msg,
+        });
+      } else {
+        return resultData;
       }
-      notification.error({
-        message: '请求失败',
-        description: msg,
-      });
       return false;
     } catch (error) {
       errorHandler(error);

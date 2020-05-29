@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:11:54
- * @lastTime: 2020-05-27 15:31:25
+ * @lastTime: 2020-05-29 14:17:10
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/agentPeople/index.js
  * @message:代理商
@@ -17,7 +17,7 @@ import Search from './Search';
 // import ModalForm from './Form';
 
 const Custom = (props) => {
-  const { cdkeyPkgList, dispatch, defaultSearchData } = props;
+  const { pkgList, dispatch, defaultSearchData } = props;
 
   /* ******* 设置属性 *******  */
   // const [modelChild, setModelChild] = useState(null); // 新增弹窗
@@ -44,7 +44,7 @@ const Custom = (props) => {
   /* 初始化 */
   const initLoad = async () => {
     dispatch({
-      type: 'base/getCdkeyPkgList',
+      type: 'base/getPkgList',
     });
   };
   /* ******* 监听 ******* */
@@ -118,7 +118,7 @@ const Custom = (props) => {
         request={api.agent.list}
         loading
         columns={columns}
-        cdkeyPkgList={cdkeyPkgList}
+        pkgList={pkgList}
         // onTableRef={tableRef}
         defaultSearchData={defaultSearchData}
       />
@@ -133,5 +133,5 @@ const Custom = (props) => {
 };
 
 export default connect(({ base }) => ({
-  cdkeyPkgList: base.cdkeyPkgList,
+  pkgList: base.pkgList,
 }))(Custom);

@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:27:41
- * @lastTime: 2020-05-27 16:23:35
+ * @lastTime: 2020-05-27 18:11:53
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/distributeView/index.js
  * @message:批量分发
@@ -9,9 +9,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import CustomTable from '@/components/CustomTable';
 import CustomSearchContainer from '@/components/CustomSearchContainer';
-import { Avatar, Button } from 'antd';
+import { Button } from 'antd';
 import api from '@/api';
-import { STATUS_LIST } from '@/utils/enum';
+import { BATCH_TYPE_LIST } from '@/utils/enum';
 import { connect } from 'umi';
 // import Search from './Search';
 import ModalForm from './Form';
@@ -69,9 +69,9 @@ const Custom = (props) => {
   /* ******* 设置方法 ******* */
   /* 初始化 */
   const initLoad = async () => {
-    // dispatch({
-    //   type: 'base/getPkgList',
-    // });
+    dispatch({
+      type: 'base/getPkgList',
+    });
   };
   /* ******* 监听 ******* */
   useEffect(() => {
@@ -125,7 +125,7 @@ const Custom = (props) => {
     <>
       <SearchTable
         rowKey="id"
-        STATUS_LIST={STATUS_LIST}
+        BATCH_TYPE_LIST={BATCH_TYPE_LIST}
         request={api.cardBinding.batchList}
         loading
         columns={columns}
@@ -134,13 +134,19 @@ const Custom = (props) => {
         defaultSearchData={defaultSearchData}
       />
       <ModalForm
+        width={560}
+        // okButtonProps={{ disabled: true }}
+        title="批量权益分发"
         formItemLayout={{ labelCol: { span: 6 }, }}
         onRef={modelRef}
+        visible
         defaultData={defaultData}
-        request={defaultData.id ? api.chnerIssuer.Update : api.chnerIssuer.Create}
+        request={api.cardBinding.batchImport}
         callback={tableChild && tableChild.initData}
-        pkgList={pkgList} />
+        pkgList={pkgList}
+        BATCH_TYPE_LIST={BATCH_TYPE_LIST} />
       <ToolForm
+        title="提示"
         onRef={toolRef}
         footer={[<Button type="primary" onClick={() => ToolChild.handleCancle()}>确定</Button>]}
       >

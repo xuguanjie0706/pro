@@ -14,13 +14,20 @@
     min-height: 100px;
   }
   .content-bar {
-    margin: 24px 0;
+    margin: 24px;
   }
+  overflow: hidden;
 }
 .width400 {
   width: 400px;
   box-sizing: border-box;
 }
+
+// @media (max-width: 800px) {
+//   .width400 {
+//     width: 300px;
+//   }
+// }
 
 .label {
   &::after {
@@ -33,4 +40,11 @@
 .label-desc {
   font-size: 12px;
   color: rgba(153, 153, 153, 1);
+}
+
+.flex-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }

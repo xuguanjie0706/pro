@@ -6,7 +6,7 @@ import { Input, Form, Row, Col, Select } from 'antd';
 
 const { Option } = Select;
 const Search = (props) => {
-  const { STATUS_LIST = [], cdkeyPkgList = [], form, defaultSearchData } = props;
+  const { STATUS_LIST = [], pkgList = [], form, defaultSearchData } = props;
   const statusList = Object.entries(STATUS_LIST);
 
   form.setFieldsValue(defaultSearchData);
@@ -14,7 +14,7 @@ const Search = (props) => {
     <Row gutter={16}>
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item
-          name="name"
+          name="toName"
           label="代理商名称"
         >
           <Input allowClear />
@@ -22,7 +22,7 @@ const Search = (props) => {
       </Col >
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item
-          name="contact"
+          name="toContact"
           label="联系电话"
         >
           <Input allowClear />
@@ -38,7 +38,7 @@ const Search = (props) => {
             style={{ width: '100%' }}
             allowClear
           >
-            {cdkeyPkgList.map(
+            {pkgList.map(
               (item) => (
                 <Option key={item.pkgId} value={item.pkgId}>
                   {item.pkgName}

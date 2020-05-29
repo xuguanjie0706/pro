@@ -10,22 +10,36 @@ const Model = {
     tagOtherList: [],
     bankList: [],
     cdkeyPkgList: [],
-    cdkeyPkgDetailList: []
+    cdkeyPkgDetailList: [],
+    pkgDetailList: []
   },
   effects: {
-    *getCdkeyPkgDetailList({ payload }, { call, put }) {
+    *getPkgDetailList({ payload }, { call, put }) {
       // const cdkeyPgkList = yield select(({ base }) => base.cdkeyPgkList);
       // if (cdkeyPgkList.length === 0) {
-      const response = yield call(api.agentCdkey.pkgDetailList, payload);
+      const response = yield call(api.cdkey.pkgDetailList, payload);
       if (response) {
         yield put({
           type: 'changeBaseData',
           payload: response,
-          key: 'cdkeyPkgDetailList',
+          key: 'pkgDetailList',
         });
       }
       // }
     },
+    // *getCdkeyPkgDetailList({ payload }, { call, put }) {
+    //   // const cdkeyPgkList = yield select(({ base }) => base.cdkeyPgkList);
+    //   // if (cdkeyPgkList.length === 0) {
+    //   const response = yield call(api.cdkey.pkgDetailList, payload);
+    //   if (response) {
+    //     yield put({
+    //       type: 'changeBaseData',
+    //       payload: response,
+    //       key: 'cdkeyPkgDetailList',
+    //     });
+    //   }
+    //   // }
+    // },
     *getCdkeyPkgList({ payload }, { select, call, put }) {
       const cdkeyPkgList = yield select(({ base }) => base.cdkeyPkgList);
       if (cdkeyPkgList.length === 0) {

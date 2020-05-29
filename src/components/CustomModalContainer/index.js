@@ -25,10 +25,21 @@ const CustomModalContainer = (WrappedComponent1) => {
     state = {
       visible: this.props.visible || false,
       loading: false,
+      // disable: false
     };
 
     componentDidMount() {
       this.props.onRef(this);
+      // const { isTouch } = this.props;
+      // const touch = this.refs.ModalForm.isFieldsTouched();
+      // console.log(touch);
+      // console.log(this);
+
+      // if (isTouch) {
+
+
+      // }
+
     }
 
     handleShow = () => {
@@ -44,7 +55,7 @@ const CustomModalContainer = (WrappedComponent1) => {
     };
 
     hangeClick = async () => {
-      const { request, callback, isClearn = true } = this.props;
+      const { request, callback, isClearn = true, errCallback } = this.props;
       // const isTouch = await this.refs.ModalForm.isFieldsTouched([], true);
       // console.log(isTouch);
 
@@ -61,6 +72,8 @@ const CustomModalContainer = (WrappedComponent1) => {
         if (r) {
           isClearn && this.resetFields();
           callback && callback();
+        } else {
+          errCallback && errCallback();
         }
       } else {
         this.setState({
@@ -99,7 +112,7 @@ const CustomModalContainer = (WrappedComponent1) => {
 
     render() {
       const { visible, loading } = this.state;
-      const { formItemLayout, title, width, footer } = this.props;
+      const { formItemLayout, title, width, footer, okButtonProps } = this.props;
       const newProps = {
         visible: this.state.visible,
         handleCancle: this.handleCancle,
@@ -116,6 +129,7 @@ const CustomModalContainer = (WrappedComponent1) => {
           title={title}
           width={width}
           footer={footer}
+          okButtonProps={okButtonProps}
         >
           <Form name="ModalForm" ref="ModalForm" {...formItemLayout}>
             {this.props.children}

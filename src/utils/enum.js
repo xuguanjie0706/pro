@@ -29,3 +29,13 @@ export const AGENT_STATUS_LIST = {
   0: '正常',
   1: '已冻结',
 };
+
+export const BATCH_TYPE_LIST = {
+  1: '权益分发即生效',
+  2: '权益领取后生效',
+};
+export const TRANSFER_STATUS_LIST = {
+  0: '进行中',
+  1: '已完成',
+  2: '失败'
+};

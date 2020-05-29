@@ -45,7 +45,7 @@ export const listApplicableAgentLevel = (data = {}) => {
  */
 export const applyFirst = (data = {}) => {
   return request.post({
-    url: 'agent_apply/apply_first', data,
+    url: 'agent_apply/apply_first', data, isNotice: false
   });
 };
 

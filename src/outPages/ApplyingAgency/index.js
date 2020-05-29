@@ -21,7 +21,7 @@ const ApplyingAgency = (props) => {
       <Content style={{ paddingBottom: 100 }}>
         <div className="site-layout-content">
           <p className="content-bar">您正在登记成为微医通渠道代理，相关信息将影响您的审核结果，请如实填写！</p>
-          <div className=" hl-margin-t10 site-layout-content-body">
+          <div className=" hl-margin-t10 site-layout-content-body  hl-padding-10">
             {!step ? <BaseForm setDefaultData={setDefaultData} inviteUid={inviteUid} setAgentType={setAgentType} setStep={setStep} /> : <SecondFrom defaultData={defaultData} agentType={agentType} />}
           </div>
         </div>

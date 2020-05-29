@@ -81,7 +81,8 @@ const AgentArea = (props) => {
 
 const SelectLevel = (props) => {
   const { index, list, setItem, request, fieldNames, value } = props;
-  const [options, setOptions] = useState([]);
+  const levelList = Object.entries(LEVEL_LIST).map(item => Number(item[0]));
+  const [options, setOptions] = useState(levelList);
   const [area, setArea] = useState('');
   const [loading, setLoading] = useState(false);
   const getLevel = async () => {
