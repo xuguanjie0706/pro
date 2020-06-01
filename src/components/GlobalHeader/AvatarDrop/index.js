@@ -3,12 +3,13 @@ import { Popover, Avatar } from 'antd';
 import { connect } from 'umi';
 import defaultAvatar from '@/assets/img/avatar/default.png';
 import more from '@/assets/img/avatar/btn_more.png';
+import { LEVEL_LIST } from '@/utils/enum';
 import styles from './index.less';
 
 const LoginUserHeader = (props = {}) => {
   const { user, dispatch } = props;
-  const { name, createAt, channelTag: tag } = user;
-  // console.log(options, history);
+  const { name, createAt, agentAreaList = [] } = user;
+  // console.log(user);
 
   const logOut = () => {
     dispatch({
@@ -22,8 +23,9 @@ const LoginUserHeader = (props = {}) => {
         placement="bottom"
         title={
           <div style={{ paddingTop: 8 }}>
-            <div className={styles.channelTag}>{tag}</div>
-            <div className={styles.time}>
+            {agentAreaList && agentAreaList.map(item => <div key={item.agentArea}>{item.agentArea.replace(/-/g, '/')}/{LEVEL_LIST[item.agentLevel]}</div>)}
+            {/* <div className={styles.channelTag}>{tag}</div> */}
+            < div className={styles.time} >
               创建日期： {createAt && createAt.substring(0, 10)}
             </div>
           </div>

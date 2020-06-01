@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:27:41
- * @lastTime: 2020-05-27 18:11:53
+ * @lastTime: 2020-05-29 18:22:13
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/distributeView/index.js
  * @message:批量分发
@@ -13,7 +13,6 @@ import { Button } from 'antd';
 import api from '@/api';
 import { BATCH_TYPE_LIST } from '@/utils/enum';
 import { connect } from 'umi';
-// import Search from './Search';
 import ModalForm from './Form';
 import ToolForm from './ToolForm';
 import ErrorForm from './ErrorForm';
@@ -60,6 +59,8 @@ const Custom = (props) => {
   };
 
   const handleError = async (item) => {
+    console.log(item);
+
     setDefaultData(item);
     if (ErrorChild) {
       ErrorChild.handleShow();
@@ -73,6 +74,7 @@ const Custom = (props) => {
       type: 'base/getPkgList',
     });
   };
+
   /* ******* 监听 ******* */
   useEffect(() => {
     initLoad();
@@ -87,6 +89,7 @@ const Custom = (props) => {
     [addBtn],
   );
   /* 底部按钮 */
+
   /* 自定义字段 */
   const columns = [
     {
@@ -101,8 +104,8 @@ const Custom = (props) => {
     },
     {
       title: '分发数量',
-      dataIndex: 'issueTime',
-      key: 'issueTime',
+      dataIndex: 'targetCnt',
+      key: 'targetCnt',
     },
     {
       title: '状态',
@@ -111,13 +114,17 @@ const Custom = (props) => {
     },
     {
       title: '失败记录',
-      key: 'error',
-      render: text => <span onClick={() => handleError(text)}>查看</span>
+      dataIndex: 'detailList',
+      key: 'detailList',
+      render: text => {
+        return text ? <span className="span-primit " onClick={() => handleError(text)}>查看</span> : '-';
+      }
     },
     {
       title: '分发记录',
-      key: 'fenfa',
-      render: text => <span onClick={() => handleError(text)}>下载</span>
+      dataIndex: 'filePath',
+      key: 'filePath',
+      render: text => <a href={text} target="_block">下载</a>
     },
   ];
 
@@ -139,10 +146,10 @@ const Custom = (props) => {
         title="批量权益分发"
         formItemLayout={{ labelCol: { span: 6 }, }}
         onRef={modelRef}
-        visible
+        // visible
         defaultData={defaultData}
         request={api.cardBinding.batchImport}
-        callback={tableChild && tableChild.initData}
+        callback={() => { ToolChild && ToolChild.handleShow(); tableChild && tableChild.initData(); }}
         pkgList={pkgList}
         BATCH_TYPE_LIST={BATCH_TYPE_LIST} />
       <ToolForm
@@ -150,12 +157,16 @@ const Custom = (props) => {
         onRef={toolRef}
         footer={[<Button type="primary" onClick={() => ToolChild.handleCancle()}>确定</Button>]}
       >
-        <h2>批量分发处理中</h2>
-        <p>可刷新批量分发页面查看分发状态</p>
+        <div className="hl-flex-center">
+          <h2>批量分发处理中</h2>
+          <p>可刷新批量分发页面查看分发状态</p>
+        </div>
+
       </ToolForm>
 
       <ErrorForm
         width={550}
+        defaultData={defaultData}
         title="批量分发完成"
         // visible
         onRef={errorRef}

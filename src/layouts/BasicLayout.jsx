@@ -5,7 +5,7 @@
  */
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import React, { useEffect } from 'react';
-import { Link, useIntl, connect } from 'umi';
+import { Link, useIntl, connect, history } from 'umi';
 import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
@@ -45,20 +45,31 @@ const BasicLayout = (props) => {
     location = {
       pathname: '/',
     },
-    collapsed
+    collapsed,
+    login
   } = props;
   /**
    * constructor
    */
+  const initLoad = async () => {
+    const info = await dispatch({
+      type: 'login/userInfo',
+    });
+    // console.log(info, 12321);
+    if ([7, 2].includes(info.role)) {
+      history.push('../agent/agentPeople');
+    }
+  };
+
 
   useEffect(() => {
-    // console.log(props.isLogin);
+
     if (!props.isLogin) {
-      dispatch({
-        type: 'login/userInfo',
-      });
+      initLoad();
     }
   }, []);
+
+
   /**
    * init variables
    */
@@ -78,8 +89,9 @@ const BasicLayout = (props) => {
 
   const { formatMessage } = useIntl();
   // console.log(props.login);
-
+  console.log(props.isLogin);
   return (
+
     <ProLayout
       style={{ height: '100%' }}
       siderWidth={208}
@@ -120,11 +132,13 @@ const BasicLayout = (props) => {
       {...props}
       {...settings}
     >
-      <Authorized authority={authorized.authority} noMatch={noMatch}>
-        {/* <Authorized authority={'user'} noMatch={noMatch}> */}
-        {children}
-      </Authorized>
-    </ProLayout>
+      {props.isLogin &&
+        < Authorized authority={authorized.authority} noMatch={noMatch}>
+          {/* <Authorized authority={'user'} noMatch={noMatch}> */}
+          {children}
+        </Authorized>
+      }
+    </ProLayout >
   );
 };
 

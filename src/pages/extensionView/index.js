@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:27:06
- * @lastTime: 2020-05-27 14:51:34
+ * @lastTime: 2020-05-29 17:27:29
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/extensionView/index.js
  * @message:推广
@@ -119,13 +119,11 @@ const Custom = (props) => {
       dataIndex: 'statusDesc',
       key: 'statusDesc',
       render: (text, rows) => (
-
-
         < Button
           type="link"
           onClick={() => handleTool(rows)}
         >
-          详情
+          查看
         </Button >)
 
     }
@@ -160,8 +158,7 @@ const Custom = (props) => {
         onRef={toolRef}
         footer={[<Button type="primary" onClick={() => ToolChild.handleCancle()}>确定</Button>]}
       >
-        {/* <h2>{defaultData.statusDesc}</h2> */}
-        <p>{defaultData.statusDesc}</p>
+        <p style={{ textAlign: 'center', marginBottom: 0, lineHeight: '32px' }}>{defaultData.statusDesc}</p>
       </ToolForm>
     </>
   );

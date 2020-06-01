@@ -35,9 +35,9 @@ const CustomForm = (props) => {
         name="toUid"
         labelCol={{ span: 8 }}
         style={{ width: '50%' }}
-        rules={[{ required: true, message: '请输入姓名' }]}
+        rules={[{ required: true, message: '请选择代理商' }]}
       >
-        <Select>
+        <Select placeholder="请选择代理商">
           {agentList.map(item => <Option key={item.id} value={item.id}>{item.name}</Option>)}
         </Select>
       </Form.Item>
@@ -46,7 +46,7 @@ const CustomForm = (props) => {
         name="pkgId"
         rules={[{ required: true, message: '请选择权益包' }]}
       >
-        <Select onChange={selectChange}>
+        <Select placeholder="请选择权益包" onChange={selectChange}>
           {pkgDetailList.map((item) => (
             <Option key={item.pkgId} value={item.pkgId}>
               {item.pkgName}
@@ -67,6 +67,10 @@ const CustomForm = (props) => {
               {item.cardDesc} {item.timesDesc}
               {/* 免费在线问诊30天无限次 有效期：30天 */}
             </div>
+              <div key={item.id}>
+                {item.cardDesc} {item.timesDesc}
+                {/* 免费在线问诊30天无限次 有效期：30天 */}
+              </div>
             </>
           )}
         </div>
@@ -93,6 +97,10 @@ const CustomForm = (props) => {
           <Form.Item name="amount" rules={[{
             validator: (rules, values) => {
               if (values <= selectItem.amount) {
+                if (values > 10000) {
+                  // eslint-disable-next-line prefer-promise-reject-errors
+                  return Promise.reject('不能超过10000!');
+                }
                 return Promise.resolve();
               }
               // eslint-disable-next-line prefer-promise-reject-errors

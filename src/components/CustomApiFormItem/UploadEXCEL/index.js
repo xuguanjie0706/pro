@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { useState } from 'react';
 import { Upload, Button, message } from 'antd';
 import Icon, { CloudUploadOutlined } from '@ant-design/icons';
@@ -22,11 +23,9 @@ const deleteIconImg = () => {
 
 
 const UploadEXCEL = (props) => {
-
   const { value, onChange, targetUrl } = props;
   const [url, setUrl] = useState(value);
   const [len, setLen] = useState(0);
-  // const [lenList, setLenList] = useState([]);
   const deleteItem = () => {
     setUrl('');
   };

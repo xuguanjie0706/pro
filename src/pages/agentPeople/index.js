@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:11:54
- * @lastTime: 2020-05-29 14:17:10
+ * @lastTime: 2020-06-01 09:41:24
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/agentPeople/index.js
  * @message:代理商
@@ -11,7 +11,7 @@ import CustomTable from '@/components/CustomTable';
 import CustomSearchContainer from '@/components/CustomSearchContainer';
 import CustomSearchBtnContainer from '@/components/CustomSearchBtnContainer';
 import api from '@/api';
-import { LEVEL_LIST, AGENT_STATUS_LIST } from '@/utils/enum';
+import { LEVEL_LIST, AGENT_TYPE_LIST, AGENT_STATUS_LIST } from '@/utils/enum';
 import { connect } from 'umi';
 import Search from './Search';
 // import ModalForm from './Form';
@@ -82,7 +82,7 @@ const Custom = (props) => {
       title: '类型',
       dataIndex: 'agentType',
       key: 'agentType',
-      // render: (text => LEVEL_LIST[text])
+      render: (text => AGENT_TYPE_LIST[text])
     },
     {
       title: '代理信息',

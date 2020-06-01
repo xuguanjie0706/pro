@@ -4,7 +4,7 @@ export default [
     component: '../layouts/SecurityLayout',
     routes: [
       {
-        path: '/login',
+        path: '/user/login',
         component: '@/layouts/login/index',
         __isDynamic: true,
       },
@@ -26,7 +26,7 @@ export default [
             path: '/dashboard',
             name: '概览',
             icon: "AppstoreOutlined",
-
+            authority: ['1', '5'],
             routes: [
               {
                 name: '数据概览',
@@ -42,7 +42,7 @@ export default [
             path: '/agent',
             name: '代理',
             icon: "SolutionOutlined",
-            // authority: ["1", '2'], 
+            authority: ['1', '5', "6", "7"],
             routes: [
               {
                 name: '代理商',
@@ -50,7 +50,7 @@ export default [
                 icon: "",
                 component: '@/pages/agentPeople/index',
                 __isDynamic: true,
-
+                authority: ['1', '5', "6", "7"],
               },
               {
                 name: '推广',
@@ -58,6 +58,7 @@ export default [
                 icon: "",
                 component: '@/pages/extensionView/index',
                 __isDynamic: true,
+                authority: ['1', '5', "6", "7"],
               },
               {
                 name: '权益划转',
@@ -65,6 +66,7 @@ export default [
                 icon: "",
                 component: '@/pages/TransferEquity/index',
                 __isDynamic: true,
+                authority: ['1', '5'],
               },
             ],
           },
@@ -72,6 +74,7 @@ export default [
             path: 'rights',
             icon: 'CreditCardOutlined',
             name: '权益',
+            authority: ['1', '5'],
             routes: [
               {
                 name: '批量分发',
@@ -108,6 +111,7 @@ export default [
             path: 'user',
             name: '用户',
             icon: 'UserOutlined',
+            authority: ['1', '5'],
             routes: [
               {
                 name: '用户管理',

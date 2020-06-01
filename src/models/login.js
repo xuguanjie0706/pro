@@ -11,8 +11,9 @@ const Model = {
   state: {
     status: undefined,
     info: {
-      role: 1
-    }
+      role: null
+    },
+    role: null
   },
   effects: {
     *userInfo(_, { call, put }) {
@@ -22,6 +23,7 @@ const Model = {
           type: 'changeLoginInfo',
           payload: response,
         }); // Login successfully
+        // console.log(response);
         yield put({
           type: 'changeLoginStatus',
           payload: true,
@@ -34,10 +36,10 @@ const Model = {
           role: '0'
         });
         history.replace({
-          pathname: '/login',
+          pathname: '/user/login',
         });
       }
-
+      return response;
     },
     *login({ payload }, { call, put }) {
       const response = yield call(api.base.loginByPwd, payload);
@@ -81,7 +83,7 @@ const Model = {
     },
     changeLoginStatus(state, { payload, role }) {
       setAuthority(role);
-      return { ...state, status: payload };
+      return { ...state, status: payload, role };
     }
   },
 };

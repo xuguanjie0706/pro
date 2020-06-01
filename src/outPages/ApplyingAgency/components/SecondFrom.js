@@ -5,6 +5,7 @@ import AgentArea from '@/components/CustomFormItem/AgentArea';
 import { connect } from 'umi';
 import api from '@/api';
 import PeopleCardUpload from '@/components/CustomApiFormItem/PeopleCardUpload';
+import { LEVEL_LIST } from '@/utils/enum';
 import CardRoom from './CardRoom';
 // import PeopleCardUpload from './PeopleCardUpload';
 
@@ -151,6 +152,13 @@ const SecondFrom = (props) => {
       </CardRoom>
 
       <CardRoom title="代理信息">
+        {defaultData.passAgentAreaList &&
+          <Form.Item label="已代理区域">
+            <div style={{ margin: '10px 0' }}>
+              {defaultData.passAgentAreaList.map(item => <p key={item.agentArea}>{item.agentArea.replace(/-/g, '/')} {LEVEL_LIST[item.agentLevel]}</p>)}
+            </div>
+          </Form.Item>
+        }
         <Form.Item
           label="代理区域"
           name="agentApplyAreaList"

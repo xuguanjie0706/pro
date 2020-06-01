@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:05:37
- * @lastTime: 2020-05-23 10:41:45
+ * @lastTime: 2020-06-01 11:39:16
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/cardSenderManage/index.js
  * @message:代理人
@@ -10,7 +10,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import CustomTable from '@/components/CustomTable';
 import CustomSearchContainer from '@/components/CustomSearchContainer';
 import CustomSearchBtnContainer from '@/components/CustomSearchBtnContainer';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 import api from '@/api';
 import { STATUS_LIST } from '@/utils/enum';
 import { connect } from 'umi';
@@ -19,8 +19,14 @@ import ModalForm from './Form';
 import DeleteForm from './DeleteForm';
 import GroupForm from './GroupForm';
 
+
 const Custom = (props) => {
-  const { pkgList, groupList, history, dispatch, defaultSearchData } = props;
+  const { pkgList, groupList, history, dispatch, defaultSearchData, info } = props;
+
+
+  const { status: infoStatus } = info;
+
+  console.log(infoStatus, 123);
 
   /* ******* 设置属性 *******  */
   const [modelChild, setModelChild] = useState(null); // 新增弹窗
@@ -53,27 +59,53 @@ const Custom = (props) => {
   /* ******* 设置实例 ******* */
 
   /* ******* 设置方法 ******* */
+
+  const showD = async () => {
+    // console.log(value);
+    await dispatch({
+      type: 'login/userInfo'
+    });
+
+    if (infoStatus !== 0) {
+      Modal.info({
+        title: '提示',
+        icon: '',
+        content: '账号异常，请联系客服',
+        onOk() { },
+      });
+      return false;
+    }
+    return true;
+  };
   /* 新增弹窗 */
   const handleEdit = async (item) => {
-    setDefaultData(item);
-    if (modelChild) {
-      modelChild.handleShow();
+    if (showD()) {
+      setDefaultData(item);
+      if (modelChild) {
+        modelChild.handleShow();
+      }
     }
   };
+
+
   /* 删除弹窗 */
   const showDelete = async (item) => {
-    setDefaultData(item);
-    if (deleteChild) {
-      deleteChild.handleShow();
+    if (showD()) {
+      setDefaultData(item);
+      if (deleteChild) {
+        deleteChild.handleShow();
+      }
     }
   };
 
   /* 批量弹窗 */
   const handleAllGroup = async (type) => {
     // setDefaultDeleteData(item);
-    setActionType(type);
-    if (groupChild) {
-      groupChild.handleShow();
+    if (showD()) {
+      setActionType(type);
+      if (groupChild) {
+        groupChild.handleShow();
+      }
     }
   };
 
@@ -105,7 +137,7 @@ const Custom = (props) => {
         添加代理人
       </Button>
     ),
-    [modelChild],
+    [modelChild, infoStatus],
   );
   /* 表单列表 */
   const SearchTable = useCallback(
@@ -261,8 +293,9 @@ const Custom = (props) => {
   );
 };
 
-export default connect(({ base, loading }) => ({
+export default connect(({ base, loading, login }) => ({
   pkgList: base.pkgList,
   groupList: base.groupList,
+  info: login.info,
   loading: loading.effects['base/getPkgList'],
 }))(Custom);
