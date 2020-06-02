@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { notification } from 'antd';
+import { handlePost } from '@/utils/secret.js';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -47,8 +48,19 @@ const instance = axios.create({
 });
 
 class $request {
-  static async init({ url, params, headers, data, method = 'get', onUploadProgress, isNotice = true }) {
-
+  static async init({ url, params, isEncrypt = false, headers: defaultHeader, data, method = 'get', onUploadProgress, isNotice = true }) {
+    let headers = defaultHeader;
+    if (isEncrypt) {
+      const encryptDatas = handlePost(data);
+      const defaultHeaders = {
+        randomKey: encryptDatas.randomKey,
+        sign: encryptDatas.sign,
+        timestamp: encryptDatas.timestamp
+      };
+      headers = {
+        ...defaultHeaders, ...defaultHeader
+      };
+    }
     try {
       const r = await instance.request({ url, params, headers, data, method, onUploadProgress });
       const { data: resultData } = r;

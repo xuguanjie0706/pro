@@ -8,7 +8,7 @@ import styles from './index.less';
 
 const LoginUserHeader = (props = {}) => {
   const { user, dispatch } = props;
-  const { name, createAt, agentAreaList = [] } = user;
+  const { realName, agentAreaList = [] } = user;
   // console.log(user);
 
   const logOut = () => {
@@ -22,12 +22,13 @@ const LoginUserHeader = (props = {}) => {
       <Popover
         placement="bottom"
         title={
-          <div style={{ paddingTop: 8 }}>
-            {agentAreaList && agentAreaList.map(item => <div key={item.agentArea}>{item.agentArea.replace(/-/g, '/')}/{LEVEL_LIST[item.agentLevel]}</div>)}
+          <div className={styles.titleRoom}>
+            {agentAreaList && agentAreaList.map(item => <div key={item.agentArea}> <div>{item.agentArea.replace(/-/g, '/')}/{LEVEL_LIST[item.agentLevel]}</div> <div className="hl-title2">创建日期：{item.createAt}</div>  </div>)}
+            {/* {agentAreaList && agentAreaList.map(item => <div key={item.agentArea}> <div>{item.agentArea.replace(/-/g, '/')}/{LEVEL_LIST[item.agentLevel]}</div> <div className="hl-title2">创建日期：{item.createAt}</div>  </div>)} */}
             {/* <div className={styles.channelTag}>{tag}</div> */}
-            < div className={styles.time} >
+            {/* < div className={styles.time} >
               创建日期： {createAt && createAt.substring(0, 10)}
-            </div>
+            </div> */}
           </div>
         }
         content={
@@ -43,7 +44,7 @@ const LoginUserHeader = (props = {}) => {
             size={32}
           />
           <span style={{ fontSize: 16, marginRight: 8, fontWeight: 500 }}>
-            {name}
+            {realName}
           </span>
           <img src={more} style={{ height: 13 }} alt="" />
         </span>

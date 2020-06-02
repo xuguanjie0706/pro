@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:27:06
- * @lastTime: 2020-05-29 17:27:29
+ * @lastTime: 2020-06-02 11:40:09
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/extensionView/index.js
  * @message:推广
@@ -48,9 +48,8 @@ const Custom = (props) => {
   /* ******* 设置方法 ******* */
   /* 新增弹窗 */
   const handleEdit = async () => {
-    const code = await api.user.getInviteUrl({ inviteBaseUrl: `${getBaseUrl()}applyingAgency` });
-    console.log({ code });
-
+    const code = await api.user.getInviteUrl({ inviteBaseUrl: `${getBaseUrl()}applyingAgency/` });
+    // console.log({ code });
     setDefaultData({ code });
     if (modelChild) {
       modelChild.handleShow();

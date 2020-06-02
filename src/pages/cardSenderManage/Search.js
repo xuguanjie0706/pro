@@ -20,17 +20,17 @@ const Search = (props) => {
       </Col>
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item name="issuerName" label="姓名">
-          <Input />
+          <Input placeholder="请填写姓名" allowClear />
         </Form.Item>
       </Col>
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item name="issuerMobile" label="手机号">
-          <Input />
+          <Input placeholder="请填写手机号" allowClear />
         </Form.Item>
       </Col>
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
         <Form.Item name="parentIssuerName" label="邀请人">
-          <Input />
+          <Input placeholder="请填写邀请人" allowClear />
         </Form.Item>
       </Col>
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>

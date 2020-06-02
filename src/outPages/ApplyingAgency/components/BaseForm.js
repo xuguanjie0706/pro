@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Radio, Modal } from 'antd';
+import { Form, Input, Button, Radio, Modal, message } from 'antd';
 import '../index.less';
 import { phoneValidator } from '@/utils/validator';
 import api from '@/api';
@@ -22,7 +22,7 @@ const BaseForm = (props) => {
   const defaultData = {
     agentType: '1',
     // contact: '18906764747',
-    inviteUid
+    inviteUid: decodeURIComponent(inviteUid)
   };
 
   const handleClick = async (values) => {
@@ -34,8 +34,12 @@ const BaseForm = (props) => {
       setStep(1);
       setLoading(false);
     } else {
-      setMsg(msg);
-      setVisible(true);
+      if ([1044700, 1044800, 1044900].includes(code)) {
+        setMsg(msg);
+        setVisible(true);
+      } else {
+        message.error(msg);
+      }
       setLoading(false);
     }
   };
@@ -49,7 +53,7 @@ const BaseForm = (props) => {
   };
   return (
     <>
-      <Form {...layout} form={form} onFinish={handleClick} initialValues={defaultData}>
+      <Form {...layout} form={form} onFinish={handleClick} validateTrigger="onSubmit" initialValues={defaultData}>
         <div style={{ paddingTop: 32 }}>
           <Form.Item
             label="代理商类型"
@@ -73,7 +77,7 @@ const BaseForm = (props) => {
               <Form.Item noStyle name="code" rules={[{ required: true, message: '请输入验证码' }]}>
                 <Input className="width400" />
               </Form.Item>
-              <CodeButton request={api.agentApply.sendSmsCode} form={form} delay={5} style={{ position: 'absolute', left: 300 }} />
+              <CodeButton request={api.agentApply.sendSmsCode} form={form} delay={60} style={{ position: 'absolute', left: 300 }} />
             </div>
           </Form.Item>
           <Form.Item
@@ -92,7 +96,7 @@ const BaseForm = (props) => {
       <Modal
         title="提示"
         visible={visible}
-        footer={[<Button onClick={() => { setVisible(false); }}>确定</Button>]}
+        footer={[<Button key="handle" type="primary" onClick={() => { setVisible(false); }}>确定</Button>]}
       >
         <div className="flex-center">
           <span style={{ textAlign: 'center', whiteSpace: 'pre-line' }}>

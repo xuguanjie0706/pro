@@ -1,20 +1,24 @@
 /*
  * @Author: xgj
  * @since: 2020-05-18 18:57:45
- * @lastTime: 2020-05-29 15:22:52
+ * @lastTime: 2020-06-01 15:37:48
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/components/rightSuit/index.jsx
  * @message:  首页组件
  */
 import React, { Component } from 'react';
-import { Table } from 'antd';
+import { Table, Modal, Form, Input, message } from 'antd';
 
-
+import { connect } from 'umi';
 import { TitleCard } from '@/components';
 import api from '@/api';
 import styles from './index.less';
 
+@connect(({ login }) => ({ role: login.role }))
 export default class NewList extends Component {
+  // 储存input
+  InputEl = null;
+
   constructor(props) {
     super(props);
   }
@@ -52,6 +56,8 @@ export default class NewList extends Component {
         key: 'prdDesc',
       },
     ],
+    showExportModal: false,
+    currentRow: null,
   };
 
 
@@ -60,12 +66,16 @@ export default class NewList extends Component {
     this.initData(type);
   }
 
+
   initData = async (type) => {
+    const { role } = this.props;
+    console.log(role);
+
     const extracol = [
       {
-        title: '有效期/天',
-        dataIndex: 'validDays',
-        key: 'validDays',
+        title: '有效期',
+        dataIndex: 'cardExpiryDesc',
+        key: 'cardExpiryDesc',
       },
       {
         title: '次数',
@@ -97,6 +107,28 @@ export default class NewList extends Component {
       },
     ];
 
+    const CustomColumn = {
+      title: '',
+      key: 'operation',
+      render: (text, row) => {
+        const obj = {
+          children: <a onClick={() => this.exportShow(row)}>导出</a>,
+          key: row.id,
+          props: {
+            rowSpan: 0,
+            key: row.id,
+          },
+        };
+        if (row.num) {
+          obj.props.rowSpan = row.num;
+        }
+        return obj;
+      },
+    };
+    if (role === '1') {
+      extracol.push(CustomColumn);
+    }
+
     if (type === 'overview') {
       const { suitColumns } = this.state;
       this.state.suitColumns.push(...extracol);
@@ -120,6 +152,51 @@ export default class NewList extends Component {
       });
     }
 
+
+  }
+
+  exportShow(row) {
+    this.setState({
+      showExportModal: true,
+      currentRow: row,
+    });
+    if (this.InputEl) {
+      this.InputEl.setState({ value: '' });
+    }
+  }
+
+  export() {
+    if (this.state.currentRow) {
+      const row = this.state.currentRow;
+      const { value } = this.InputEl.input;
+      if (!value || value <= 0) {
+        message.error('导出数量要大于0');
+        return;
+      }
+      if (value > row.stock) {
+        message.error('剩余数量不足');
+        return;
+      }
+      this.setState({
+        showExportModal: false,
+      });
+      // 正式导出
+      const hide = message.loading('正在导出...');
+      api.dataOverview.cdkExport({
+        packageId: row.pkgId,
+        count: value,
+        isCarryCdKey: 1,
+      })
+        .then(result => {
+          hide();
+          if (result) {
+            window.location.href = result;
+          }
+        })
+        .catch(() => {
+          hide();
+        });
+    }
   }
 
   parsedata(data) {
@@ -128,6 +205,7 @@ export default class NewList extends Component {
       item.rightsDetails.forEach((right, index) => {
         list.push({
           ...right,
+          pkgId: item.pkgId,
           num: index === 0 && item.rightsDetails.length,
           pkgName: item.pkgName,
           stock: item.stock,
@@ -137,6 +215,7 @@ export default class NewList extends Component {
     });
     this.setState({ suitData: list });
   }
+
 
   render() {
     return (
@@ -153,6 +232,29 @@ export default class NewList extends Component {
             pagination={false}
           />
         </div>
+        <Modal
+          title="提示"
+          visible={this.state.showExportModal}
+          onOk={() => this.export()}
+          onCancel={() => this.setState({ showExportModal: false })}
+        >
+          <Form layout="inline">
+            <Form.Item label="导出数量">
+              <Input
+                placeholder=""
+                // eslint-disable-next-line no-return-assign
+                ref={el => (this.InputEl = el)}
+                type="number"
+              />
+            </Form.Item>
+            <Form.Item>
+              <span>
+                <span style={{ color: 'red' }}>*</span>剩余
+                {this.state.currentRow ? this.state.currentRow.stock : 0}
+              </span>
+            </Form.Item>
+          </Form>
+        </Modal>
       </div>
     );
   }

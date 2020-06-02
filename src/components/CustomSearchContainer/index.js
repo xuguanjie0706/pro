@@ -24,7 +24,10 @@ const CustomSearchContainer = (
     // };
 
     const { formItemLayout } = props;
+    // let form = null;
+    // if (SearchComponent) {
     const [form] = Form.useForm();
+    // }
     const [child, setChild] = useState(null);
     // const [defaultData, setDefaultData] = useState({});
 

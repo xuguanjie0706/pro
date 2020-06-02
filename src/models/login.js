@@ -47,8 +47,18 @@ const Model = {
         type: 'changeLoginInfo',
         payload: response,
       }); // Login successfully
+      yield put({
+        type: 'changeLoginStatus',
+        payload: true,
+        role: response.role.toString()
+      }); //
+
       if (response) {
-        history.push('/dashboard/index');
+        if (['6', '7'].includes(response.role.toString())) {
+          history.push('/agent/agentPeople');
+        } else {
+          history.push('/');
+        }
       }
     },
 
@@ -68,7 +78,7 @@ const Model = {
         role: '0'
       });
       history.replace({
-        pathname: '/login',
+        pathname: '/user/login',
       });
     },
   },

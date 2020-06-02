@@ -15,7 +15,7 @@ import request from '../../utils/request';
 
 export const sendSmsCode = (data = {}) => {
   return request.post({
-    url: 'agent_apply/send_sms_code', data,
+    url: 'agent_apply/send_sms_code', data, isEncrypt: true
   });
 };
 
@@ -30,7 +30,7 @@ export const sendSmsCode = (data = {}) => {
  */
 export const listApplicableAgentLevel = (data = {}) => {
   return request.post({
-    url: 'agent_apply/list_applicable_agent_level', data,
+    url: 'agent_apply/list_applicable_agent_level', data, isEncrypt: true
   });
 };
 
@@ -45,7 +45,7 @@ export const listApplicableAgentLevel = (data = {}) => {
  */
 export const applyFirst = (data = {}) => {
   return request.post({
-    url: 'agent_apply/apply_first', data, isNotice: false
+    url: 'agent_apply/apply_first', data, isNotice: false, isEncrypt: true
   });
 };
 
@@ -60,6 +60,6 @@ export const applyFirst = (data = {}) => {
  */
 export const apply = (data = {}) => {
   return request.post({
-    url: 'agent_apply/apply', data,
+    url: 'agent_apply/apply', data, isEncrypt: true
   });
 };

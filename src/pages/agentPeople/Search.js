@@ -16,7 +16,7 @@ const Search = (props) => {
           name="name"
           label="代理商名称"
         >
-          <Input allowClear />
+          <Input allowClear placeholder="请输入代理商名称" />
         </Form.Item>
       </Col >
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>
@@ -24,7 +24,7 @@ const Search = (props) => {
           name="contact"
           label="联系电话"
         >
-          <Input allowClear />
+          <Input allowClear placeholder="请输入联系电话" />
         </Form.Item>
       </Col >
       <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4}>

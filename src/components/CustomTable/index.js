@@ -48,10 +48,12 @@ class CustomTable extends Component {
   // };
 
   initData = async value => {
-    const { defaultSearchData, request } = this.props;
+    const { defaultSearchData, request, form = {} } = this.props;
+    const { getFieldValue } = form;
+    const formData = getFieldValue && getFieldValue() || {};
     const { page, count } = this.state;
     const data = {
-      pageNum: page, pageSize: count, ...value, ...defaultSearchData
+      pageNum: page, pageSize: count, ...value, ...defaultSearchData, ...formData
     };
     this.setState({
       loading: true,

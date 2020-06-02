@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:11:54
- * @lastTime: 2020-06-01 09:41:24
+ * @lastTime: 2020-06-01 14:40:27
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/agentPeople/index.js
  * @message:代理商
@@ -17,7 +17,7 @@ import Search from './Search';
 // import ModalForm from './Form';
 
 const Custom = (props) => {
-  const { pkgList, dispatch, defaultSearchData } = props;
+  const { pkgList, dispatch, defaultSearchData, role } = props;
 
   /* ******* 设置属性 *******  */
   // const [modelChild, setModelChild] = useState(null); // 新增弹窗
@@ -45,6 +45,9 @@ const Custom = (props) => {
   const initLoad = async () => {
     dispatch({
       type: 'base/getPkgList',
+      payload: {
+        pkgRole: ['6', '7'].includes(role) ? 5 : null
+      }
     });
   };
   /* ******* 监听 ******* */
@@ -88,7 +91,7 @@ const Custom = (props) => {
       title: '代理信息',
       dataIndex: 'agentAreaList',
       key: 'agentAreaList',
-      render: (text => text && text.map(item => <span key={item.agentArea} >{item.agentArea}{item.agentLevel}</span>))
+      render: (text => text && text.map(item => <div key={item.agentArea} >{item.agentArea.replace(/-/g, '/')}/{LEVEL_LIST[item.agentLevel]}</div>))
     },
     {
       title: '权益套餐',
@@ -102,13 +105,14 @@ const Custom = (props) => {
       key: 'status',
       render: (text) => <span>{AGENT_STATUS_LIST[text]}</span>,
     },
-    {
-      title: '下级代理商数',
-      dataIndex: 'childAgentAmount',
-      key: 'childAgentAmount',
-    },
   ];
 
+
+  ['6', '7'].includes(role) && columns.push({
+    title: '下级代理商数',
+    dataIndex: 'childAgentAmount',
+    key: 'childAgentAmount',
+  });
   return (
     <>
       <SearchTable
@@ -132,6 +136,7 @@ const Custom = (props) => {
   );
 };
 
-export default connect(({ base }) => ({
+export default connect(({ base, login }) => ({
   pkgList: base.pkgList,
+  role: login.role
 }))(Custom);

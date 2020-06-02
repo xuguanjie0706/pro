@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:27:41
- * @lastTime: 2020-05-29 18:22:13
+ * @lastTime: 2020-06-01 18:51:23
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/distributeView/index.js
  * @message:批量分发
@@ -59,7 +59,7 @@ const Custom = (props) => {
   };
 
   const handleError = async (item) => {
-    console.log(item);
+    // console.log(item);
 
     setDefaultData(item);
     if (ErrorChild) {
@@ -77,7 +77,7 @@ const Custom = (props) => {
 
   /* ******* 监听 ******* */
   useEffect(() => {
-    initLoad();
+    // initLoad();
   }, []);
   /* ******* 监听 ******* */
 
@@ -146,7 +146,7 @@ const Custom = (props) => {
         title="批量权益分发"
         formItemLayout={{ labelCol: { span: 6 }, }}
         onRef={modelRef}
-        // visible
+        initLoad={initLoad}
         defaultData={defaultData}
         request={api.cardBinding.batchImport}
         callback={() => { ToolChild && ToolChild.handleShow(); tableChild && tableChild.initData(); }}

@@ -46,7 +46,6 @@ const BasicLayout = (props) => {
       pathname: '/',
     },
     collapsed,
-    login
   } = props;
   /**
    * constructor
@@ -63,6 +62,7 @@ const BasicLayout = (props) => {
 
 
   useEffect(() => {
+    console.log(props.isLogin);
 
     if (!props.isLogin) {
       initLoad();
@@ -89,7 +89,7 @@ const BasicLayout = (props) => {
 
   const { formatMessage } = useIntl();
   // console.log(props.login);
-  console.log(props.isLogin);
+  // console.log(props.isLogin);
   return (
 
     <ProLayout

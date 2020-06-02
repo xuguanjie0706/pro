@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button, Select, message } from 'antd';
 import '../index.less';
 import AgentArea from '@/components/CustomFormItem/AgentArea';
 import { connect } from 'umi';
 import api from '@/api';
 import PeopleCardUpload from '@/components/CustomApiFormItem/PeopleCardUpload';
 import { LEVEL_LIST } from '@/utils/enum';
+import { peopleCardValidator } from '@/utils/validator';
 import CardRoom from './CardRoom';
 // import PeopleCardUpload from './PeopleCardUpload';
 
@@ -29,11 +30,13 @@ const SecondFrom = (props) => {
     setLoading(true);
     try {
       const r = await api.agentApply.apply(values);
-      if (r)
+      if (r) {
         setLoading(false);
+        message.success('提交成功！');
+      }
+
     } catch (error) {
       console.log(error);
-
       setLoading(false);
     }
   };
@@ -59,9 +62,12 @@ const SecondFrom = (props) => {
         >
           <Input className="width400" />
         </Form.Item> <Form.Item
+          required
           label="身份证"
           name="idCard"
-          rules={[{ required: true, message: '请填写身份证' }]}
+          rules={[{
+            validator: peopleCardValidator
+          }]}
         >
             <Input className="width400" />
           </Form.Item>

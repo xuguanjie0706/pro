@@ -10,7 +10,8 @@ const ApplyingAgency = (props) => {
   // console.log(props);
   // qbqUUte9aXO3tCfAt+aIrA==
   const { match: { params: { inviteUid } } } = props;
-  const [step, setStep] = useState(0);
+  // const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
   const [agentType, setAgentType] = useState(1);
   const [defaultData, setDefaultData] = useState({});
   return (

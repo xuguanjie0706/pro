@@ -40,18 +40,18 @@ const Model = {
     //   }
     //   // }
     // },
-    *getCdkeyPkgList({ payload }, { select, call, put }) {
-      const cdkeyPkgList = yield select(({ base }) => base.cdkeyPkgList);
-      if (cdkeyPkgList.length === 0) {
-        const response = yield call(api.agentCdkey.pkgList, payload);
-        if (response) {
-          yield put({
-            type: 'changeBaseData',
-            payload: response,
-            key: 'cdkeyPkgList',
-          });
-        }
+    *getCdkeyPkgList({ payload }, { call, put }) {
+      // const cdkeyPkgList = yield select(({ base }) => base.cdkeyPkgList);
+      // if (cdkeyPkgList.length === 0) {
+      const response = yield call(api.agentCdkey.pkgList, payload);
+      if (response) {
+        yield put({
+          type: 'changeBaseData',
+          payload: response,
+          key: 'cdkeyPkgList',
+        });
       }
+      // }
     },
     *getBankList({ payload }, { select, call, put }) {
       const bankList = yield select(({ base }) => base.bankList);
@@ -67,16 +67,16 @@ const Model = {
       }
     },
     *getPkgList({ payload }, { select, call, put }) {
-      const pkgList = yield select(({ base }) => base.pkgList);
-      if (pkgList.length === 0) {
-        const response = yield call(api.cdkey.pkgList, payload);
-        if (response) {
-          yield put({
-            type: 'changeBaseData',
-            payload: response,
-            key: 'pkgList',
-          });
-        }
+      // const pkgList = yield select(({ base }) => base.pkgList);
+      // if (pkgList.length === 0) {
+      const response = yield call(api.cdkey.pkgList, payload);
+      if (response) {
+        yield put({
+          type: 'changeBaseData',
+          payload: response,
+          key: 'pkgList',
+        });
+        // }
       }
     },
     *getGroupList({ payload }, { select, call, put }) {

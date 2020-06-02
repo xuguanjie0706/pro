@@ -16,6 +16,7 @@ const CustomModalContainer = (WrappedComponent1) => {
       },
       title: '数据新增',
       width: 520,
+      // isfinish: false
     };
 
     constructor(props) {
@@ -30,6 +31,7 @@ const CustomModalContainer = (WrappedComponent1) => {
 
     componentDidMount() {
       this.props.onRef(this);
+      // this.refs.ModalForm.validateTrigger = 'onFinish';
       // const { isTouch } = this.props;
       // const touch = this.refs.ModalForm.isFieldsTouched();
       // console.log(touch);
@@ -110,6 +112,10 @@ const CustomModalContainer = (WrappedComponent1) => {
       this.refs.ModalForm.resetFields();
     };
 
+    getFieldsValue = () => {
+      return this.refs.ModalForm;
+    }
+
     render() {
       const { visible, loading } = this.state;
       const { formItemLayout, title, width, footer, okButtonProps } = this.props;
@@ -119,9 +125,12 @@ const CustomModalContainer = (WrappedComponent1) => {
         handleShow: this.handleShow,
         setFieldsValue: this.setFieldsValue,
         resetFields: this.resetFields,
+        getFieldsValue: this.getFieldsValue,
+        form: this.getFieldsValue
       };
       return (
         <Modal
+          destroyOnClose
           visible={visible}
           onCancel={this.handleCancle}
           onOk={this.hangeClick}
@@ -131,7 +140,7 @@ const CustomModalContainer = (WrappedComponent1) => {
           footer={footer}
           okButtonProps={okButtonProps}
         >
-          <Form name="ModalForm" ref="ModalForm" {...formItemLayout}>
+          <Form name="ModalForm" validateTrigger="onSubmit" ref="ModalForm" {...formItemLayout}>
             {this.props.children}
             <WrappedComponent1 {...this.props} {...newProps} />
           </Form>

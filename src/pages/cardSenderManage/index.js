@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:05:37
- * @lastTime: 2020-06-01 11:39:16
+ * @lastTime: 2020-06-01 18:38:48
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/cardSenderManage/index.js
  * @message:代理人
@@ -26,7 +26,7 @@ const Custom = (props) => {
 
   const { status: infoStatus } = info;
 
-  console.log(infoStatus, 123);
+  // console.log(props, 123);
 
   /* ******* 设置属性 *******  */
   const [modelChild, setModelChild] = useState(null); // 新增弹窗
@@ -59,7 +59,7 @@ const Custom = (props) => {
   /* ******* 设置实例 ******* */
 
   /* ******* 设置方法 ******* */
-
+  /* 判断账号 */
   const showD = async () => {
     // console.log(value);
     await dispatch({
@@ -209,8 +209,9 @@ const Custom = (props) => {
     // },
     {
       title: '操作',
-      dataIndex: 'status',
-      key: 'id',
+      // dataIndex: 'status',
+      align: 'center',
+      key: 'action',
       render: (text, item) => (
         <span key={text}>
           <Button
@@ -268,6 +269,8 @@ const Custom = (props) => {
         request={defaultData.id ? api.chnerIssuer.Update : api.chnerIssuer.Create}
         callback={tableChild && tableChild.initData}
         pkgList={pkgList}
+        groupList={groupList}
+        initLoad={initLoad}
       />
       <DeleteForm
         onRef={deleteRef}

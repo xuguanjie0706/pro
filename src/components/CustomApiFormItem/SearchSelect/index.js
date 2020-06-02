@@ -1,4 +1,4 @@
-import { Select, Avatar, Input } from 'antd';
+import { Select, Avatar } from 'antd';
 import api from '@/api';
 import React, { useState } from 'react';
 

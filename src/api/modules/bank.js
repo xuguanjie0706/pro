@@ -14,6 +14,6 @@ import request from '../../utils/request';
  */
 export const list = (data = {}) => {
   return request.post({
-    url: 'bank/list', data,
+    url: 'bank/list', data, isEncrypt: true
   });
 };

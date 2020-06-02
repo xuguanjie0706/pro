@@ -62,7 +62,7 @@ export const getBaseUrl = () => {
   const { NODE_ENV } = process.env;
   let BaseUrl = null;
   if (NODE_ENV === 'development') {
-    BaseUrl = 'http://www.baidu.com/';
+    BaseUrl = 'http://localhost:8000/#/';
   } else {
     BaseUrl = 'http://www.baidu1.com/';
   }

@@ -133,6 +133,7 @@ const Custom = (props) => {
     },
     {
       title: '标签',
+
       dataIndex: 'tagIdList',
       key: 'tagIdList',
       render: (record) => {
@@ -173,8 +174,9 @@ const Custom = (props) => {
     },
     {
       title: '操作',
+      align: 'center',
       key: 'action',
-      width: 120,
+      width: 140,
       render: (record, item) => (
         <span>
           <Button type="link" onClick={() => handleLook(item)}>

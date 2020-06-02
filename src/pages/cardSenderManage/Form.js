@@ -8,7 +8,7 @@ const { Option } = Select;
 
 const CustomForm = (props) => {
   // const { getFieldDecorator, setFieldsValue, getFieldValue } = form;
-  const { defaultData, setFieldsValue, pkgList = [], resetFields, groupList = [] } = props;
+  const { defaultData, setFieldsValue, pkgList = [], resetFields, groupList = [], initLoad } = props;
   const [amount, setAmout] = useState(0);
   const [pkg, setPkg] = useState([]);
   useEffect(() => {
@@ -20,6 +20,7 @@ const CustomForm = (props) => {
     } else {
       resetFields();
     }
+    initLoad();
   }, [defaultData.id]);
 
   const selectChange = (value) => {
@@ -50,6 +51,7 @@ const CustomForm = (props) => {
           name="issuerName"
           labelCol={{ span: 8 }}
           style={{ width: '50%' }}
+          // validateTrigger="onSubmit"
           rules={[{ required: true, message: '请输入姓名' }]}
         >
           <Input />
@@ -60,6 +62,7 @@ const CustomForm = (props) => {
           labelCol={{ span: 8 }}
           name="issuerMobile"
           style={{ width: '50%' }}
+          // validateTrigger="onSubmit"
           rules={[
             {
               validator: phoneValidator,
@@ -73,7 +76,7 @@ const CustomForm = (props) => {
         <Form.Item
           label="分组"
           name="groupId"
-          rules={[{ required: true, message: '请选择权益包' }]}
+          rules={[{ required: true, message: '请选择分组' }]}
         >
           <Select>
             {groupList.map((item) => (
@@ -89,6 +92,7 @@ const CustomForm = (props) => {
           <Form.Item
             name="amount"
             noStyle
+            // validateTrigger="onSubmit"
             rules={[
               { required: true, message: '请输入正确的数字' },
               { type: 'number', max: amount, message: `最多不能超过${amount}` },
