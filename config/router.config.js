@@ -25,7 +25,7 @@ export default [
           {
             path: '/dashboard',
             name: '概览',
-            icon: "AppstoreOutlined",
+            icon: "https://kano.guahao.cn/bLC301870234",
             authority: ['1', '5'],
             routes: [
               {

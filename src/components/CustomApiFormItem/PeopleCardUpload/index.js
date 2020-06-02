@@ -13,7 +13,6 @@ const PeopleCardUpload = (props) => {
   const { desc = '身份证正面', style = { width: 222, height: 140 }, value, onChange } = props;
   // const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState(value);
-  const [depiction, setDepiction] = useState(desc);
   const [complete, setComplete] = useState(0);
   const [isShow, setIsShow] = useState(false);
 
@@ -96,7 +95,7 @@ const PeopleCardUpload = (props) => {
           <div className="icon-r">
             {imageUrl ? <ReloadOutlined /> : <PlusOutlined />}
           </div>
-          <p >{depiction}</p>
+          <p >{imageUrl ? '重新上传' : desc}</p>
         </div>
           :
           <div className="progress">

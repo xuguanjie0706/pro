@@ -18,10 +18,10 @@ const noMatch = (
   <Result
     status={403}
     title="403"
-    subTitle="Sorry, you are not authorized to access this page."
+    subTitle="对不起，没有权限去访问这个页面。"
     extra={
       <Button type="primary">
-        <Link to="/user/login">Go Login</Link>
+        <Link to="/user/login">去登录</Link>
       </Button>
     }
   />
@@ -55,9 +55,9 @@ const BasicLayout = (props) => {
       type: 'login/userInfo',
     });
     // console.log(info, 12321);
-    if ([7, 2].includes(info.role)) {
-      history.push('../agent/agentPeople');
-    }
+    // if ([7, 2].includes(info.role)) {
+    //   history.push('../agent/agentPeople');
+    // }
   };
 
 

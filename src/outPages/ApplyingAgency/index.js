@@ -5,18 +5,27 @@ import SecondFrom from './components/SecondFrom';
 import BaseForm from './components/BaseForm';
 
 const { Header, Content } = Layout;
-// const a = { 'id': 14, 'channelCode': 'HALOVE_AGENT', 'channelName': null, 'agentType': 1, 'name': '1', 'contact': '18906764710', 'contactAddr': '132131', 'idCard': '2', 'unifiedCreditCode': null, 'idCardFrontUrl': 'https://image02.halove.com/uploadfiles/2020/5/26/6379e136-5148-4f64-8661-dfe0ea47e164.png#图片名字 (2).png#fileimages/pic.gif', 'idCardBackUrl': 'https://image02.halove.com/uploadfiles/2020/5/26/28746811-0838-41e3-86d4-2239bb2b92d4.png#图片名字 (2).png#fileimages/pic.gif', 'enterpriseBusinessLicense': null, 'bankName': '中国光大银行', 'bankBranch': '321321', 'bankCardNo': '321321', 'bankAccountType': null, 'inviteUid': 158, 'inviteRole': 6, 'status': null, 'statusDesc': null, 'createAt': 1590478467000, 'updateAt': 1590478499000, 'passAgentAreaList': null, 'lastAgentApplyAreaList': [{ 'agentAreaId': '210000-210600-210681', 'agentArea': null, 'agentLevel': 2 }] };
+const a = {
+  'id': 14, 'channelCode': 'HALOVE_AGENT', 'channelName': null, 'agentType': 1, 'name': '1', 'contact': '18906764710', 'contactAddr': '132131', 'idCard': '2', 'unifiedCreditCode': null, 'idCardFrontUrl': 'https://image02.halove.com/uploadfiles/2020/5/26/6379e136-5148-4f64-8661-dfe0ea47e164.png#图片名字 (2).png#fileimages/pic.gif', 'idCardBackUrl': 'https://image02.halove.com/uploadfiles/2020/5/26/28746811-0838-41e3-86d4-2239bb2b92d4.png#图片名字 (2).png#fileimages/pic.gif', 'enterpriseBusinessLicense': null, 'bankName': '中国光大银行', 'bankBranch': '321321', 'bankCardNo': '321321', 'bankAccountType': null, 'inviteUid': 158, 'inviteRole': 6, 'status': null, 'statusDesc': null, 'createAt': 1590478467000, 'updateAt': 1590478499000, 'passAgentAreaList':
+    [{
+      'agentArea': '内蒙古自治区-通辽市-库伦旗',
+      'agentAreaId': '150000-150500-150524',
+      'agentLevel': 2,
+      'createAt': '2020-06-02 14:41:29'
+    }], 'lastAgentApplyAreaList': [{ 'agentAreaId': '210000-210600-210681', 'agentArea': null, 'agentLevel': 2 }]
+};
 const ApplyingAgency = (props) => {
   // console.log(props);
   // qbqUUte9aXO3tCfAt+aIrA==
   const { match: { params: { inviteUid } } } = props;
-  // const [step, setStep] = useState(0);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
+  // const [step, setStep] = useState(1);
   const [agentType, setAgentType] = useState(1);
-  const [defaultData, setDefaultData] = useState({});
+  // const [defaultData, setDefaultData] = useState({});
+  const [defaultData, setDefaultData] = useState(a);
   return (
     <Layout className="layout">
-      <Header style={{ padding: 0, backgroundColor: '#fff' }}>
+      <Header style={{ padding: 0, backgroundColor: '#fff', zIndex: 1000, boxShadow: '1px 5px 20px #ccc' }}>
         <h1 className="hl-text-center">申请代理</h1>
       </Header>
       <Content style={{ paddingBottom: 100 }}>

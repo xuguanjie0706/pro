@@ -6,9 +6,9 @@ import router from './router.config';
 
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
-  history: {
-    type: "hash"
-  },
+  // history: {
+  //   type: "hash"
+  // },
   hash: true,
   antd: {},
   dva: {
@@ -44,8 +44,8 @@ export default defineConfig({
     basePath: './',
     // publicPath: './',
   },
-  // base: './',
-  // publicPath: './',
+  base: '/saas/#',
+  publicPath: '/saas/',
   // 加速打包不进行babel
   nodeModulesTransform: {
     type: 'none',

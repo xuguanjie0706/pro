@@ -45,11 +45,14 @@ function rsaEncrypt(str) {
 
 function handleParams(params, randomStr) {
   if (params.mobile) params.mobile = aesEncrypt(params.mobile, randomStr);
+  if (params.contact) params.contact = aesEncrypt(params.contact, randomStr);
   if (params.truename) params.truename = aesEncrypt(params.truename, randomStr);
   if (params.name) params.name = aesEncrypt(params.name, randomStr);
   if (params.idCard) params.idCard = aesEncrypt(params.idCard, randomStr);
   if (params.cdKey) params.cdKey = aesEncrypt(params.cdKey, randomStr);
-  if (params.cdkey) params.cdkey = aesEncrypt(params.cdkey, randomStr);
+  if (params.unifiedCreditCode) params.unifiedCreditCode = aesEncrypt(params.unifiedCreditCode, randomStr);
+  // if (params.idCard) params.idCard = aesEncrypt(params.idCard, randomStr);
+  if (params.bankCardNo) params.bankCardNo = aesEncrypt(params.bankCardNo, randomStr);
   return params;
 }
 

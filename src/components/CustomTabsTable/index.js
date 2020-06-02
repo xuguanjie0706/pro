@@ -6,7 +6,7 @@ const { TabPane } = Tabs;
 const CustomTabsTable = (props) => {
 
   const { tabList, tableChild, form, columns } = props;
-  const [status, setStatus] = useState(1);
+  const [status, setStatus] = useState('2');
   const [trueColumns, setColumns] = useState(columns);
 
   useEffect(() => {

@@ -31,9 +31,9 @@ const SecondFrom = (props) => {
     try {
       const r = await api.agentApply.apply(values);
       if (r) {
-        setLoading(false);
         message.success('提交成功！');
       }
+      setLoading(false);
 
     } catch (error) {
       console.log(error);
@@ -160,8 +160,8 @@ const SecondFrom = (props) => {
       <CardRoom title="代理信息">
         {defaultData.passAgentAreaList &&
           <Form.Item label="已代理区域">
-            <div style={{ margin: '10px 0' }}>
-              {defaultData.passAgentAreaList.map(item => <p key={item.agentArea}>{item.agentArea.replace(/-/g, '/')} {LEVEL_LIST[item.agentLevel]}</p>)}
+            <div style={{ margin: '5px 0' }}>
+              {defaultData.passAgentAreaList.map(item => <p key={item.agentArea}>{item.agentArea.replace(/-/g, '/')}/ {LEVEL_LIST[item.agentLevel]}</p>)}
             </div>
           </Form.Item>
         }

@@ -1,7 +1,7 @@
 /*
  * @Author: xgj
  * @since: 2020-05-23 09:27:06
- * @lastTime: 2020-06-02 11:40:09
+ * @lastTime: 2020-06-02 14:34:42
  * @LastAuthor: xgj
  * @FilePath: /mui-demo/src/pages/extensionView/index.js
  * @message:推广
@@ -13,7 +13,7 @@ import CustomSearchContainer from '@/components/CustomSearchContainer';
 import CustomSearchBtnContainer from '@/components/CustomSearchBtnContainer';
 import { Button } from 'antd';
 import api from '@/api';
-import { LEVEL_LIST } from '@/utils/enum';
+import { LEVEL_LIST, AGENT_TYPE_LIST } from '@/utils/enum';
 import { connect } from 'umi';
 import { getBaseUrl } from '@/utils/utils';
 import Search from './Search';
@@ -106,12 +106,13 @@ const Custom = (props) => {
       title: '类型',
       dataIndex: 'agentType',
       key: 'agentType',
+      render: text => <span>{AGENT_TYPE_LIST[text]}</span>
     },
     {
       title: '代理信息',
       dataIndex: 'agentApplyAreaList',
       key: 'agentApplyAreaList',
-      render: text => text && text.map((item, index) => <div key={(item.agentLevel + index).toString()}>{item.agentArea}{LEVEL_LIST[item.agentLevel]}</div>)
+      render: text => text && text.map((item, index) => <div key={(item.agentLevel + index).toString()}>{item.agentArea.replace(/-/g, '/')}/{LEVEL_LIST[item.agentLevel]}</div>)
     },
     {
       title: '拒绝原因',
@@ -140,7 +141,7 @@ const Custom = (props) => {
         tableChild={tableChild}
         onTableRef={tableRef}
         defaultSearchData={defaultSearchData}
-        tabList={[{ title: '审核通过', key: 1 }, { title: '审核中', key: 2 }, { title: '拒绝审核', key: 3 }]}
+        tabList={[{ title: '审核通过', key: 2 }, { title: '审核中', key: 1 }, { title: '拒绝审核', key: 3 }]}
       />
       <ModalForm
         footer={null}

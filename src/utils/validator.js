@@ -23,3 +23,20 @@ export const peopleCardValidator = (rule, value) => {
     resolve();
   });
 };
+
+/* 银行卡验证 */
+export const bankCardValidator = (rule, value) => {
+  return new Promise((resolve, reject) => {
+    if (
+      !/^([1-9]{1})(\d{15}|\d{18})$/.test(
+        value
+      )
+    ) {
+      // eslint-disable-next-line prefer-promise-reject-errors
+      reject('请输入正确的银行卡号');
+    }
+    resolve();
+  });
+};
+
+;
